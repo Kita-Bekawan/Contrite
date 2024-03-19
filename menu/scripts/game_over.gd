@@ -1,10 +1,10 @@
-extends CanvasLayer
+extends Node
 
 @onready var pressedSfx = $ButtonPressedSFX
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$GameOverSFX.play()
+	$BGM.play()
 	pass # Replace with function body.
 
 
@@ -12,13 +12,14 @@ func _ready():
 func _process(delta):
 	pass
 
-func _on_retry_button_pressed():
+
+func _on_play_again_button_pressed():
 	pressedSfx.play()
 	await pressedSfx.finished
-	get_tree().change_scene_to_file("res://scenes/Dungeon.tscn")
+	get_tree().change_scene_to_file("res://menu/scenes/start_menu.tscn")
 
 
-func _on_quit_game_button_pressed():
+func _on_quit_button_pressed():
 	pressedSfx.play()
 	await pressedSfx.finished
 	get_tree().quit()

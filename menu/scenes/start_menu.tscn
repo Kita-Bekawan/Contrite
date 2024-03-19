@@ -1,9 +1,59 @@
-[gd_scene format=3 uid="uid://bugakay3ybahb"]
+[gd_scene load_steps=4 format=3 uid="uid://bugakay3ybahb"]
 
-[node name="CompleteMenu" type="Control"]
+[ext_resource type="Script" path="res://menu/scripts/start_menu.gd" id="1_3dgka"]
+[ext_resource type="AudioStream" uid="uid://cvxgdysmmmp5e" path="res://menu/assets/Wood Block1.wav" id="2_3sb26"]
+[ext_resource type="AudioStream" uid="uid://cvf57qfurmy54" path="res://menu/assets/Y2meta.app - Different Heaven - Safe And Sound _ House _ NCS - Copyright Free Music (128 kbps).mp3" id="3_5mica"]
+
+[node name="StartMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_3dgka")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ButtonPressedSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_3sb26")
+
+[node name="BGM" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_5mica")
+autoplay = true
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -62.5
+offset_top = -26.5
+offset_right = 62.5
+offset_bottom = 26.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_direction = 2
+layout_mode = 2
+alignment = 1
+
+[node name="PlayButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Play Game"
+
+[node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quit Game"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

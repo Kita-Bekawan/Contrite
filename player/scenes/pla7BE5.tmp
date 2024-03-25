@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://goesjr3wcc5e"]
+[gd_scene load_steps=14 format=3 uid="uid://goesjr3wcc5e"]
 
 [ext_resource type="Script" path="res://player/scripts/player.gd" id="1_y0msa"]
 [ext_resource type="Texture2D" uid="uid://c7u5qigr8qn7d" path="res://player/sprites/kenney_platformercharacters/PNG/Adventurer/Poses/adventurer_duck.png" id="2_0d3ci"]
@@ -12,9 +12,6 @@
 [ext_resource type="Script" path="res://player/scripts/player_idle.gd" id="10_ahiiq"]
 [ext_resource type="Script" path="res://player/scripts/player_walk.gd" id="11_0xrpy"]
 [ext_resource type="Script" path="res://player/scripts/player_jump.gd" id="12_vnjao"]
-[ext_resource type="Script" path="res://player/scripts/player_fall.gd" id="13_s6tp6"]
-[ext_resource type="Script" path="res://player/scripts/player_dash.gd" id="14_b05cy"]
-[ext_resource type="Script" path="res://player/scripts/player_crouch.gd" id="15_rc3xp"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_k5i7g"]
 animations = [{
@@ -32,14 +29,6 @@ animations = [{
 }],
 "loop": false,
 "name": &"dash",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("6_ri367")
-}],
-"loop": true,
-"name": &"fall",
 "speed": 5.0
 }, {
 "frames": [{
@@ -73,67 +62,42 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pan01"]
-radius = 28.0
-height = 92.0
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_f7cpx"]
-size = Vector2(52, 9)
-
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_y0msa")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(-1, -43)
 sprite_frames = SubResource("SpriteFrames_k5i7g")
-animation = &"idle"
+animation = &"walk"
 
 [node name="Camera" type="Camera2D" parent="."]
 position_smoothing_speed = 20.0
 
-[node name="Hitbox" type="CollisionShape2D" parent="."]
-position = Vector2(0, -30)
-shape = SubResource("CapsuleShape2D_pan01")
-
-[node name="Area2D" type="Area2D" parent="."]
-collision_layer = 2
-collision_mask = 2
-
-[node name="FootCollision" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(1, 8)
-shape = SubResource("RectangleShape2D_f7cpx")
+[node name="Collision" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-42, 12, 44, 12, -1, -61)
 
 [node name="ShootingCD" type="Timer" parent="."]
-one_shot = true
-
-[node name="CoyoteTimer" type="Timer" parent="."]
-wait_time = 0.25
-one_shot = true
 
 [node name="DashCD" type="Timer" parent="."]
-one_shot = true
+
+[node name="DashTimeout" type="Timer" parent="."]
+wait_time = 0.25
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("9_ucqyb")
-initial_state = NodePath("PlayerFall")
+initial_state = NodePath("PlayerIdle")
 
-[node name="PlayerIdle" type="Node" parent="StateMachine"]
+[node name="PlayerIdle" type="Node" parent="StateMachine" node_paths=PackedStringArray("chara")]
 script = ExtResource("10_ahiiq")
+chara = NodePath("../..")
 
-[node name="PlayerWalk" type="Node" parent="StateMachine"]
+[node name="PlayerWalk" type="Node" parent="StateMachine" node_paths=PackedStringArray("chara")]
 script = ExtResource("11_0xrpy")
+chara = NodePath("../..")
 
 [node name="PlayerJump" type="Node" parent="StateMachine"]
 script = ExtResource("12_vnjao")
 
-[node name="PlayerFall" type="Node" parent="StateMachine"]
-script = ExtResource("13_s6tp6")
-
-[node name="PlayerDash" type="Node" parent="StateMachine"]
-script = ExtResource("14_b05cy")
-
-[node name="PlayerCrouch" type="Node" parent="StateMachine"]
-script = ExtResource("15_rc3xp")
-
 [connection signal="timeout" from="ShootingCD" to="." method="_on_shooting_cd_timeout"]
 [connection signal="timeout" from="DashCD" to="." method="_on_dash_cd_timeout"]
+[connection signal="timeout" from="DashTimeout" to="." method="_on_dash_timeout_timeout"]

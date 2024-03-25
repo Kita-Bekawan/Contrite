@@ -7,7 +7,7 @@ const CROUCH_SLOW = 4.0 #number of times slower than original speed
 const JUMP_VELOCITY = -400.0
 
 @export var cooldown = 0.25
-var bullet_scene = preload("res://player/scenes/bullet.tscn")
+@export var Bullet : PackedScene
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 #state
@@ -138,9 +138,12 @@ func shoot():
 		return
 	can_shoot = false
 	$ShootingCD.start()
-	var b = bullet_scene.instantiate()
-	get_tree().root.add_child(b)
-	b.start(position, get_global_mouse_position())
+	var bullet = Bullet.instantiate()
+	get_tree().root.add_child(bullet)
+	bullet.global_position = global_position
+	var target = get_global_mouse_position()
+	var direction = bullet.global_position.direction_to(target).normalized()
+	bullet.set_direction(direction)
 
 func _on_shooting_cd_timeout():
 	can_shoot = true

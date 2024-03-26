@@ -11,6 +11,8 @@ signal state_transition_signal
 @onready var SHOOT_CD: Timer = chara.get_node('ShootCD')
 @onready var COYOTE_TIMER: Timer = chara.get_node('CoyoteTimer')
 @onready var INPUT_BUFFER: Timer = chara.get_node('InputBuffer')
+@onready var PLATFORM_GONE_TIMER: Timer = chara.get_node('PlatformGoneTimer')
+@onready var CROUCH_HOLD_TIMER: Timer = chara.get_node('CrouchHoldTimer')
 
 
 var can_push_off = false

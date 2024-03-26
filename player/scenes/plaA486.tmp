@@ -138,8 +138,7 @@ wait_time = 0.2
 one_shot = true
 
 [node name="PlatformGoneTimer" type="Timer" parent="."]
-wait_time = 0.3
-one_shot = true
+wait_time = 0.2
 
 [node name="CrouchHoldTimer" type="Timer" parent="."]
 wait_time = 0.2
@@ -166,6 +165,10 @@ script = ExtResource("14_b05cy")
 
 [node name="PlayerCrouch" type="Node" parent="StateMachine"]
 script = ExtResource("15_rc3xp")
+ACCELERATION = null
+DECELERATION = null
+INIT_HORIZONTAL_SPEED = null
+MAX_HORIZONTAL_SPEED = null
 
 [node name="PlayerShoot" type="Node" parent="StateMachine"]
 script = ExtResource("18_ph725")

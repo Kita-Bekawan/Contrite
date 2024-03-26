@@ -26,7 +26,7 @@ func physics_update(_delta: float) -> void:
 			state_transition_signal.emit(self, 'PLayerShoot')
 		if Input.is_action_just_pressed('jump'):
 			state_transition_signal.emit(self, 'PlayerJump')
-		if Input.is_action_pressed('crouch'):
+		if Input.is_action_just_pressed('crouch'):
 			state_transition_signal.emit(self, 'PlayerCrouch')
 
 func move(_delta:float) -> float:

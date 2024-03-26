@@ -17,10 +17,11 @@ func physics_update(_delta: float):
 			state_transition_signal.emit(self, 'PLayerShoot')
 	if Input.is_action_just_pressed('dash') and DASH_CD.is_stopped():
 		state_transition_signal.emit(self, 'PlayerDash')
-	if Input.is_action_just_pressed('jump'):
-		state_transition_signal.emit(self, 'PlayerShootJump')
-	if Input.is_action_pressed('crouch'):
-		state_transition_signal.emit(self, 'PlayerCrouch')
+	if chara.is_on_floor(): 
+		if Input.is_action_just_pressed('jump'):
+			state_transition_signal.emit(self, 'PlayerShootJump')
+		if Input.is_action_pressed('crouch'):
+			state_transition_signal.emit(self, 'PlayerCrouch')
 
 func shoot() -> void:
 	var bullet_object = bullet.instantiate()

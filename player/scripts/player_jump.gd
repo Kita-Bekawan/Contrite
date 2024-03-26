@@ -11,14 +11,14 @@ func enter():
 	sprite.play('jump')
 	can_push_off = true
 	release_early = false
-	chara.velocity.y = -JUMP_SPEED #init speed
 	starting_height = chara.position.y
+	chara.velocity.y = -JUMP_SPEED #init speed
 
 func physics_update(_delta: float):
 	push_off_ledge()
 	super.physics_update(_delta)
 	var relative_position = starting_height - chara.position.y
-	if Input.is_action_just_released('jump') and relative_position < MIN_JUMP_HEIGHT:
+	if !Input.is_action_pressed('jump') and relative_position < MIN_JUMP_HEIGHT:
 		release_early = true
 	
 	if release_early and relative_position > MIN_JUMP_HEIGHT:

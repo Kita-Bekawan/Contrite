@@ -20,13 +20,15 @@ func physics_update(_delta: float) -> void:
 				state_transition_signal.emit(self, 'PlayerWalk')
 			else:
 				state_transition_signal.emit(self, 'PlayerIdle')
+	else:
+		if !COYOTE_TIMER.is_stopped() and Input.is_action_just_pressed('jump'):
+			state_transition_signal.emit(self, 'PlayerJump')
+	
 	if Input.is_action_just_pressed('shoot') and SHOOT_CD.is_stopped():
 		state_transition_signal.emit(self, 'PLayerShoot')
 	if Input.is_action_just_pressed('dash') and DASH_CD.is_stopped():
 		state_transition_signal.emit(self, 'PlayerDash')
-	if !COYOTE_TIMER.is_stopped() and Input.is_action_just_pressed('jump'):
-		state_transition_signal.emit(self, 'PlayerJump')
-		
+	
 	if Input.is_action_just_pressed('jump'):
 		last_input = 'PlayerJump'
 		INPUT_BUFFER.start()

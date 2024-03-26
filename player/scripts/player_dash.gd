@@ -5,7 +5,6 @@ class_name PlayerDash
 @export var DECELERATION = 4000
 
 func enter():
-	super.enter()
 	sprite.flip_h = !sprite.flip_h
 	sprite.play('dash')
 	chara.velocity.y = 0 #makes dash pure horizontal (not diagonal up/down)
@@ -13,8 +12,10 @@ func enter():
 	var direction
 	if Input.get_axis('left', 'right') > 0:
 		direction = 1
+		sprite.flip_h = true
 	elif Input.get_axis('left', 'right') < 0:
 		direction = -1
+		sprite.flip_h = false
 	else:
 		direction = 1 if sprite.flip_h else -1
 		

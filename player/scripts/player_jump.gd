@@ -14,7 +14,8 @@ func physics_update(_delta: float):
 	
 	var direction = move(_delta)
 	chara.velocity.y += GRAVITY * _delta #deceleration
-	
+	orientate(direction)
+		
 	if chara.is_on_floor():
 		if !Input.get_axis('left', 'right'):
 			state_transition_signal.emit(self, 'PlayerIdle')

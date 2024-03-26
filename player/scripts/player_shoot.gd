@@ -1,15 +1,36 @@
-extends State
-
+extends PlayerFall
+class_name PlayerShoot
 
 func enter():
-	if transition_debug: print('Entering ' + self.name)
-	
-func exit():
-	if transition_debug: print('Exiting ' + self.name)
+	super.enter()
+	sprite.play('shoot')
+	shoot()
+	SHOOT_CD.start()
 
-func physics_update(_delta: float):
+func physics_update(_delta: float):	
+	fall(_delta)
+	shoot()
+	if !sprite.is_playing():
+		if chara.is_on_floor():
+			state_transition_signal.emit(self, 'PlayerIdle')
+		if Input.is_action_just_pressed('shoot') and SHOOT_CD.is_stopped():
+			state_transition_signal.emit(self, 'PLayerShoot')
+	if Input.is_action_just_pressed('dash') and DASH_CD.is_stopped():
+		state_transition_signal.emit(self, 'PlayerDash')
+	if Input.is_action_just_pressed('jump'):
+		state_transition_signal.emit(self, 'PlayerJump')
+	if Input.is_action_pressed('crouch'):
+		state_transition_signal.emit(self, 'PlayerCrouch')
+
+func shoot() -> void:
+	var bullet_object = bullet.instantiate()
+	bullet_object.global_position = chara.global_position
+	var target = chara.get_global_mouse_position()
+	var direction = bullet_object.global_position.direction_to(target).normalized()
+	bullet_object.set_direction(direction)
 	
-	$ShootingCD.start()
-	var b = bullet_scene.instantiate()
-	get_tree().root.add_child(b)
-	b.start(position, get_global_mouse_position())
+	var sprite_orientation = -1 if direction.x < 0 else 1
+	sprite.flip_h = true if direction.x < 0 else false
+	bullet_object.global_position +=  Vector2(sprite_orientation*40, -40) #biar muncul dari tangan
+	
+	get_tree().root.add_child(bullet_object)

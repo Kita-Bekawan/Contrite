@@ -9,9 +9,9 @@ func enter():
 	sprite.play('fall')
 	
 func physics_update(_delta: float) -> void:
-	var direction = move(_delta)
-	chara.velocity.y += GRAVITY * _delta #deceleration
-	print(COYOTE_TIMER.time_left)
+	var direction = fall(_delta)
+	orientate(direction)
+		
 	if chara.is_on_floor():
 		state_transition_signal.emit(self, 'PlayerIdle')
 	if Input.is_action_just_pressed('shoot') and SHOOT_CD.is_stopped():
@@ -21,3 +21,7 @@ func physics_update(_delta: float) -> void:
 	if !COYOTE_TIMER.is_stopped() and Input.is_action_just_pressed('jump'):
 		state_transition_signal.emit(self, 'PlayerJump')
 
+func fall(_delta: float) -> float:
+	var direction = move(_delta)
+	chara.velocity.y += GRAVITY * _delta #deceleration
+	return direction

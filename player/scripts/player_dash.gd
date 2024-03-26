@@ -2,14 +2,23 @@ extends State
 class_name PlayerDash
 
 @export var DASH_SPEED = 1000
-@export var DECELERATION = 2500
+@export var DECELERATION = 4000
 
 func enter():
 	super.enter()
 	sprite.flip_h = !sprite.flip_h
 	sprite.play('dash')
 	chara.velocity.y = 0 #makes dash pure horizontal (not diagonal up/down)
-	chara.velocity.x = (chara.velocity.x/abs(chara.velocity.x))*DASH_SPEED 
+	
+	var direction
+	if Input.get_axis('left', 'right') > 0:
+		direction = 1
+	elif Input.get_axis('left', 'right') < 0:
+		direction = -1
+	else:
+		direction = 1 if sprite.flip_h else -1
+		
+	chara.velocity.x = direction*DASH_SPEED 
 	#frantic initial speed, then slowly stops
 	DASH_CD.start()
 
@@ -23,8 +32,6 @@ func physics_update(_delta):
 			state_transition_signal.emit(self, 'PlayerIdle')
 		if Input.get_axis('left', 'right'):
 			state_transition_signal.emit(self, 'PlayerWalk')
-	if Input.is_action_just_pressed('shoot') and SHOOT_CD.is_stopped():
-		state_transition_signal.emit(self, 'PLayerShoot')
 
 func exit():
 	super.exit()

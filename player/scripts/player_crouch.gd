@@ -20,5 +20,3 @@ func physics_update(_delta: float):
 			state_transition_signal.emit(self, 'PlayerIdle')
 	if Input.is_action_just_pressed('jump'):
 		state_transition_signal.emit(self, 'PlayerJump')
-	if Input.is_action_just_pressed('shoot') and SHOOT_CD.is_stopped():
-		state_transition_signal.emit(self, 'PLayerShoot')

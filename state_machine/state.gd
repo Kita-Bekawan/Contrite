@@ -4,9 +4,11 @@ class_name State
 signal state_transition_signal
 @onready var chara: CharacterBody2D = self.owner
 @onready var sprite: AnimatedSprite2D = chara.get_node('Sprite')
+@onready var hitbox: CollisionShape2D = chara.get_node('Hitbox')
+@export var bullet : PackedScene
 
 @onready var DASH_CD: Timer = chara.get_node('DashCD')
-@onready var SHOOT_CD: Timer = chara.get_node('ShootingCD')
+@onready var SHOOT_CD: Timer = chara.get_node('ShootCD')
 @onready var COYOTE_TIMER: Timer = chara.get_node('CoyoteTimer')
 
 

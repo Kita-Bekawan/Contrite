@@ -28,11 +28,18 @@ func physics_update(_delta):
 	if chara.velocity.x == 0: #dash until stops first
 		if !chara.is_on_floor():
 			state_transition_signal.emit(self, 'PlayerFall')
-		if !Input.get_axis('left', 'right'):
-			state_transition_signal.emit(self, 'PlayerIdle')
-		if Input.get_axis('left', 'right'):
-			state_transition_signal.emit(self, 'PlayerWalk')
-
+		else:
+			if last_input and !INPUT_BUFFER.is_stopped():
+				state_transition_signal.emit(self, last_input)
+			if !Input.get_axis('left', 'right'):
+				state_transition_signal.emit(self, 'PlayerIdle')
+			else:
+				state_transition_signal.emit(self, 'PlayerWalk')
+	
+	if Input.is_action_just_pressed('jump'):
+		last_input = 'PlayerJump'
+		INPUT_BUFFER.start()
+		
 func exit():
 	super.exit()
 	sprite.flip_h = !sprite.flip_h

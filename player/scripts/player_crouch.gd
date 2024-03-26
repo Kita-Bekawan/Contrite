@@ -12,6 +12,7 @@ func enter():
 func physics_update(_delta: float):
 	
 	var direction = move(_delta)
+	orientate(direction)
 	
 	if Input.is_action_just_released('crouch'):
 		if Input.get_axis('left', 'right'):

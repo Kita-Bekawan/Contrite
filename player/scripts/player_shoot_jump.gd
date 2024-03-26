@@ -1,20 +1,15 @@
-extends PlayerFall
-class_name PlayerJump
+extends PlayerShoot
+class_name PlayerShootJump
 
-@export var JUMP_SPEED = 1200
+@export var JUMP_SPEED = 800
 @export var MIN_JUMP_HEIGHT = 150
 var starting_height: float
 var release_early: bool
 
 func enter():
-	super.enter()
-	sprite.play('jump')
-	can_push_off = true
-	release_early = false
 	chara.velocity.y = -JUMP_SPEED #init speed
-	starting_height = chara.position.y
 
-func physics_update(_delta: float):
+func physics_update(_delta):
 	push_off_ledge()
 	super.physics_update(_delta)
 	var relative_position = starting_height - chara.position.y
@@ -25,6 +20,7 @@ func physics_update(_delta: float):
 		chara.velocity.y = lerp(chara.velocity.y, 0.0, 0.5)
 		if chara.velocity.y < 0:
 			release_early = false
+
 
 func push_off_ledge() -> void:
 	var left_inner := hitbox.get_node('LeftInnerRayCast') as RayCast2D

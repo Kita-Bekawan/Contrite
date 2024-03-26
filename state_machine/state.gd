@@ -10,9 +10,11 @@ signal state_transition_signal
 @onready var DASH_CD: Timer = chara.get_node('DashCD')
 @onready var SHOOT_CD: Timer = chara.get_node('ShootCD')
 @onready var COYOTE_TIMER: Timer = chara.get_node('CoyoteTimer')
+@onready var INPUT_BUFFER: Timer = chara.get_node('InputBuffer')
 
 
-
+var can_push_off = false
+var last_input = null
 var transition_debug = true
 var velocity_debug = false
 
@@ -28,4 +30,4 @@ func update(_delta: float):
 	
 func physics_update(_delta: float):
 	pass
-	
+

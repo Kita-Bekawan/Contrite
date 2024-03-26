@@ -2,6 +2,7 @@ extends State
 class_name PlayerWalk
 
 @export var ACCELERATION = 600
+@export var DECELERATION = 2000
 @export var INIT_HORIZONTAL_SPEED = 40
 @export var MAX_HORIZONTAL_SPEED = 300
 
@@ -34,6 +35,8 @@ func move(_delta:float) -> float:
 							if chara.velocity.x/direction < 0 else chara.velocity.x #selalu 40 ... 250
 		chara.velocity.x += direction * ACCELERATION * _delta #acceleration
 		chara.velocity.x = clamp(chara.velocity.x, -MAX_HORIZONTAL_SPEED, MAX_HORIZONTAL_SPEED)
+	else:
+		chara.velocity.x = move_toward(chara.velocity.x, 0, DECELERATION * _delta) #deceleration
 
 	return direction
 	

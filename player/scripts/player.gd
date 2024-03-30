@@ -36,3 +36,8 @@ func _physics_process(delta):
 
 func _on_platform_gone_timer_timeout():
 	collision_mask = 2 + 4
+
+
+func launch(vector):
+	velocity = vector
+	move_and_slide()

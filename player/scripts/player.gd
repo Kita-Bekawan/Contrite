@@ -18,11 +18,14 @@ var jumping = false
 var crouching = false
 var shooting = false
 var dashing = false
+var footsteps_play = false
 
 var last_key = null
 
 #debug
 var debug = true
+
+@onready var footsteps = $Footsteps
 
 func _ready():
 	$ShootingCD
@@ -100,6 +103,8 @@ func animate(velocity: Vector2) -> void:
 	if not $AnimatedSprite2D.is_playing():
 		if jumping:
 			jumping = false
+			footsteps.stop()
+			footsteps_play = false
 		if crouching:
 			crouching = false
 		if shooting:
@@ -115,12 +120,21 @@ func animate(velocity: Vector2) -> void:
 	if not (jumping or shooting or crouching or dashing) and is_on_floor():
 		if velocity.x == 0:
 			$AnimatedSprite2D.play('idle')
+			footsteps.stop()
+			footsteps_play = false
 			if debug: print('is now idling')
 		else:
+			footsteps.pitch_scale = randf_range(.8, 1.2)
+			if !footsteps_play:
+				footsteps.play()
+				footsteps_play = true
 			$AnimatedSprite2D.play("walk")
 			if debug:
 				var direction = "left" if $AnimatedSprite2D.flip_h else "right"
 				print('is now walking ' + str(direction))
+	elif not is_on_floor():
+		footsteps.stop()
+		footsteps_play = false
 	
 	# orientation
 	if not dashing: #dash has flipped orientation

@@ -13,12 +13,12 @@
 [ext_resource type="Script" path="res://state_machine/state_machine.gd" id="9_ucqyb"]
 [ext_resource type="Script" path="res://player/scripts/player_idle.gd" id="10_ahiiq"]
 [ext_resource type="Script" path="res://player/scripts/player_walk.gd" id="11_0xrpy"]
+[ext_resource type="Script" path="res://player/scripts/player_state.gd" id="11_cxq27"]
 [ext_resource type="Script" path="res://player/scripts/player_jump.gd" id="12_vnjao"]
 [ext_resource type="Script" path="res://player/scripts/player_fall.gd" id="13_s6tp6"]
 [ext_resource type="Script" path="res://player/scripts/player_dash.gd" id="14_b05cy"]
 [ext_resource type="Script" path="res://player/scripts/player_crouch.gd" id="15_rc3xp"]
 [ext_resource type="Script" path="res://player/scripts/player_shoot.gd" id="18_ph725"]
-[ext_resource type="Script" path="res://player/scripts/player_shoot_jump.gd" id="20_bluwg"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_k5i7g"]
 animations = [{
@@ -93,7 +93,6 @@ size = Vector2(37, 74)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_y0msa")
-Bullet = ExtResource("2_gcrma")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(-1, -43)
@@ -147,32 +146,31 @@ one_shot = true
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("9_ucqyb")
-initial_state = NodePath("PlayerFall")
+initial_state = NodePath("PlayerState/PlayerFall")
 
-[node name="PlayerIdle" type="Node" parent="StateMachine"]
+[node name="PlayerState" type="Node" parent="StateMachine"]
+script = ExtResource("11_cxq27")
+
+[node name="PlayerIdle" type="Node" parent="StateMachine/PlayerState"]
 script = ExtResource("10_ahiiq")
 
-[node name="PlayerWalk" type="Node" parent="StateMachine"]
+[node name="PlayerWalk" type="Node" parent="StateMachine/PlayerState"]
 script = ExtResource("11_0xrpy")
 
-[node name="PlayerJump" type="Node" parent="StateMachine"]
+[node name="PlayerJump" type="Node" parent="StateMachine/PlayerState"]
 script = ExtResource("12_vnjao")
 
-[node name="PlayerFall" type="Node" parent="StateMachine"]
+[node name="PlayerFall" type="Node" parent="StateMachine/PlayerState"]
 script = ExtResource("13_s6tp6")
 
-[node name="PlayerDash" type="Node" parent="StateMachine"]
+[node name="PlayerDash" type="Node" parent="StateMachine/PlayerState"]
 script = ExtResource("14_b05cy")
 
-[node name="PlayerCrouch" type="Node" parent="StateMachine"]
+[node name="PlayerCrouch" type="Node" parent="StateMachine/PlayerState"]
 script = ExtResource("15_rc3xp")
 
-[node name="PlayerShoot" type="Node" parent="StateMachine"]
+[node name="PlayerShoot" type="Node" parent="StateMachine/PlayerState"]
 script = ExtResource("18_ph725")
-bullet = ExtResource("2_gcrma")
-
-[node name="PlayerShootJump" type="Node" parent="StateMachine"]
-script = ExtResource("20_bluwg")
 bullet = ExtResource("2_gcrma")
 
 [connection signal="timeout" from="PlatformGoneTimer" to="." method="_on_platform_gone_timer_timeout"]

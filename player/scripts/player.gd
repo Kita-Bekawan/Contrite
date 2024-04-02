@@ -19,6 +19,7 @@ var crouching = false
 var shooting = false
 var dashing = false
 var footsteps_play = false
+var hasJumped = false
 
 var last_key = null
 
@@ -26,6 +27,8 @@ var last_key = null
 var debug = true
 
 @onready var footsteps = $Footsteps
+@onready var jump_sfx = $Jump
+@onready var jump_landing = $JumpLanding
 
 func _ready():
 	$ShootingCD
@@ -44,6 +47,9 @@ func _physics_process(delta):
 		velocity = jump(velocity)
 	elif Input.is_action_pressed("crouch") and is_on_floor():
 		velocity = crouch(velocity)
+		
+	if velocity.y != 0:
+		hasJumped = true
 		
 	animate(velocity)
 	move_and_slide()
@@ -87,7 +93,9 @@ func check_dash(velocity: Vector2) -> Vector2:
 func jump(velocity: Vector2) -> Vector2:
 	velocity.y = JUMP_VELOCITY
 	$AnimatedSprite2D.play('jump')
+	jump_sfx.play()
 	jumping = true
+	hasJumped = true
 	if debug: print('is now jumping: ' + str(jumping))
 	return velocity
 	
@@ -103,8 +111,6 @@ func animate(velocity: Vector2) -> void:
 	if not $AnimatedSprite2D.is_playing():
 		if jumping:
 			jumping = false
-			footsteps.stop()
-			footsteps_play = false
 		if crouching:
 			crouching = false
 		if shooting:
@@ -122,6 +128,9 @@ func animate(velocity: Vector2) -> void:
 			$AnimatedSprite2D.play('idle')
 			footsteps.stop()
 			footsteps_play = false
+			if hasJumped == true:
+				jump_landing.play()
+				hasJumped = false
 			if debug: print('is now idling')
 		else:
 			footsteps.pitch_scale = randf_range(.8, 1.2)

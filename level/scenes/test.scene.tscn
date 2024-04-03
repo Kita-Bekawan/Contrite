@@ -2898,8 +2898,7 @@ texture_region_size = Vector2i(128, 128)
 
 [sub_resource type="TileSet" id="TileSet_05hmv"]
 tile_size = Vector2i(128, 128)
-physics_layer_0/collision_layer = 2
-physics_layer_0/collision_mask = 2
+physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_87oew")
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_ylkmk"]
@@ -5800,16 +5799,11 @@ texture_region_size = Vector2i(128, 128)
 
 [sub_resource type="TileSet" id="TileSet_2ygk5"]
 tile_size = Vector2i(128, 128)
-physics_layer_0/collision_layer = 4
-physics_layer_0/collision_mask = 4
+physics_layer_0/collision_layer = 1
 sources/1 = SubResource("TileSetAtlasSource_n367b")
 pattern_0 = SubResource("TileMapPattern_ylkmk")
 
 [node name="Test_scene" type="Node2D"]
-
-[node name="Player" parent="." instance=ExtResource("1_sqcjq")]
-position = Vector2(-1160, 310)
-collision_mask = 6
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(0, 3)
@@ -5823,3 +5817,6 @@ scale = Vector2(0.5, 0.5)
 tile_set = SubResource("TileSet_2ygk5")
 format = 2
 layer_0/tile_data = PackedInt32Array(524284, 1, 1, 524285, 1, 1, 524286, 1, 1, 524287, 1, 1, 458752, 1, 1, 458753, 1, 1, 458754, 1, 1, 458755, 1, 1, 458756, 1, 1, 458757, 1, 1, 720892, 1, 1, 720893, 1, 1, 720894, 1, 1, 720895, 1, 1, 655360, 1, 1, 655361, 1, 1, 655362, 1, 1, 655363, 1, 1, 655364, 1, 1, 655365, 1, 1, 327676, 1, 1, 327677, 1, 1, 327678, 1, 1, 327679, 1, 1, 262144, 1, 1, 262145, 1, 1, 262146, 1, 1, 262147, 1, 1, 262148, 1, 1, 262149, 1, 1, 720889, 1, 1, 720890, 1, 1, 720891, 1, 1, 524281, 1, 1, 524282, 1, 1, 524283, 1, 1, 327673, 1, 1, 327674, 1, 1, 327675, 1, 1, 262150, 1, 1, 262151, 1, 1, 262152, 1, 1, 458758, 1, 1, 458759, 1, 1, 458760, 1, 1, 655366, 1, 1, 655367, 1, 1, 655368, 1, 1, 524278, 1, 1, 524279, 1, 1, 524280, 1, 1, 327670, 1, 1, 327671, 1, 1, 327672, 1, 1, 720887, 1, 1, 720888, 1, 1)
+
+[node name="Player" parent="." instance=ExtResource("1_sqcjq")]
+position = Vector2(-1160, 310)

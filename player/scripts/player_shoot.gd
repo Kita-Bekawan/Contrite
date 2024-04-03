@@ -4,10 +4,13 @@ class_name PlayerShoot
 func enter():
 	overriden_animation = sprite.get_animation()
 	sprite.play('shoot')
+	shoot()
 	is_shooting = true
+	SHOOT_CD.start()
+	SHOOT_DURATION.start()
 
 func physics_update(_delta: float):	
-	super.physics_update(_delta)
+	continue_shooting()
 	transition()
 
 func transition() -> void:
@@ -22,5 +25,5 @@ func transition() -> void:
 			state_transition_signal.emit(self, 'PlayerDash')
 		elif Input.get_axis('left', 'right') != 0:
 			state_transition_signal.emit(self, 'PlayerWalk')
-		elif Input.get_axis('left', 'right'):
+		elif Input.get_axis('left', 'right') == 0:
 			state_transition_signal.emit(self, 'PlayerIdle')

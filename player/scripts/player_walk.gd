@@ -2,13 +2,14 @@ extends PlayerState
 class_name PlayerWalk
 
 func enter():
-	sprite.play('walk')
-	super.enter()
+	if !is_shooting:
+		sprite.play('walk')
 	
 func physics_update(_delta: float) -> void:
-	super.physics_update(_delta)
 	var direction = move(_delta)
+	continue_shooting()
 	orientate(direction)
+	input_handler()
 	transition_with_param(direction)
 	
 func transition_with_param(direction: float) -> void:
@@ -16,15 +17,15 @@ func transition_with_param(direction: float) -> void:
 		COYOTE_TIMER.start()
 		state_transition_signal.emit(self, 'PlayerFall')
 	else : 
-		if Input.is_action_pressed('jump'):
+		if Input.is_action_just_pressed('jump'):
 			state_transition_signal.emit(self, 'PlayerJump')
 		elif Input.is_action_pressed('crouch'):
 			state_transition_signal.emit(self, 'PlayerCrouch')
-		elif Input.is_action_pressed('dash') and DASH_CD.is_stopped():
+		elif check_dash():
 			state_transition_signal.emit(self, 'PlayerDash')
 		elif Input.is_action_just_pressed("shoot") and SHOOT_CD.is_stopped():
 			state_transition_signal.emit(self, 'PLayerShoot')
-		elif Input.get_axis('left', 'right'):
+		elif !direction:
 			state_transition_signal.emit(self, 'PlayerIdle')
 	
 func move(_delta:float) -> float:
@@ -40,8 +41,9 @@ func move(_delta:float) -> float:
 	return direction
 	
 func orientate(direction: float) -> void:
-	if direction < 0:
-		sprite.flip_h = true
-	elif direction > 0:
-		sprite.flip_h = false
+	if !is_shooting:
+		if direction < 0:
+			sprite.flip_h = true
+		elif direction > 0:
+			sprite.flip_h = false
 	

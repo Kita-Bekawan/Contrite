@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://goesjr3wcc5e"]
+[gd_scene load_steps=11 format=3 uid="uid://goesjr3wcc5e"]
 
 [ext_resource type="Script" path="res://player/scripts/player.gd" id="1_y0msa"]
 [ext_resource type="Texture2D" uid="uid://c7u5qigr8qn7d" path="res://player/sprites/kenney_platformercharacters/PNG/Adventurer/Poses/adventurer_duck.png" id="2_0d3ci"]
+[ext_resource type="PackedScene" uid="uid://cm8spagyuhpo6" path="res://player/scenes/bullet.tscn" id="2_gcrma"]
 [ext_resource type="Texture2D" uid="uid://cmmjs6ibbx74j" path="res://player/sprites/kenney_platformercharacters/PNG/Adventurer/Poses/adventurer_skid.png" id="2_j4efr"]
 [ext_resource type="Texture2D" uid="uid://7ajt6lwg8ew5" path="res://player/sprites/kenney_platformercharacters/PNG/Adventurer/Poses/adventurer_stand.png" id="3_w54vk"]
 [ext_resource type="Texture2D" uid="uid://t53qclnpl0oa" path="res://player/sprites/kenney_platformercharacters/PNG/Adventurer/Poses/adventurer_walk1.png" id="5_blgcf"]
@@ -60,6 +61,7 @@ animations = [{
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_y0msa")
+Bullet = ExtResource("2_gcrma")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-1, -43)

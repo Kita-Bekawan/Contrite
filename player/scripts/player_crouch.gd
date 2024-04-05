@@ -1,34 +1,36 @@
 extends PlayerWalk
 class_name PlayerCrouch
 
-var btn_still_pressed: bool
-
 func _init():
 	MAX_HORIZONTAL_SPEED = 75 #override
 
 func enter():
-	super.enter()
-	CROUCH_HOLD_TIMER.start()
-	btn_still_pressed = true
+	if !SHOOT_DURATION.is_stopped():
+		SHOOT_DURATION.stop()
+		SHOOT_DURATION.timeout.emit()
 	sprite.play('crouch')
 
 func physics_update(_delta: float):
-	
 	var direction = move(_delta)
+	if Input.is_action_just_pressed('drop_down'):
+		chara.position.y += 1
+	input_handler(true, true)
 	orientate(direction)
+	transition()
 	
-	if Input.is_action_just_pressed('jump'):
-		state_transition_signal.emit(self, 'PlayerJump')
-	
-	if Input.is_action_just_released('crouch'):
-		btn_still_pressed = false
-	
-	if CROUCH_HOLD_TIMER.is_stopped() and btn_still_pressed:
-		chara.collision_mask = 2
-		PLATFORM_GONE_TIMER.start()
-	
-	if !chara.is_on_floor():	
+func transition():
+	if !chara.is_on_floor():
+		COYOTE_TIMER.start()
 		state_transition_signal.emit(self, 'PlayerFall')
-	if Input.is_action_just_pressed('crouch'):
-		state_transition_signal.emit(self, 'PlayerIdle')
-	
+	else : 
+		if Input.is_action_pressed('jump'):
+			state_transition_signal.emit(self, 'PlayerJump')
+		elif Input.is_action_pressed('dash') and DASH_CD.is_stopped():
+			state_transition_signal.emit(self, 'PlayerDash')
+		elif Input.is_action_just_released('crouch'):
+			if PlayerState.queued_action == 'PlayerShoot' and SHOOT_CD.is_stopped():
+				consume_queue(queued_action)
+			elif Input.get_axis('left', 'right'):
+				state_transition_signal.emit(self, 'PlayerWalk')
+			elif !Input.get_axis('left', 'right'):
+				state_transition_signal.emit(self, 'PlayerIdle')

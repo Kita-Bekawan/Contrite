@@ -9,6 +9,7 @@ var position_start := Vector2.ZERO
 var position_end := Vector2.ZERO
 
 var vector := Vector2.ZERO
+var vector_adjustment := Vector2(200,200)
 
 func _ready() -> void:
 	
@@ -16,13 +17,13 @@ func _ready() -> void:
 
 
 func _draw() -> void:
-	draw_line(position_start - global_position, 
-		(position_end - global_position), 
+	draw_line((position_start - global_position - vector_adjustment), 
+		(position_end - global_position -  vector_adjustment), 
 		Color.BLUE, 
 		8)
 	
-	draw_line(position_start - global_position, 
-		position_start - global_position + vector, 
+	draw_line((position_start - global_position - vector_adjustment), 
+		(position_start - global_position + vector - vector_adjustment), 
 		Color.RED, 
 		16)
 
@@ -47,7 +48,8 @@ func _input(event) -> void:
 	
 	if event is InputEventMouseMotion:
 		position_end = event.position
-		vector = -(position_end - position_start).limit_length(maximum_length)
+		if get_overlapping_bodies():
+			vector = -(position_end - position_start).limit_length(maximum_length)
 		
 		queue_redraw()
 

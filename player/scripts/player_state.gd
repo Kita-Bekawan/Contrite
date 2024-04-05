@@ -3,7 +3,7 @@ class_name PlayerState
 
 @onready var chara: CharacterBody2D = self.owner
 @onready var sprite: AnimatedSprite2D = chara.get_node('Sprite')
-@onready var hitbox: CollisionShape2D = chara.get_node('Hitbox')
+@onready var ledgebox: CollisionShape2D = chara.get_node('Ledgebox')
 @onready var bullet : PackedScene = load('res://player/scenes/bullet.tscn')
 
 @onready var DASH_CD: Timer = chara.get_node('DashCD')
@@ -36,6 +36,9 @@ var can_push_off: bool = false
 var release_early: bool
 var printed: bool
 
+# player_hurt
+@export var maximumHealth: int = 3
+@onready var currentHealth: int = maximumHealth
 
 # general, used by all states
 static var last_input: String = ''

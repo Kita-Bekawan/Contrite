@@ -1,8 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://do5i8imc00jis"]
+[gd_scene load_steps=11 format=3 uid="uid://do5i8imc00jis"]
 
+[ext_resource type="Script" path="res://level/scenes/test.scene.gd" id="1_aodjp"]
 [ext_resource type="PackedScene" uid="uid://goesjr3wcc5e" path="res://player/scenes/player.tscn" id="1_sqcjq"]
 [ext_resource type="Texture2D" uid="uid://byjrs4ne3murf" path="res://level/sprites/Spritesheets/spritesheet_gr_grass.png" id="2_mjlbp"]
-[ext_resource type="PackedScene" uid="uid://bovk0ebl6bxo5" path="res://level/scenes/catapult.tscn" id="3_08qqp"]
+[ext_resource type="PackedScene" uid="uid://dpar2g8estbi2" path="res://level/scenes/catapult.tscn" id="3_08qqp"]
+[ext_resource type="PackedScene" uid="uid://3rrrfimk1kjo" path="res://player/scenes/ui/hearts_container.tscn" id="4_satcq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_87oew"]
 texture = ExtResource("2_mjlbp")
@@ -5805,6 +5807,7 @@ sources/1 = SubResource("TileSetAtlasSource_n367b")
 pattern_0 = SubResource("TileMapPattern_ylkmk")
 
 [node name="Test_scene" type="Node2D"]
+script = ExtResource("1_aodjp")
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(0, 3)
@@ -5827,6 +5830,10 @@ position = Vector2(-295, 141)
 
 [node name="Catapult" parent="." instance=ExtResource("3_08qqp")]
 position = Vector2(132, 134)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HeartsContainer" parent="CanvasLayer" instance=ExtResource("4_satcq")]
 
 [connection signal="vector_created" from="Catapult2" to="Player" method="_on_catapult_vector_created"]
 [connection signal="vector_created" from="Catapult" to="Player" method="_on_catapult_vector_created"]

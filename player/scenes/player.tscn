@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://goesjr3wcc5e"]
+[gd_scene load_steps=27 format=3 uid="uid://goesjr3wcc5e"]
 
 [ext_resource type="Script" path="res://player/scripts/player.gd" id="1_y0msa"]
 [ext_resource type="Texture2D" uid="uid://c7u5qigr8qn7d" path="res://player/sprites/model/kenney_platformercharacters/PNG/Adventurer/Poses/adventurer_duck.png" id="2_e77gl"]
@@ -22,6 +22,7 @@
 [ext_resource type="Script" path="res://player/scripts/player_dash.gd" id="14_b05cy"]
 [ext_resource type="Script" path="res://player/scripts/player_crouch.gd" id="15_rc3xp"]
 [ext_resource type="Script" path="res://player/scripts/player_shoot.gd" id="18_ph725"]
+[ext_resource type="Script" path="res://player/scripts/player_hurt.gd" id="23_jsqvn"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_k5i7g"]
 animations = [{
@@ -93,6 +94,9 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iu3rx"]
 size = Vector2(37, 74)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6kc84"]
+size = Vector2(51, 97)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_y0msa")
@@ -179,25 +183,32 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Hitbox" type="CollisionShape2D" parent="."]
+[node name="Ledgebox" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, -26)
 shape = SubResource("RectangleShape2D_iu3rx")
 
-[node name="LeftInnerRayCast" type="RayCast2D" parent="Hitbox"]
+[node name="LeftInnerRayCast" type="RayCast2D" parent="Ledgebox"]
 position = Vector2(-7.5, -38)
 target_position = Vector2(0, -16)
 
-[node name="RightInnerRayCast" type="RayCast2D" parent="Hitbox"]
+[node name="RightInnerRayCast" type="RayCast2D" parent="Ledgebox"]
 position = Vector2(6.5, -38)
 target_position = Vector2(0, -16)
 
-[node name="LeftOuterRayCast" type="RayCast2D" parent="Hitbox"]
+[node name="LeftOuterRayCast" type="RayCast2D" parent="Ledgebox"]
 position = Vector2(-17.5, -38)
 target_position = Vector2(0, -16)
 
-[node name="RightOuterRayCast" type="RayCast2D" parent="Hitbox"]
+[node name="RightOuterRayCast" type="RayCast2D" parent="Ledgebox"]
 position = Vector2(17.5, -38)
 target_position = Vector2(0, -16)
+
+[node name="Hitbox" type="Area2D" parent="."]
+position = Vector2(0.5, -26)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-1, -9.5)
+shape = SubResource("RectangleShape2D_6kc84")
 
 [node name="ShootCD" type="Timer" parent="."]
 wait_time = 1.5
@@ -250,6 +261,10 @@ script = ExtResource("15_rc3xp")
 [node name="PlayerShoot" type="Node" parent="StateMachine/PlayerState"]
 script = ExtResource("18_ph725")
 
+[node name="PlayerHurt" type="Node" parent="StateMachine/PlayerState"]
+script = ExtResource("23_jsqvn")
+
+[connection signal="area_entered" from="Hitbox" to="StateMachine/PlayerState/PlayerHurt" method="_on_hitbox_area_entered"]
 [connection signal="timeout" from="ShootDuration" to="StateMachine/PlayerState" method="_on_shoot_duration_timeout"]
 [connection signal="timeout" from="DashCD" to="StateMachine/PlayerState" method="_on_dash_cd_timeout"]
 [connection signal="timeout" from="DoubleTapTimer" to="StateMachine/PlayerState" method="_on_double_tap_timer_timeout"]

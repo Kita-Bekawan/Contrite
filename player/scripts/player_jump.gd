@@ -23,10 +23,10 @@ func physics_update(_delta: float):
 			release_early = false
 	
 func push_off_ledge() -> void:
-	var left_inner := hitbox.get_node('LeftInnerRayCast') as RayCast2D
-	var left_outer := hitbox.get_node('LeftOuterRayCast') as RayCast2D
-	var right_inner := hitbox.get_node('RightInnerRayCast') as RayCast2D
-	var right_outer := hitbox.get_node('RightOuterRayCast') as RayCast2D
+	var left_inner := ledgebox.get_node('LeftInnerRayCast') as RayCast2D
+	var left_outer := ledgebox.get_node('LeftOuterRayCast') as RayCast2D
+	var right_inner := ledgebox.get_node('RightInnerRayCast') as RayCast2D
+	var right_outer := ledgebox.get_node('RightOuterRayCast') as RayCast2D
 	
 	var left_colliding_body = left_outer.get_collider()
 	var right_colliding_body = right_outer.get_collider()

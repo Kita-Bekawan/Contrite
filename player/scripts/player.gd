@@ -9,7 +9,6 @@ func start():
 func _physics_process(delta):
 	move_and_slide()
 
-
 func _on_catapult_vector_created(vector):
 	var stateMachine = $StateMachine
 	var currentState:State = stateMachine.current_state

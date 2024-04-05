@@ -10,7 +10,6 @@ func enter():
 	chara.velocity.y = -JUMP_SPEED #init speed
 
 func physics_update(_delta: float):
-	print(chara.velocity.y)
 	if can_push_off:
 		push_off_ledge()
 	super.physics_update(_delta)

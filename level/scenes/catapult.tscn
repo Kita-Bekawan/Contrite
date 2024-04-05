@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2jhfp"]
 size = Vector2(200, 200)
 
-[node name="VectorCreator" type="Area2D"]
+[node name="Catapult" type="Area2D"]
 script = ExtResource("1_361k8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

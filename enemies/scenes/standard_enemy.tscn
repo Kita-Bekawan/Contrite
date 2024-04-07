@@ -1,0 +1,61 @@
+[gd_scene load_steps=11 format=3 uid="uid://cpspt0fleo8wq"]
+
+[ext_resource type="Script" path="res://enemies/scripts/standard_enemy.gd" id="1_8opxj"]
+[ext_resource type="Texture2D" uid="uid://dn787qijj7trx" path="res://enemies/sprites/spritesheet_enemies.png" id="1_ry7rc"]
+[ext_resource type="Script" path="res://state_machine/state_machine.gd" id="2_dxv2g"]
+[ext_resource type="Script" path="res://enemies/scripts/enemy_idle.gd" id="4_iu46b"]
+[ext_resource type="Script" path="res://enemies/scripts/enemy_chase.gd" id="5_ipv5p"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pv8wm"]
+atlas = ExtResource("1_ry7rc")
+region = Rect2(384, 640, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g570b"]
+atlas = ExtResource("1_ry7rc")
+region = Rect2(384, 896, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wlarj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pv8wm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g570b")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ogfco"]
+radius = 41.0488
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wgxa8"]
+
+[node name="StandardEnemy" type="CharacterBody2D"]
+script = ExtResource("1_8opxj")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_wlarj")
+frame_progress = 0.917514
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, 19)
+shape = SubResource("CircleShape2D_ogfco")
+
+[node name="DetectionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+scale = Vector2(80, 40)
+shape = SubResource("RectangleShape2D_wgxa8")
+debug_color = Color(0.952941, 0, 0, 0.419608)
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("2_dxv2g")
+
+[node name="EnemyIdle" type="Node" parent="StateMachine"]
+script = ExtResource("4_iu46b")
+
+[node name="EnemyChase" type="Node" parent="StateMachine"]
+script = ExtResource("5_ipv5p")

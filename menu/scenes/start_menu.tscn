@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bugakay3ybahb"]
+[gd_scene load_steps=5 format=3 uid="uid://bugakay3ybahb"]
 
 [ext_resource type="Script" path="res://menu/scripts/start_menu.gd" id="1_3dgka"]
 [ext_resource type="AudioStream" uid="uid://cvxgdysmmmp5e" path="res://menu/assets/Wood Block1.wav" id="2_3sb26"]
+[ext_resource type="PackedScene" uid="uid://c3idsj77kmk8h" path="res://menu/auto_scroller.tscn" id="2_lef8b"]
 [ext_resource type="AudioStream" uid="uid://cvf57qfurmy54" path="res://menu/assets/Y2meta.app - Different Heaven - Safe And Sound _ House _ NCS - Copyright Free Music (128 kbps).mp3" id="3_5mica"]
 
 [node name="StartMenu" type="Control"]
@@ -20,6 +21,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="AutoScroller" parent="Background" instance=ExtResource("2_lef8b")]
 
 [node name="ButtonPressedSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_3sb26")

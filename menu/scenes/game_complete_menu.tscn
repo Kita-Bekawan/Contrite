@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://4wl5qumilsu5"]
+[gd_scene load_steps=4 format=3 uid="uid://bgwxb8lpcppwa"]
 
 [ext_resource type="Script" path="res://menu/scripts/game_complete.gd" id="1_6yr0m"]
 [ext_resource type="AudioStream" uid="uid://cvxgdysmmmp5e" path="res://menu/assets/Wood Block1.wav" id="2_weghy"]

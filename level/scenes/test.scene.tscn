@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://do5i8imc00jis"]
+[gd_scene load_steps=12 format=3 uid="uid://do5i8imc00jis"]
 
 [ext_resource type="Script" path="res://level/scenes/test.scene.gd" id="1_aodjp"]
 [ext_resource type="PackedScene" uid="uid://goesjr3wcc5e" path="res://player/scenes/player.tscn" id="1_sqcjq"]
 [ext_resource type="Texture2D" uid="uid://byjrs4ne3murf" path="res://level/sprites/Spritesheets/spritesheet_gr_grass.png" id="2_mjlbp"]
 [ext_resource type="PackedScene" uid="uid://dpar2g8estbi2" path="res://level/scenes/catapult.tscn" id="3_08qqp"]
 [ext_resource type="PackedScene" uid="uid://3rrrfimk1kjo" path="res://player/scenes/ui/hearts_container.tscn" id="4_satcq"]
+[ext_resource type="PackedScene" uid="uid://dq6ogc5jq45ca" path="res://level/scenes/checkpoint.tscn" id="6_uekyi"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_87oew"]
 texture = ExtResource("2_mjlbp")
@@ -5809,6 +5810,9 @@ pattern_0 = SubResource("TileMapPattern_ylkmk")
 [node name="Test_scene" type="Node2D"]
 script = ExtResource("1_aodjp")
 
+[node name="Checkpoint2" parent="." instance=ExtResource("6_uekyi")]
+position = Vector2(410, 141)
+
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(0, 3)
 scale = Vector2(0.5, 0.5)
@@ -5821,6 +5825,9 @@ scale = Vector2(0.5, 0.5)
 tile_set = SubResource("TileSet_2ygk5")
 format = 2
 layer_0/tile_data = PackedInt32Array(524284, 1, 1, 524285, 1, 1, 524286, 1, 1, 524287, 1, 1, 458752, 1, 1, 458753, 1, 1, 458754, 1, 1, 458755, 1, 1, 458756, 1, 1, 458757, 1, 1, 720892, 1, 1, 720893, 1, 1, 720894, 1, 1, 720895, 1, 1, 655360, 1, 1, 655361, 1, 1, 655362, 1, 1, 655363, 1, 1, 655364, 1, 1, 655365, 1, 1, 327676, 1, 1, 327677, 1, 1, 327678, 1, 1, 327679, 1, 1, 262144, 1, 1, 262145, 1, 1, 262146, 1, 1, 262147, 1, 1, 262148, 1, 1, 262149, 1, 1, 720889, 1, 1, 720890, 1, 1, 720891, 1, 1, 524281, 1, 1, 524282, 1, 1, 524283, 1, 1, 327673, 1, 1, 327674, 1, 1, 327675, 1, 1, 262150, 1, 1, 262151, 1, 1, 262152, 1, 1, 458758, 1, 1, 458759, 1, 1, 458760, 1, 1, 655366, 1, 1, 655367, 1, 1, 655368, 1, 1, 524278, 1, 1, 524279, 1, 1, 524280, 1, 1, 327670, 1, 1, 327671, 1, 1, 327672, 1, 1, 720887, 1, 1, 720888, 1, 1)
+
+[node name="Checkpoint1" parent="." instance=ExtResource("6_uekyi")]
+position = Vector2(-612, 148)
 
 [node name="Player" parent="." instance=ExtResource("1_sqcjq")]
 position = Vector2(-64, 139)

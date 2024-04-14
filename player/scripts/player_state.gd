@@ -36,6 +36,9 @@ var can_push_off: bool = false
 var release_early: bool
 var printed: bool
 
+# checkpoint
+@onready var last_checkpoint = self.owner.position
+
 # player_hurt
 @export var maximumHealth: int = 3
 @onready var currentHealth: int = maximumHealth
@@ -123,6 +126,9 @@ func shoot() -> void:
 	bullet_object.set_direction(direction)
 	get_tree().root.add_child(bullet_object)
 
+func set_checkpoint_position(pos: Vector2):
+	last_checkpoint = pos
+
 func _on_shoot_duration_timeout():
 	is_shooting = false
 	if !chara.is_on_floor():
@@ -141,3 +147,4 @@ func _on_dash_cd_timeout():
 
 func _on_double_tap_timer_timeout():
 	PlayerState.last_input = ''
+

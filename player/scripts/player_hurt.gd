@@ -17,4 +17,5 @@ func _on_hitbox_area_entered(area):
 		currentHealth -= 1
 		if currentHealth < 1:
 			currentHealth = maximumHealth
+			chara.position = get_parent().last_checkpoint
 		healthChanged.emit(currentHealth)

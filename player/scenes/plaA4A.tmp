@@ -1,0 +1,177 @@
+[gd_scene load_steps=23 format=3 uid="uid://goesjr3wcc5e"]
+
+[ext_resource type="Script" path="res://player/scripts/player.gd" id="1_y0msa"]
+[ext_resource type="Texture2D" uid="uid://c7u5qigr8qn7d" path="res://player/sprites/kenney_platformercharacters/PNG/Adventurer/Poses/adventurer_duck.png" id="2_0d3ci"]
+[ext_resource type="PackedScene" uid="uid://cm8spagyuhpo6" path="res://player/scenes/bullet.tscn" id="2_gcrma"]
+[ext_resource type="Texture2D" uid="uid://cmmjs6ibbx74j" path="res://player/sprites/kenney_platformercharacters/PNG/Adventurer/Poses/adventurer_skid.png" id="2_j4efr"]
+[ext_resource type="Texture2D" uid="uid://7ajt6lwg8ew5" path="res://player/sprites/kenney_platformercharacters/PNG/Adventurer/Poses/adventurer_stand.png" id="3_w54vk"]
+[ext_resource type="Texture2D" uid="uid://t53qclnpl0oa" path="res://player/sprites/kenney_platformercharacters/PNG/Adventurer/Poses/adventurer_walk1.png" id="5_blgcf"]
+[ext_resource type="Texture2D" uid="uid://d24yf0576530w" path="res://player/sprites/kenney_platformercharacters/PNG/Adventurer/Poses/adventurer_cheer1.png" id="5_tuqnu"]
+[ext_resource type="Texture2D" uid="uid://t475kxy3yaaj" path="res://player/sprites/kenney_platformercharacters/PNG/Adventurer/Poses/adventurer_walk2.png" id="6_hhs2h"]
+[ext_resource type="Texture2D" uid="uid://b630pq30fkw7p" path="res://player/sprites/kenney_platformercharacters/PNG/Adventurer/Poses/adventurer_cheer2.png" id="6_ri367"]
+[ext_resource type="Texture2D" uid="uid://dirdq8rrwrcjw" path="res://player/sprites/kenney_platformercharacters/PNG/Adventurer/Poses/adventurer_hold1.png" id="8_m5stb"]
+[ext_resource type="Script" path="res://state_machine/state_machine.gd" id="9_ucqyb"]
+[ext_resource type="Script" path="res://player/scripts/player_idle.gd" id="10_ahiiq"]
+[ext_resource type="Script" path="res://player/scripts/player_walk.gd" id="11_0xrpy"]
+[ext_resource type="Script" path="res://player/scripts/player_jump.gd" id="12_vnjao"]
+[ext_resource type="Script" path="res://player/scripts/player_fall.gd" id="13_s6tp6"]
+[ext_resource type="Script" path="res://player/scripts/player_dash.gd" id="14_b05cy"]
+[ext_resource type="Script" path="res://player/scripts/player_crouch.gd" id="15_rc3xp"]
+[ext_resource type="Script" path="res://player/scripts/player_shoot.gd" id="18_ph725"]
+[ext_resource type="Script" path="res://player/scripts/player_shoot_jump.gd" id="20_bluwg"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k5i7g"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_0d3ci")
+}],
+"loop": false,
+"name": &"crouch",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_j4efr")
+}],
+"loop": false,
+"name": &"dash",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_ri367")
+}],
+"loop": true,
+"name": &"fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_w54vk")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_tuqnu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_ri367")
+}],
+"loop": false,
+"name": &"jump",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_m5stb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_m5stb")
+}],
+"loop": false,
+"name": &"shoot",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_blgcf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_hhs2h")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iu3rx"]
+size = Vector2(37, 74)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f7cpx"]
+size = Vector2(37, 9)
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_y0msa")
+Bullet = ExtResource("2_gcrma")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(-1, -43)
+sprite_frames = SubResource("SpriteFrames_k5i7g")
+animation = &"idle"
+
+[node name="Camera" type="Camera2D" parent="."]
+position_smoothing_speed = 20.0
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -26)
+shape = SubResource("RectangleShape2D_iu3rx")
+
+[node name="LeftInnerRayCast" type="RayCast2D" parent="Hitbox"]
+position = Vector2(-7.5, -38)
+target_position = Vector2(0, -20)
+
+[node name="RightInnerRayCast" type="RayCast2D" parent="Hitbox"]
+position = Vector2(6.5, -38)
+target_position = Vector2(0, -20)
+
+[node name="LeftOuterRayCast" type="RayCast2D" parent="Hitbox"]
+position = Vector2(-18.5, -38)
+target_position = Vector2(0, -20)
+
+[node name="RightOuterRayCast" type="RayCast2D" parent="Hitbox"]
+position = Vector2(18.5, -38)
+target_position = Vector2(0, -20)
+
+[node name="FootCollision" type="Area2D" parent="."]
+
+[node name="FootCollisionArea" type="CollisionShape2D" parent="FootCollision"]
+position = Vector2(0.5, 8)
+shape = SubResource("RectangleShape2D_f7cpx")
+
+[node name="ShootCD" type="Timer" parent="."]
+one_shot = true
+
+[node name="CoyoteTimer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
+[node name="DashCD" type="Timer" parent="."]
+one_shot = true
+
+[node name="InputBuffer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("9_ucqyb")
+initial_state = NodePath("PlayerFall")
+
+[node name="PlayerIdle" type="Node" parent="StateMachine"]
+script = ExtResource("10_ahiiq")
+
+[node name="PlayerWalk" type="Node" parent="StateMachine"]
+script = ExtResource("11_0xrpy")
+
+[node name="PlayerJump" type="Node" parent="StateMachine"]
+script = ExtResource("12_vnjao")
+
+[node name="PlayerFall" type="Node" parent="StateMachine"]
+script = ExtResource("13_s6tp6")
+
+[node name="PlayerDash" type="Node" parent="StateMachine"]
+script = ExtResource("14_b05cy")
+
+[node name="PlayerCrouch" type="Node" parent="StateMachine"]
+script = ExtResource("15_rc3xp")
+
+[node name="PlayerShoot" type="Node" parent="StateMachine"]
+script = ExtResource("18_ph725")
+bullet = ExtResource("2_gcrma")
+
+[node name="PlayerShootJump" type="Node" parent="StateMachine"]
+script = ExtResource("20_bluwg")
+bullet = ExtResource("2_gcrma")

@@ -7,6 +7,8 @@
 size = Vector2(200, 200)
 
 [node name="Catapult" type="Area2D"]
+collision_layer = 64
+collision_mask = 32
 script = ExtResource("1_361k8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

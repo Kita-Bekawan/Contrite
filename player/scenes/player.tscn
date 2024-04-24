@@ -292,7 +292,7 @@ texture_filter = 1
 position = Vector2(0, -29)
 scale = Vector2(2.5, 2.5)
 sprite_frames = SubResource("SpriteFrames_k5i7g")
-animation = &"shoot"
+animation = &"dash"
 
 [node name="Ledgebox" type="CollisionShape2D" parent="."]
 position = Vector2(0, -19)

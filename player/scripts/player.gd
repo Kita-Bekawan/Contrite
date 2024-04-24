@@ -83,8 +83,6 @@ func retake_damage() -> void:
 	return
 
 func _on_hit_box_area_entered(area):
-	
-	print_debug(area)
 	if area.get_name() == "AreaFall" or area.get_name() == "Fountain":
 		_lives = 5
 		SignalManager.on_player_hit.emit(_lives)

@@ -29,6 +29,7 @@ Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 
 directories/dch_directory={
 "luhur": "res://dialogue/luhur.dch",
+"mc": "res://dialogue/mc.dch",
 "saraswati": "res://dialogue/saraswati.dch"
 }
 directories/dtl_directory={
@@ -139,3 +140,4 @@ dialogic_default_action={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
+renderer/rendering_method="mobile"

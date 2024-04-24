@@ -1,7 +1,6 @@
-[gd_scene load_steps=19 format=3 uid="uid://5n8n4iynh71d"]
+[gd_scene load_steps=17 format=3 uid="uid://5n8n4iynh71d"]
 
 [ext_resource type="Script" path="res://level/scenes/Camera2D.gd" id="1_4tsk7"]
-[ext_resource type="Texture2D" uid="uid://dh8uu7dpq33ao" path="res://level/sprites/decorations/fountain.png" id="2_ckdgl"]
 [ext_resource type="Texture2D" uid="uid://clwfttcclwuje" path="res://level/sprites/background/background_layer_1.png" id="2_nbwlv"]
 [ext_resource type="Texture2D" uid="uid://cx2c6wur77jf" path="res://level/sprites/background/background_layer_2.png" id="3_b7xt0"]
 [ext_resource type="Texture2D" uid="uid://cfs7v4sf5v2gp" path="res://level/sprites/background/background_layer_3.png" id="4_w15f5"]
@@ -14,28 +13,8 @@
 [ext_resource type="Script" path="res://level/scripts/portal.gd" id="12_b2o8f"]
 [ext_resource type="PackedScene" uid="uid://bwne6fn8atras" path="res://hud/hud.tscn" id="13_owhui"]
 [ext_resource type="PackedScene" uid="uid://dq6ogc5jq45ca" path="res://level/scenes/checkpoint.tscn" id="14_fn4vg"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vy0xj"]
-atlas = ExtResource("2_ckdgl")
-region = Rect2(0, 0, 128, 115)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0b4gd"]
-atlas = ExtResource("2_ckdgl")
-region = Rect2(128, 0, 128, 115)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_sys6t"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vy0xj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0b4gd")
-}],
-"loop": true,
-"name": &"default",
-"speed": 10.0
-}]
+[ext_resource type="PackedScene" uid="uid://bjoxftew8nsl" path="res://level/scenes/area_fall.tscn" id="15_4gv27"]
+[ext_resource type="PackedScene" uid="uid://davnfb8ydny4h" path="res://level/scenes/fountain.tscn" id="15_w4ctk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8abif"]
 size = Vector2(128, 90)
@@ -45,11 +24,6 @@ size = Vector2(128, 90)
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(320, -180)
 script = ExtResource("1_4tsk7")
-
-[node name="Fountain" type="AnimatedSprite2D" parent="."]
-position = Vector2(336, -884)
-sprite_frames = SubResource("SpriteFrames_sys6t")
-autoplay = "default"
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
@@ -201,7 +175,15 @@ shape = SubResource("RectangleShape2D_8abif")
 [node name="HUD" parent="CanvasLayer" instance=ExtResource("13_owhui")]
 
 [node name="Checkpoint" parent="." instance=ExtResource("14_fn4vg")]
-visible = false
-position = Vector2(548, -301)
+position = Vector2(548, -281)
+scale = Vector2(0.8, 0.8)
+
+[node name="AreaFall" parent="." instance=ExtResource("15_4gv27")]
+position = Vector2(-2226, 157)
+scale = Vector2(8, 1.291)
+
+[node name="Fountain" parent="." instance=ExtResource("15_w4ctk")]
+z_index = -1
+position = Vector2(372, -884)
 
 [connection signal="body_entered" from="ChangingLevel" to="ChangingLevel" method="_on_body_entered"]

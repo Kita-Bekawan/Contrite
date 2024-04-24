@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://c4lpm20hyq48l"]
+[gd_scene load_steps=20 format=3 uid="uid://c4lpm20hyq48l"]
 
 [ext_resource type="Script" path="res://level/scenes/Camera2D.gd" id="1_4muie"]
 [ext_resource type="Texture2D" uid="uid://clwfttcclwuje" path="res://level/sprites/background/background_layer_1.png" id="2_tpopy"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://dpar2g8estbi2" path="res://level/scenes/catapult.tscn" id="13_65hjf"]
 [ext_resource type="PackedScene" uid="uid://bwne6fn8atras" path="res://hud/hud.tscn" id="14_l6gn3"]
 [ext_resource type="PackedScene" uid="uid://dq6ogc5jq45ca" path="res://level/scenes/checkpoint.tscn" id="15_46ole"]
+[ext_resource type="PackedScene" uid="uid://bjoxftew8nsl" path="res://level/scenes/area_fall.tscn" id="16_cr7e4"]
 [ext_resource type="PackedScene" uid="uid://goesjr3wcc5e" path="res://player/scenes/player.tscn" id="22_y5qe0"]
 [ext_resource type="PackedScene" uid="uid://btjuha38sw0qg" path="res://enemies/snail/snail.tscn" id="23_dls84"]
 
@@ -311,6 +312,7 @@ position = Vector2(-337, -1053)
 shape = SubResource("RectangleShape2D_mpwf1")
 
 [node name="Catapult" parent="." instance=ExtResource("13_65hjf")]
+z_index = -1
 position = Vector2(-1478, -579)
 scale = Vector2(0.5, 0.5)
 collision_layer = 64
@@ -322,6 +324,12 @@ collision_mask = 32
 
 [node name="Checkpoint" parent="." instance=ExtResource("15_46ole")]
 visible = false
-position = Vector2(14, -180)
+position = Vector2(37, -137)
+scale = Vector2(0.8, 0.8)
+
+[node name="AreaFall" parent="." instance=ExtResource("16_cr7e4")]
+position = Vector2(-3968, 11)
+scale = Vector2(6.2, 1)
 
 [connection signal="body_entered" from="ChangingLevel" to="ChangingLevel" method="_on_body_entered"]
+[connection signal="vector_created" from="Catapult" to="Player" method="_on_catapult_vector_created"]

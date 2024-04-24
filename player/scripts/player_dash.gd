@@ -15,10 +15,10 @@ func enter():
 	var direction
 	if Input.get_axis('left', 'right') > 0:
 		direction = 1
-		sprite.flip_h = true
+		sprite.flip_h = false
 	elif Input.get_axis('left', 'right') < 0:
 		direction = -1
-		sprite.flip_h = false
+		sprite.flip_h = true
 	else:
 		direction = 1 if sprite.flip_h else -1
 		

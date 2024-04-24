@@ -4,6 +4,13 @@ class_name Player
 
 @onready var shooter = $Shooter
 @onready var sprite_2d = $Sprite
+@onready var animation_player_invincible = $AnimationPlayerInvincible
+@onready var sound_player = $SoundPlayer
+@onready var invincible_timer = $InvincibleTimer
+@onready var hit_box = $HitBox
+
+var _invincible: bool = false
+var _lives: int = 5
 
 func _ready():
 	pass
@@ -42,6 +49,40 @@ func _input(event: InputEvent):
 		Dialogic.start('saraswati')
 		get_viewport().set_input_as_handled()
 
+func go_invincible() -> void:
+	_invincible = true
+	animation_player_invincible.play("invincible")
+	invincible_timer.start()
+	
+func reduce_lives() -> bool:
+	_lives -= 1
+	SignalManager.on_player_hit.emit(_lives)
+	if _lives <= 0:
+		print("back to checkpoint")
+		return false
+	return true
+	
+func apply_hit() -> void:
+	if _invincible == true:
+		return
+	
+	if reduce_lives() == false:
+		return
+	
+	go_invincible()
+	SoundManager.play_clip(sound_player, SoundManager.SOUND_DAMAGE)
+	
+func retake_damage() -> void:
+	for area in hit_box.get_overlapping_areas():
+		if area.is_in_group("Dangers") == true:
+			apply_hit()
+			break
+	return	
 
 func _on_hit_box_area_entered(area):
-	print("Player HitBox: ", area)
+	apply_hit()
+
+func _on_invincible_timer_timeout():
+	_invincible = false
+	animation_player_invincible.stop()
+	retake_damage()

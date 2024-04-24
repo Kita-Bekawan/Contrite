@@ -5834,9 +5834,13 @@ position = Vector2(-64, 139)
 
 [node name="Catapult2" parent="." instance=ExtResource("3_08qqp")]
 position = Vector2(-295, 141)
+collision_layer = 64
+collision_mask = 32
 
 [node name="Catapult" parent="." instance=ExtResource("3_08qqp")]
 position = Vector2(132, 134)
+collision_layer = 64
+collision_mask = 32
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

@@ -4,7 +4,7 @@
 
 [node name="Shooter" type="Node2D"]
 script = ExtResource("1_xecyk")
-speed = 200.0
+life_span = 2.0
 shoot_delay = 1.0
 
 [node name="Sound" type="AudioStreamPlayer2D" parent="."]

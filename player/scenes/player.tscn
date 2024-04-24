@@ -1,5 +1,4 @@
 [gd_scene load_steps=27 format=3 uid="uid://goesjr3wcc5e"]
-[gd_scene load_steps=28 format=3 uid="uid://goesjr3wcc5e"]
 
 [ext_resource type="Script" path="res://player/scripts/player.gd" id="1_y0msa"]
 [ext_resource type="Texture2D" uid="uid://c7u5qigr8qn7d" path="res://player/sprites/model/kenney_platformercharacters/PNG/Adventurer/Poses/adventurer_duck.png" id="2_e77gl"]

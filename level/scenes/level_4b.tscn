@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cx2c6wur77jf" path="res://level/sprites/background/background_layer_2.png" id="3_b7xt0"]
 [ext_resource type="Texture2D" uid="uid://cfs7v4sf5v2gp" path="res://level/sprites/background/background_layer_3.png" id="4_w15f5"]
 [ext_resource type="PackedScene" uid="uid://goesjr3wcc5e" path="res://player/scenes/player.tscn" id="5_k3qmh"]
-[ext_resource type="TileSet" uid="uid://cofgiskftsm5m" path="res://level/sprites/Spritesheets/oak.tres" id="6_w15rc"]
+[ext_resource type="TileSet" uid="uid://c3q7xdje2apy3" path="res://level/sprites/Spritesheets/rock.tres" id="6_w15rc"]
 [ext_resource type="PackedScene" uid="uid://btjuha38sw0qg" path="res://enemies/snail/snail.tscn" id="7_5vhos"]
 [ext_resource type="TileSet" uid="uid://c3q7xdje2apy3" path="res://level/sprites/Spritesheets/rock.tres" id="7_r22tm"]
 [ext_resource type="PackedScene" uid="uid://c2lhtvfidh504" path="res://moving_platform/moving_platform.tscn" id="9_ktvpo"]

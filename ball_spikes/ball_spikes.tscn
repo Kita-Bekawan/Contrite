@@ -6,6 +6,9 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_cd60e"]
 radius = 9.0
 
+[sub_resource type="Animation" id="Animation_76l26"]
+length = 0.001
+
 [sub_resource type="Animation" id="Animation_y8oda"]
 resource_name = "spin"
 loop_mode = 1
@@ -21,9 +24,6 @@ tracks/0/keys = {
 "update": 0,
 "values": [0.0, 6.28319]
 }
-
-[sub_resource type="Animation" id="Animation_76l26"]
-length = 0.001
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_85ovp"]
 _data = {

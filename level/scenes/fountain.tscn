@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://davnfb8ydny4h"]
+
+[ext_resource type="Texture2D" uid="uid://dh8uu7dpq33ao" path="res://level/sprites/decorations/fountain.png" id="1_lyh8d"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hj3hx"]
+size = Vector2(101, 95)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vy0xj"]
+atlas = ExtResource("1_lyh8d")
+region = Rect2(0, 0, 128, 115)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0b4gd"]
+atlas = ExtResource("1_lyh8d")
+region = Rect2(128, 0, 128, 115)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_celvo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vy0xj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0b4gd")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="Fountain" type="Area2D"]
+collision_layer = 4
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 8.5)
+shape = SubResource("RectangleShape2D_hj3hx")
+
+[node name="Fountain" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_celvo")
+autoplay = "default"

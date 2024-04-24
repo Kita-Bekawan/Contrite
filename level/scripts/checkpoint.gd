@@ -11,5 +11,6 @@ func _process(delta):
 
 
 func _on_body_entered(body):
+	print_debug(body)
 	if body.name == "Player":
 		body.get_node("StateMachine").get_node("PlayerState").set_checkpoint_position(position)

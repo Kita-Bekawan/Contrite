@@ -40,7 +40,7 @@ var printed: bool
 @onready var last_checkpoint = self.owner.position
 
 # player_hurt
-@export var maximumHealth: int = 3
+@export var maximumHealth: int = 5
 @onready var currentHealth: int = maximumHealth
 
 # general, used by all states

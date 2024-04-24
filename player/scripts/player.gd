@@ -98,3 +98,7 @@ func _on_invincible_timer_timeout():
 	_invincible = false
 	animation_player_invincible.stop()
 	retake_damage()
+
+
+func _on_fountain_area_entered(area):
+	pass # Replace with function body.

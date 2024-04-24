@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://ddg51foqrjuyi"]
+[gd_scene load_steps=45 format=3 uid="uid://ddg51foqrjuyi"]
 
 [ext_resource type="Script" path="res://level/scenes/Camera2D.gd" id="1_8m1co"]
 [ext_resource type="Texture2D" uid="uid://clwfttcclwuje" path="res://level/sprites/background/background_layer_1.png" id="1_hfgya"]
@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://cx2c6wur77jf" path="res://level/sprites/background/background_layer_2.png" id="2_ifsrf"]
 [ext_resource type="PackedScene" uid="uid://goesjr3wcc5e" path="res://player/scenes/player.tscn" id="2_ov2u1"]
 [ext_resource type="Texture2D" uid="uid://cfs7v4sf5v2gp" path="res://level/sprites/background/background_layer_3.png" id="3_ndv7f"]
-[ext_resource type="Texture2D" uid="uid://dh8uu7dpq33ao" path="res://level/sprites/decorations/fountain.png" id="4_fhbja"]
 [ext_resource type="Texture2D" uid="uid://d2qqng8op6am2" path="res://level/sprites/oak_woods_tileset.png" id="5_4quv7"]
 [ext_resource type="Texture2D" uid="uid://d21jy7nvqj8sa" path="res://level/sprites/decorations/shop_anim.png" id="5_08ekh"]
 [ext_resource type="Texture2D" uid="uid://b7huisxi6foen" path="res://level/sprites/decorations/sign.png" id="7_yjng3"]
@@ -26,34 +25,11 @@
 [ext_resource type="Texture2D" uid="uid://baywe1e283vou" path="res://level/sprites/Eleonore/Idle/Idle8.png" id="15_jjqm4"]
 [ext_resource type="Texture2D" uid="uid://b50byemels1ll" path="res://level/sprites/Eleonore/Idle/Idle9.png" id="16_ul0qm"]
 [ext_resource type="Script" path="res://level/scripts/portal.gd" id="25_b67th"]
-[ext_resource type="PackedScene" uid="uid://c1o6evis7k7wj" path="res://boss/boss.tscn" id="26_xe6q7"]
-[ext_resource type="PackedScene" uid="uid://djii0xw2gso8n" path="res://ball_spikes/ball_spikes.tscn" id="27_kai8i"]
 [ext_resource type="PackedScene" uid="uid://p0480umo8e35" path="res://floor_spikes/floor_spikes.tscn" id="28_olu3i"]
 [ext_resource type="PackedScene" uid="uid://bwne6fn8atras" path="res://hud/hud.tscn" id="29_674gc"]
 [ext_resource type="PackedScene" uid="uid://dpar2g8estbi2" path="res://level/scenes/catapult.tscn" id="30_1dosy"]
+[ext_resource type="PackedScene" uid="uid://davnfb8ydny4h" path="res://level/scenes/fountain.tscn" id="30_qadcq"]
 [ext_resource type="PackedScene" uid="uid://bjoxftew8nsl" path="res://level/scenes/area_fall.tscn" id="31_njmci"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vy0xj"]
-atlas = ExtResource("4_fhbja")
-region = Rect2(0, 0, 128, 115)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0b4gd"]
-atlas = ExtResource("4_fhbja")
-region = Rect2(128, 0, 128, 115)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_0udhe"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vy0xj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0b4gd")
-}],
-"loop": true,
-"name": &"default",
-"speed": 10.0
-}]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c1k87"]
 atlas = ExtResource("5_08ekh")
@@ -1416,23 +1392,11 @@ size = Vector2(34, 44)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pfs5r"]
 size = Vector2(128, 90)
 
-[sub_resource type="Curve2D" id="Curve2D_rnhe7"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 1374, -114, 0, 0, 0, 0, 1374, -196, 0, 0, 0, 0, 1489, -197, 0, 0, 0, 0, 1374, -114)
-}
-point_count = 4
-
 [node name="Level4" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(320, -180)
 script = ExtResource("1_8m1co")
-
-[node name="Fountain" type="AnimatedSprite2D" parent="."]
-position = Vector2(985, -117)
-sprite_frames = SubResource("SpriteFrames_0udhe")
-autoplay = "default"
-frame_progress = 0.305797
 
 [node name="Shop" type="AnimatedSprite2D" parent="."]
 position = Vector2(1430, -192)
@@ -1559,18 +1523,6 @@ shape = SubResource("RectangleShape2D_pfs5r")
 position = Vector2(2477, -146)
 scale = Vector2(1.5, 1.5)
 
-[node name="Boss" parent="." instance=ExtResource("26_xe6q7")]
-position = Vector2(1000, -76)
-
-[node name="Paths" type="Node" parent="."]
-
-[node name="Spikes1" type="Path2D" parent="Paths"]
-curve = SubResource("Curve2D_rnhe7")
-
-[node name="BallSpikes" parent="Paths/Spikes1" instance=ExtResource("27_kai8i")]
-position = Vector2(1374, -114)
-rotation = -1.5708
-
 [node name="FloorSpikes" parent="." instance=ExtResource("28_olu3i")]
 z_index = -1
 position = Vector2(1212, -60)
@@ -1597,6 +1549,12 @@ position = Vector2(73, -230)
 
 [node name="AreaFall" parent="." instance=ExtResource("31_njmci")]
 scale = Vector2(6.2, 1)
+
+[node name="Fountain" parent="." instance=ExtResource("30_qadcq")]
+z_index = -1
+position = Vector2(898, -120)
+collision_layer = 2
+collision_mask = 32
 
 [connection signal="body_entered" from="ChangingLevel" to="ChangingLevel" method="_on_body_entered"]
 [connection signal="vector_created" from="Catapult" to="Player" method="_on_catapult_vector_created"]

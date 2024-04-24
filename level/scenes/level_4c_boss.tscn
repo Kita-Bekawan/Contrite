@@ -1,12 +1,14 @@
-[gd_scene load_steps=8 format=3 uid="uid://bl5nwptxurqiu"]
+[gd_scene load_steps=10 format=3 uid="uid://co8e6xkl4k13r"]
 
 [ext_resource type="Script" path="res://level/scenes/Camera2D.gd" id="1_5ykw5"]
 [ext_resource type="Texture2D" uid="uid://clwfttcclwuje" path="res://level/sprites/background/background_layer_1.png" id="2_634ox"]
 [ext_resource type="Texture2D" uid="uid://cx2c6wur77jf" path="res://level/sprites/background/background_layer_2.png" id="3_p5kjt"]
 [ext_resource type="Texture2D" uid="uid://cfs7v4sf5v2gp" path="res://level/sprites/background/background_layer_3.png" id="4_tm8ev"]
 [ext_resource type="PackedScene" uid="uid://goesjr3wcc5e" path="res://player/scenes/player.tscn" id="5_qelst"]
-[ext_resource type="TileSet" uid="uid://c3q7xdje2apy3" path="res://level/sprites/Spritesheets/rock.tres" id="6_b7n4n"]
+[ext_resource type="TileSet" uid="uid://dae8cc76bcvhf" path="res://level/sprites/Spritesheets/rock.tres" id="6_b7n4n"]
 [ext_resource type="PackedScene" uid="uid://c1o6evis7k7wj" path="res://boss/boss.tscn" id="7_v238e"]
+[ext_resource type="PackedScene" uid="uid://bwne6fn8atras" path="res://hud/hud.tscn" id="8_cvabi"]
+[ext_resource type="PackedScene" uid="uid://dq6ogc5jq45ca" path="res://level/scenes/checkpoint.tscn" id="9_i5ydk"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -92,3 +94,11 @@ layer_0/tile_data = PackedInt32Array(-196608, 65536, 2, -131072, 65536, 3, -6553
 
 [node name="Boss" parent="." instance=ExtResource("7_v238e")]
 position = Vector2(1111, -61)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="CanvasLayer" instance=ExtResource("8_cvabi")]
+
+[node name="Checkpoint" parent="." instance=ExtResource("9_i5ydk")]
+visible = false
+position = Vector2(51, -180)

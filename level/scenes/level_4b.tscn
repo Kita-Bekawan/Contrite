@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cv0fmm0iw7w36"]
+[gd_scene load_steps=19 format=3 uid="uid://5n8n4iynh71d"]
 
 [ext_resource type="Script" path="res://level/scenes/Camera2D.gd" id="1_4tsk7"]
 [ext_resource type="Texture2D" uid="uid://dh8uu7dpq33ao" path="res://level/sprites/decorations/fountain.png" id="2_ckdgl"]
@@ -7,11 +7,13 @@
 [ext_resource type="Texture2D" uid="uid://cfs7v4sf5v2gp" path="res://level/sprites/background/background_layer_3.png" id="4_w15f5"]
 [ext_resource type="PackedScene" uid="uid://goesjr3wcc5e" path="res://player/scenes/player.tscn" id="5_k3qmh"]
 [ext_resource type="PackedScene" uid="uid://btjuha38sw0qg" path="res://enemies/snail/snail.tscn" id="7_5vhos"]
-[ext_resource type="TileSet" uid="uid://cofgiskftsm5m" path="res://level/sprites/Spritesheets/oak.tres" id="7_534sp"]
-[ext_resource type="TileSet" uid="uid://c3q7xdje2apy3" path="res://level/sprites/Spritesheets/rock.tres" id="7_r22tm"]
+[ext_resource type="TileSet" uid="uid://c0gtpb051f5w" path="res://level/sprites/Spritesheets/oak.tres" id="7_534sp"]
+[ext_resource type="TileSet" uid="uid://dae8cc76bcvhf" path="res://level/sprites/Spritesheets/rock.tres" id="7_r22tm"]
 [ext_resource type="PackedScene" uid="uid://c2lhtvfidh504" path="res://moving_platform/moving_platform.tscn" id="9_ktvpo"]
 [ext_resource type="PackedScene" uid="uid://p0480umo8e35" path="res://floor_spikes/floor_spikes.tscn" id="11_1oqml"]
 [ext_resource type="Script" path="res://level/scripts/portal.gd" id="12_b2o8f"]
+[ext_resource type="PackedScene" uid="uid://bwne6fn8atras" path="res://hud/hud.tscn" id="13_owhui"]
+[ext_resource type="PackedScene" uid="uid://dq6ogc5jq45ca" path="res://level/scenes/checkpoint.tscn" id="14_fn4vg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vy0xj"]
 atlas = ExtResource("2_ckdgl")
@@ -193,5 +195,13 @@ next_scene = "Level4C"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChangingLevel"]
 position = Vector2(4827, -964)
 shape = SubResource("RectangleShape2D_8abif")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="CanvasLayer" instance=ExtResource("13_owhui")]
+
+[node name="Checkpoint" parent="." instance=ExtResource("14_fn4vg")]
+visible = false
+position = Vector2(548, -301)
 
 [connection signal="body_entered" from="ChangingLevel" to="ChangingLevel" method="_on_body_entered"]

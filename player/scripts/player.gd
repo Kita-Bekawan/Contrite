@@ -12,6 +12,8 @@ class_name Player
 var _invincible: bool = false
 var _lives: int = 5
 
+@onready var playerState: Node = $StateMachine/PlayerState
+
 func _ready():
 	pass
 		
@@ -59,6 +61,7 @@ func reduce_lives() -> bool:
 	SignalManager.on_player_hit.emit(_lives)
 	if _lives <= 0:
 		print("back to checkpoint")
+		position = playerState.last_checkpoint
 		return false
 	return true
 	
@@ -77,9 +80,18 @@ func retake_damage() -> void:
 		if area.is_in_group("Dangers") == true:
 			apply_hit()
 			break
-	return	
+	return
 
 func _on_hit_box_area_entered(area):
+	
+	print_debug(area)
+	if area.get_name() == "AreaFall" or area.get_name() == "Fountain":
+		_lives = 5
+		SignalManager.on_player_hit.emit(_lives)
+		if area.get_name() == "Fountain":
+			return
+		position = playerState.last_checkpoint
+		return
 	apply_hit()
 
 func _on_invincible_timer_timeout():

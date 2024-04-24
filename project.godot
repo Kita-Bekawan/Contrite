@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 SignalManager="*res://singletons/signal_manager.gd"
+ScoreManager="*res://singletons/score_manager.gd"
 GameManager="*res://singletons/game_manager.gd"
 SceneManager="*res://singletons/scene_manager.gd"
 ObjectMaker="*res://singletons/object_maker.gd"
@@ -130,6 +131,7 @@ dialogic_default_action={
 2d_physics/layer_4="player_bullet"
 2d_physics/layer_5="enemy_bullet"
 2d_physics/layer_6="player_physics"
+2d_physics/layer_7="catapult"
 
 [rendering]
 

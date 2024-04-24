@@ -12,7 +12,6 @@ var vector := Vector2.ZERO
 var vector_adjustment := Vector2(200,200)
 
 func _ready() -> void:
-	
 	connect("input_event", Callable(self, "_on_input_event"))
 
 
@@ -55,7 +54,6 @@ func _input(event) -> void:
 
 
 func _on_input_event(_viewport, event, _shape_idx) -> void:
-	
 	if event.is_action_pressed("ui_touch"):
 		touch_down = true
 		position_start = event.position

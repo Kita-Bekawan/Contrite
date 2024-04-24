@@ -1586,11 +1586,13 @@ scale = Vector2(2, 2)
 [node name="HUD" parent="CanvasLayer" instance=ExtResource("29_674gc")]
 
 [node name="Catapult" parent="." instance=ExtResource("30_1dosy")]
-position = Vector2(553, -168)
+position = Vector2(556, -112)
+scale = Vector2(0.5, 0.5)
 collision_layer = 64
 collision_mask = 32
 
 [node name="Checkpoint" parent="." instance=ExtResource("1_itdqw")]
+visible = false
 position = Vector2(73, -230)
 
 [node name="AreaFall" parent="." instance=ExtResource("31_njmci")]

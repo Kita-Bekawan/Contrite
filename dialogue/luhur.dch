@@ -1,0 +1,29 @@
+{
+"@path": "res://addons/dialogic/Resources/character.gd",
+"@subpath": NodePath(""),
+"_translation_id": "",
+"color": Color(0.21346, 0.941406, 0.0367737, 1),
+"custom_info": {
+"sound_mood_default": "",
+"sound_moods": {},
+"style": "styles"
+},
+"default_portrait": "normal",
+"description": "",
+"display_name": "Luhur",
+"mirror": true,
+"nicknames": ["Luhur"],
+"offset": Vector2(0, 0),
+"portraits": {
+"normal": {
+"export_overrides": {
+"image": "\"res://dialogue/luhur.png\""
+},
+"mirror": false,
+"offset": Vector2(0, 0),
+"scale": 1,
+"scene": ""
+}
+},
+"scale": 1.0
+}

@@ -3,7 +3,7 @@ class_name PlayerState
 
 @onready var chara: CharacterBody2D = self.owner
 @onready var sprite: AnimatedSprite2D = chara.get_node('Sprite')
-@onready var hitbox: CollisionShape2D = chara.get_node('Hitbox')
+@onready var ledgebox: CollisionShape2D = chara.get_node('Ledgebox')
 @onready var bullet : PackedScene = load('res://player/scenes/bullet.tscn')
 
 @onready var DASH_CD: Timer = chara.get_node('DashCD')
@@ -29,13 +29,19 @@ class_name PlayerState
 @export var MAX_HORIZONTAL_SPEED = 300
 
 # player_jump
-@export var JUMP_SPEED = 1200
+@export var JUMP_SPEED = 750
 @export var MIN_JUMP_HEIGHT = 150
 var starting_height: float
 var can_push_off: bool = false
 var release_early: bool
 var printed: bool
 
+# checkpoint
+@onready var last_checkpoint = self.owner.position
+
+# player_hurt
+@export var maximumHealth: int = 3
+@onready var currentHealth: int = maximumHealth
 
 # general, used by all states
 static var last_input: String = ''
@@ -107,18 +113,22 @@ func continue_shooting() -> void:
 		shoot()
 	
 func shoot() -> void:
-	var bullet_object = bullet.instantiate()
-	bullet_object.global_position = chara.global_position
-	var target = chara.get_global_mouse_position()
-	
-	var relative_position = (target.x - bullet_object.global_position.x)
-	var sprite_orientation = -1 if relative_position < 0 else 1
-	sprite.flip_h = true if relative_position < 0 else false
-	bullet_object.global_position +=  Vector2(sprite_orientation*40, -40) #biar muncul dari tangan
-	
-	var direction = bullet_object.global_position.direction_to(target).normalized()
-	bullet_object.set_direction(direction)
-	get_tree().root.add_child(bullet_object)
+	#var bullet_object = bullet.instantiate()
+	#bullet_object.global_position = chara.global_position
+	#var target = chara.get_global_mouse_position()
+	#
+	#var relative_position = (target.x - bullet_object.global_position.x)
+	#var sprite_orientation = -1 if relative_position < 0 else 1
+	#sprite.flip_h = true if relative_position < 0 else false
+	#bullet_object.global_position +=  Vector2(sprite_orientation*40, -40) #biar muncul dari tangan
+	#
+	#var direction = bullet_object.global_position.direction_to(target).normalized()
+	#bullet_object.set_direction(direction)
+	#get_tree().root.add_child(bullet_object)
+	pass
+
+func set_checkpoint_position(pos: Vector2):
+	last_checkpoint = pos
 
 func _on_shoot_duration_timeout():
 	is_shooting = false
@@ -138,3 +148,4 @@ func _on_dash_cd_timeout():
 
 func _on_double_tap_timer_timeout():
 	PlayerState.last_input = ''
+

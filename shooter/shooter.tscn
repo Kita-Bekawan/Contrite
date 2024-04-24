@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://du3w6se4y2ofr"]
+
+[ext_resource type="Script" path="res://shooter/shooter.gd" id="1_xecyk"]
+
+[node name="Shooter" type="Node2D"]
+script = ExtResource("1_xecyk")
+speed = 200.0
+shoot_delay = 1.0
+
+[node name="Sound" type="AudioStreamPlayer2D" parent="."]
+
+[node name="ShootTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

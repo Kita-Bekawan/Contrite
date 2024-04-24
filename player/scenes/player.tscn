@@ -11,17 +11,15 @@
 [ext_resource type="Texture2D" uid="uid://t475kxy3yaaj" path="res://player/sprites/model/kenney_platformercharacters/PNG/Adventurer/Poses/adventurer_walk2.png" id="9_kyuc0"]
 [ext_resource type="Script" path="res://state_machine/state_machine.gd" id="9_ucqyb"]
 [ext_resource type="Script" path="res://player/scripts/player_idle.gd" id="10_ahiiq"]
-[ext_resource type="Texture2D" uid="uid://314xw5wowtt4" path="res://player/sprites/ui/circle_transparent.png" id="10_wgek1"]
 [ext_resource type="Script" path="res://player/scripts/player_walk.gd" id="11_0xrpy"]
 [ext_resource type="Script" path="res://player/scripts/player_state.gd" id="11_cxq27"]
-[ext_resource type="Texture2D" uid="uid://cgal3182gjlhb" path="res://player/sprites/ui/circle_filled.png" id="11_uyn3e"]
-[ext_resource type="Script" path="res://player/scripts/DashCDProgress.gd" id="12_8pkri"]
 [ext_resource type="Script" path="res://player/scripts/player_jump.gd" id="12_vnjao"]
 [ext_resource type="Script" path="res://player/scripts/player_fall.gd" id="13_s6tp6"]
-[ext_resource type="Script" path="res://player/scripts/ShootCDProgress.gd" id="13_sg0y8"]
 [ext_resource type="Script" path="res://player/scripts/player_dash.gd" id="14_b05cy"]
 [ext_resource type="Script" path="res://player/scripts/player_crouch.gd" id="15_rc3xp"]
 [ext_resource type="Script" path="res://player/scripts/player_shoot.gd" id="18_ph725"]
+[ext_resource type="PackedScene" uid="uid://du3w6se4y2ofr" path="res://shooter/shooter.tscn" id="20_fcchc"]
+[ext_resource type="Script" path="res://player/scripts/player_hurt.gd" id="23_jsqvn"]
 [ext_resource type="AudioStream" uid="uid://bav78rkr8j8" path="res://audio/Dirt-20240322T042502Z-001/Dirt/Steps_dirt-001.ogg" id="23_wvscm"]
 [ext_resource type="AudioStream" uid="uid://np7iis2q3wjc" path="res://audio/jump-sfx.mp3" id="24_g2m2w"]
 [ext_resource type="AudioStream" uid="uid://bjsrvtjp2m2of" path="res://audio/jump-landing.mp3" id="25_ium4o"]
@@ -91,116 +89,57 @@ animations = [{
 }],
 "loop": true,
 "name": &"walk",
-"speed": 5.0
+"speed": 8.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iu3rx"]
 size = Vector2(37, 74)
 
-[node name="Player" type="CharacterBody2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6kc84"]
+size = Vector2(51, 97)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ii2oo"]
+radius = 19.0
+height = 76.0
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+collision_layer = 32
 script = ExtResource("1_y0msa")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
 position = Vector2(-1, -43)
 sprite_frames = SubResource("SpriteFrames_k5i7g")
-animation = &"walk"
+animation = &"idle"
 
-[node name="Camera" type="Camera2D" parent="."]
-position_smoothing_speed = 20.0
-
-[node name="DashCD" type="Node2D" parent="Camera"]
-position = Vector2(-505, 262)
-scale = Vector2(0.1, 0.1)
-
-[node name="ProgressName" type="Label" parent="Camera/DashCD"]
-offset_left = -460.0
-offset_top = -840.0
-offset_right = 427.0
-offset_bottom = -431.0
-theme_override_font_sizes/font_size = 255
-text = "Dash"
-horizontal_alignment = 1
-vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="ProgressBar" type="TextureProgressBar" parent="Camera/DashCD"]
-offset_left = -520.0
-offset_top = -520.0
-offset_right = 504.0
-offset_bottom = 504.0
-fill_mode = 4
-texture_under = ExtResource("10_wgek1")
-texture_progress = ExtResource("11_uyn3e")
-script = ExtResource("12_8pkri")
-metadata/_edit_use_anchors_ = true
-
-[node name="CooldownLabel" type="Label" parent="Camera/DashCD"]
-offset_left = -440.0
-offset_top = -260.0
-offset_right = 447.0
-offset_bottom = 149.0
-theme_override_font_sizes/font_size = 300
-text = "Ready"
-horizontal_alignment = 1
-vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="ShootCD" type="Node2D" parent="Camera"]
-position = Vector2(-398, 260)
-scale = Vector2(0.1, 0.1)
-
-[node name="ProgressName" type="Label" parent="Camera/ShootCD"]
-offset_left = -460.0
-offset_top = -840.0
-offset_right = 427.0
-offset_bottom = -431.0
-theme_override_font_sizes/font_size = 255
-text = "Shoot"
-horizontal_alignment = 1
-vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="ProgressBar" type="TextureProgressBar" parent="Camera/ShootCD"]
-offset_left = -520.0
-offset_top = -520.0
-offset_right = 504.0
-offset_bottom = 504.0
-fill_mode = 4
-texture_under = ExtResource("10_wgek1")
-texture_progress = ExtResource("11_uyn3e")
-script = ExtResource("13_sg0y8")
-metadata/_edit_use_anchors_ = true
-
-[node name="CooldownLabel" type="Label" parent="Camera/ShootCD"]
-offset_left = -440.0
-offset_top = -260.0
-offset_right = 447.0
-offset_bottom = 149.0
-theme_override_font_sizes/font_size = 300
-text = "Ready"
-horizontal_alignment = 1
-vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="Hitbox" type="CollisionShape2D" parent="."]
+[node name="Ledgebox" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, -26)
 shape = SubResource("RectangleShape2D_iu3rx")
 
-[node name="LeftInnerRayCast" type="RayCast2D" parent="Hitbox"]
+[node name="LeftInnerRayCast" type="RayCast2D" parent="Ledgebox"]
 position = Vector2(-7.5, -38)
 target_position = Vector2(0, -16)
 
-[node name="RightInnerRayCast" type="RayCast2D" parent="Hitbox"]
+[node name="RightInnerRayCast" type="RayCast2D" parent="Ledgebox"]
 position = Vector2(6.5, -38)
 target_position = Vector2(0, -16)
 
-[node name="LeftOuterRayCast" type="RayCast2D" parent="Hitbox"]
+[node name="LeftOuterRayCast" type="RayCast2D" parent="Ledgebox"]
 position = Vector2(-17.5, -38)
 target_position = Vector2(0, -16)
 
-[node name="RightOuterRayCast" type="RayCast2D" parent="Hitbox"]
+[node name="RightOuterRayCast" type="RayCast2D" parent="Ledgebox"]
 position = Vector2(17.5, -38)
 target_position = Vector2(0, -16)
+
+[node name="Hitbox" type="Area2D" parent="."]
+position = Vector2(0.5, -26)
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-1, -9.5)
+shape = SubResource("RectangleShape2D_6kc84")
 
 [node name="ShootCD" type="Timer" parent="."]
 wait_time = 1.5
@@ -253,6 +192,9 @@ script = ExtResource("15_rc3xp")
 [node name="PlayerShoot" type="Node" parent="StateMachine/PlayerState"]
 script = ExtResource("18_ph725")
 
+[node name="PlayerHurt" type="Node" parent="StateMachine/PlayerState"]
+script = ExtResource("23_jsqvn")
+
 [node name="Footsteps" type="AudioStreamPlayer2D" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("23_wvscm")
@@ -268,7 +210,19 @@ unique_name_in_owner = true
 stream = ExtResource("25_ium4o")
 bus = &"SFX"
 
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 20
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(-1, -29)
+shape = SubResource("CapsuleShape2D_ii2oo")
+
+[node name="Shooter" parent="." instance=ExtResource("20_fcchc")]
+
+[connection signal="area_entered" from="Hitbox" to="StateMachine/PlayerState/PlayerHurt" method="_on_hitbox_area_entered"]
 [connection signal="timeout" from="ShootDuration" to="StateMachine/PlayerState" method="_on_shoot_duration_timeout"]
 [connection signal="timeout" from="DashCD" to="StateMachine/PlayerState" method="_on_dash_cd_timeout"]
 [connection signal="timeout" from="DoubleTapTimer" to="StateMachine/PlayerState" method="_on_double_tap_timer_timeout"]
 [connection signal="timeout" from="InputBuffer" to="StateMachine/PlayerState" method="_on_input_buffer_timeout"]
+[connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]

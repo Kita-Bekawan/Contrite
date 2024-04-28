@@ -1,6 +1,12 @@
 extends PlayerState
 class_name PlayerWalk
 
+@onready var footsteps: AudioStreamPlayer2D = get_node("%Footsteps")
+var footsteps_play = false
+
+func ready():
+	footsteps.pitch_scale = randf_range(.8, 1.1)
+
 func enter():
 	if !is_shooting:
 		sprite.play('walk')
@@ -30,6 +36,15 @@ func transition_with_param(direction: float) -> void:
 	
 func move(_delta:float) -> float:
 	var direction = Input.get_axis("left", "right")
+	
+	if direction and chara.is_on_floor():
+		if !footsteps_play:
+			footsteps.play()
+			footsteps_play = true
+	else:
+		footsteps.stop()
+		footsteps_play = false
+		
 	if direction:
 		chara.velocity.x = (direction / abs(direction))*INIT_HORIZONTAL_SPEED \
 							if chara.velocity.x/direction < 0 else chara.velocity.x #selalu 40 ... 250

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://csagyflw08qdr"
+path="res://.godot/imported/Modern13.mp3-33fac41743fb5dc2eb2c318f90cc7dd3.mp3str"
+
+[deps]
+
+source_file="res://audio/UI Soundpack/UI Soundpack/MP3/Modern13.mp3"
+dest_files=["res://.godot/imported/Modern13.mp3-33fac41743fb5dc2eb2c318f90cc7dd3.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

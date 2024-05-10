@@ -2,36 +2,37 @@ extends PlayerWalk
 class_name PlayerFall
 
 
-@export var GRAVITY = 2500
-
 func enter():
-	super.enter()
-	sprite.play('fall')
+	super() #biar inherit attribute nya
+	if !is_shooting:
+		sprite.play('fall')
 	
 func physics_update(_delta: float) -> void:
 	var direction = fall(_delta)
+	continue_shooting()
 	orientate(direction)
-		
-	if chara.is_on_floor():
-		if last_input and !INPUT_BUFFER.is_stopped():
-			state_transition_signal.emit(self, last_input)
-		else:
-			if Input.get_axis('left', 'right'):
-				state_transition_signal.emit(self, 'PlayerWalk')
-			else:
-				state_transition_signal.emit(self, 'PlayerIdle')
-	else:
-		if !COYOTE_TIMER.is_stopped() and Input.is_action_just_pressed('jump'):
+	input_handler(false, true)
+	transition_with_param(direction)
+
+func transition_with_param(direction: float) -> void:
+	if !chara.is_on_floor():
+		if !COYOTE_TIMER.is_stopped() and Input.is_action_pressed('jump'):
+			COYOTE_TIMER.stop()
 			state_transition_signal.emit(self, 'PlayerJump')
-	
-	if Input.is_action_just_pressed('shoot') and SHOOT_CD.is_stopped():
-		state_transition_signal.emit(self, 'PLayerShoot')
-	if Input.is_action_just_pressed('dash') and DASH_CD.is_stopped():
-		state_transition_signal.emit(self, 'PlayerDash')
-	
-	if Input.is_action_just_pressed('jump'):
-		last_input = 'PlayerJump'
-		INPUT_BUFFER.start()
+		elif check_dash():
+			state_transition_signal.emit(self, 'PlayerDash')
+		elif Input.is_action_just_pressed("shoot") and SHOOT_CD.is_stopped():
+			state_transition_signal.emit(self, 'PLayerShoot')
+	else : 
+		
+		if PlayerState.queued_action == 'PlayerJump':
+			consume_queue(queued_action)
+		elif Input.is_action_just_pressed('crouch'):
+			state_transition_signal.emit(self, 'PlayerCrouch')
+		elif direction:
+			state_transition_signal.emit(self, 'PlayerWalk')
+		elif !direction:
+			state_transition_signal.emit(self, 'PlayerIdle')
 
 func fall(_delta: float) -> float:
 	var direction = move(_delta)

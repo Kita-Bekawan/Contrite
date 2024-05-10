@@ -1,36 +1,50 @@
-extends State
+extends PlayerState
 class_name PlayerWalk
 
-@export var ACCELERATION = 600
-@export var DECELERATION = 2000
-@export var INIT_HORIZONTAL_SPEED = 40
-@export var MAX_HORIZONTAL_SPEED = 300
+@onready var footsteps: AudioStreamPlayer2D = get_node("%Footsteps")
+var footsteps_play = false
+
+func ready():
+	footsteps.pitch_scale = randf_range(.8, 1.1)
 
 func enter():
-	super.enter()
-	sprite.play('walk')
+	if !is_shooting:
+		sprite.play('walk')
 	
 func physics_update(_delta: float) -> void:
 	var direction = move(_delta)
+	continue_shooting()
 	orientate(direction)
-
-	if !direction and chara.velocity.x == 0:
-		state_transition_signal.emit(self, 'PlayerIdle')
-	else:
-		if !chara.is_on_floor():
-			COYOTE_TIMER.start()
-			state_transition_signal.emit(self, 'PlayerFall')
-		if Input.is_action_just_pressed('dash') and DASH_CD.is_stopped():
-			state_transition_signal.emit(self, 'PlayerDash')
-		if Input.is_action_just_pressed("shoot") and SHOOT_CD.is_stopped():
-			state_transition_signal.emit(self, 'PLayerShoot')
+	input_handler()
+	transition_with_param(direction)
+	
+func transition_with_param(direction: float) -> void:
+	if !chara.is_on_floor():
+		COYOTE_TIMER.start()
+		state_transition_signal.emit(self, 'PlayerFall')
+	else : 
 		if Input.is_action_just_pressed('jump'):
 			state_transition_signal.emit(self, 'PlayerJump')
-		if Input.is_action_just_pressed('crouch'):
+		elif Input.is_action_pressed('crouch'):
 			state_transition_signal.emit(self, 'PlayerCrouch')
-
+		elif check_dash():
+			state_transition_signal.emit(self, 'PlayerDash')
+		elif Input.is_action_just_pressed("shoot") and SHOOT_CD.is_stopped():
+			state_transition_signal.emit(self, 'PLayerShoot')
+		elif !direction:
+			state_transition_signal.emit(self, 'PlayerIdle')
+	
 func move(_delta:float) -> float:
 	var direction = Input.get_axis("left", "right")
+	
+	if direction and chara.is_on_floor():
+		if !footsteps_play:
+			footsteps.play()
+			footsteps_play = true
+	else:
+		footsteps.stop()
+		footsteps_play = false
+		
 	if direction:
 		chara.velocity.x = (direction / abs(direction))*INIT_HORIZONTAL_SPEED \
 							if chara.velocity.x/direction < 0 else chara.velocity.x #selalu 40 ... 250
@@ -42,8 +56,9 @@ func move(_delta:float) -> float:
 	return direction
 	
 func orientate(direction: float) -> void:
-	if direction < 0:
-		sprite.flip_h = true
-	elif direction > 0:
-		sprite.flip_h = false
+	if !is_shooting:
+		if direction < 0:
+			sprite.flip_h = true
+		elif direction > 0:
+			sprite.flip_h = false
 	

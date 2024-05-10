@@ -1,0 +1,10 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://cvijpqqjc5egn"]
+
+[ext_resource type="FontFile" uid="uid://c33d75cmlmutm" path="res://dialogue/Silver.ttf" id="1_qovkt"]
+
+[resource]
+font = ExtResource("1_qovkt")
+font_size = 48
+outline_size = 2
+outline_color = Color(0.0901961, 0.0901961, 0.0901961, 1)
+shadow_color = Color(0.298039, 0.686275, 0.705882, 0.670588)

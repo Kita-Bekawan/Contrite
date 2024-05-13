@@ -175,6 +175,7 @@ shape = SubResource("RectangleShape2D_8abif")
 [node name="HUD" parent="CanvasLayer" instance=ExtResource("13_owhui")]
 
 [node name="Checkpoint" parent="." instance=ExtResource("14_fn4vg")]
+visible = false
 position = Vector2(548, -281)
 scale = Vector2(0.8, 0.8)
 

@@ -1391,6 +1391,10 @@ size = Vector2(128, 90)
 offset = Vector2(320, -180)
 script = ExtResource("1_8m1co")
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="CanvasLayer" instance=ExtResource("29_674gc")]
+
 [node name="Shop" type="AnimatedSprite2D" parent="."]
 position = Vector2(1430, -192)
 scale = Vector2(2, 2)
@@ -1462,7 +1466,6 @@ layer_0/tile_data = PackedInt32Array(-196608, 65536, 2, -131072, 65536, 2, -2621
 
 [node name="Druid" parent="." instance=ExtResource("9_nay3f")]
 position = Vector2(1772, -110)
-dialogName = "luhur"
 
 [node name="Druid" type="AnimatedSprite2D" parent="Druid"]
 position = Vector2(23, 14)
@@ -1474,7 +1477,6 @@ frame_progress = 0.0988008
 
 [node name="Mother" parent="." instance=ExtResource("9_nay3f")]
 position = Vector2(3557, -147)
-dialogName = "saraswati"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Mother"]
 position = Vector2(35, 18)
@@ -1514,10 +1516,6 @@ shape = SubResource("RectangleShape2D_pfs5r")
 [node name="Snail" parent="." instance=ExtResource("14_f6wyv")]
 position = Vector2(2477, -146)
 scale = Vector2(1.5, 1.5)
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="HUD" parent="CanvasLayer" instance=ExtResource("29_674gc")]
 
 [node name="Checkpoint" parent="." instance=ExtResource("1_itdqw")]
 visible = false

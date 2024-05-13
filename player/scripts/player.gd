@@ -12,6 +12,7 @@ class_name Player
 var _invincible: bool = false
 var _lives: int = 5
 var _active: bool = false
+var _interactWith: String = ""
 
 @onready var playerState: Node = $StateMachine/PlayerState
 
@@ -93,6 +94,7 @@ func _on_hit_box_area_entered(area):
 		return
 	elif area.is_in_group("interactable"):
 		_active = true
+		_interactWith = area.get_name()
 		return
 	apply_hit()
 

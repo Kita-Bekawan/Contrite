@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://ca63d6p4vi4v4"]
+
+[ext_resource type="Texture2D" uid="uid://ci25mpgfyqdce" path="res://level/sprites/particles/LeafPink.png" id="1_ivqkm"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_esjjp"]
+particles_animation = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_igshp"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(2000, 100, 1)
+angle_max = 180.0
+spread = 180.0
+angular_velocity_min = 55.38
+angular_velocity_max = 188.31
+radial_velocity_min = -109.54
+gravity = Vector3(0, 35, 0)
+scale_min = 2.0
+scale_max = 2.0
+
+[node name="LeafParticles" type="GPUParticles2D"]
+material = SubResource("CanvasItemMaterial_esjjp")
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_igshp")
+texture = ExtResource("1_ivqkm")
+lifetime = 6.0

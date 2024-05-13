@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Contrite"
-run/main_scene="res://level/scenes/level_4.tscn"
+run/main_scene="res://menu/scenes/start_menu.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -23,8 +23,8 @@ GameManager="*res://singletons/game_manager.gd"
 SceneManager="*res://singletons/scene_manager.gd"
 ObjectMaker="*res://singletons/object_maker.gd"
 SoundManager="*res://singletons/sound_manager.gd"
-Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 BGMManager="*res://singletons/bgm_manager.gd"
+Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 
 [dialogic]
 

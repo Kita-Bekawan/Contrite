@@ -11,6 +11,8 @@ class_name Player
 
 var _invincible: bool = false
 var _lives: int = 5
+var _active: bool = false
+var _interactWith: String = ""
 
 @onready var playerState: Node = $StateMachine/PlayerState
 
@@ -43,13 +45,13 @@ func _input(event: InputEvent):
 	if Dialogic.current_timeline != null:
 		return
 
-	if event is InputEventKey and event.keycode == KEY_E and event.pressed:
-		Dialogic.start('luhur')
-		get_viewport().set_input_as_handled()
+	#if event is InputEventKey and event.keycode == KEY_E and event.pressed:
+		#Dialogic.start('luhur')
+		#get_viewport().set_input_as_handled()
 		
-	if event is InputEventKey and event.keycode == KEY_T and event.pressed:
-		Dialogic.start('saraswati')
-		get_viewport().set_input_as_handled()
+	#if event is InputEventKey and event.keycode == KEY_T and event.pressed:
+		#Dialogic.start('saraswati')
+		#get_viewport().set_input_as_handled()
 
 func go_invincible() -> void:
 	_invincible = true
@@ -90,7 +92,15 @@ func _on_hit_box_area_entered(area):
 			return
 		position = playerState.last_checkpoint
 		return
+	elif area.is_in_group("interactable"):
+		_active = true
+		_interactWith = area.get_name()
+		return
 	apply_hit()
+
+func _on_hitbox_area_exited(area):
+	if area.is_in_group("interactable"):
+		_active = false
 
 func _on_invincible_timer_timeout():
 	_invincible = false
@@ -100,3 +110,5 @@ func _on_invincible_timer_timeout():
 
 func _on_fountain_area_entered(area):
 	pass # Replace with function body.
+
+

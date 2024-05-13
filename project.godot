@@ -24,6 +24,7 @@ SceneManager="*res://singletons/scene_manager.gd"
 ObjectMaker="*res://singletons/object_maker.gd"
 SoundManager="*res://singletons/sound_manager.gd"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
+BGMManager="*res://singletons/bgm_manager.gd"
 
 [dialogic]
 
@@ -34,7 +35,8 @@ directories/dch_directory={
 }
 directories/dtl_directory={
 "luhur": "res://dialogue/luhur.dtl",
-"saraswati": "res://dialogue/saraswati.dtl"
+"saraswati": "res://dialogue/saraswati.dtl",
+"shop": "res://dialogue/shop.dtl"
 }
 layout/style_list=["res://dialogue/styles.tres"]
 layout/default_style="res://dialogue/styles.tres"

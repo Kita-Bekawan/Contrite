@@ -425,4 +425,5 @@ one_shot = true
 [connection signal="timeout" from="DoubleTapTimer" to="StateMachine/PlayerState" method="_on_double_tap_timer_timeout"]
 [connection signal="timeout" from="InputBuffer" to="StateMachine/PlayerState" method="_on_input_buffer_timeout"]
 [connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
+[connection signal="area_exited" from="HitBox" to="." method="_on_hitbox_area_exited"]
 [connection signal="timeout" from="InvincibleTimer" to="." method="_on_invincible_timer_timeout"]

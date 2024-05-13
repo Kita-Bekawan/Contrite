@@ -96,5 +96,21 @@ position = Vector2(960, -180)
 scale = Vector2(2, 2)
 texture = ExtResource("6_iyk8q")
 
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -96.5
+offset_top = 43.0
+offset_right = 102.5
+offset_bottom = 132.0
+grow_horizontal = 2
+theme_override_colors/default_color = Color(0.721569, 0.756863, 0, 1)
+theme_override_fonts/normal_font = ExtResource("4_btf03")
+theme_override_font_sizes/normal_font_size = 80
+theme_override_font_sizes/bold_font_size = 80
+text = "CONTRITE"
+
 [connection signal="pressed" from="MarginContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

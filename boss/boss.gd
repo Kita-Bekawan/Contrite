@@ -31,6 +31,7 @@ func reduce_lives() -> void:
 	print("reduce_lives:", lives)
 	if lives <= 0:
 		SignalManager.on_boss_killed.emit(points)
+		BGMManager.fade_out()
 		print("dead")
 		set_process(false)
 		queue_free()
@@ -57,6 +58,10 @@ func _on_trigger_area_entered(area):
 		animation_tree[TRIGGER_CONDITION] = true
 		_has_triggered = true
 		hit_box.collision_layer = 4
-
+	if !BGMManager.isPlaying:
+		BGMManager.bgm = preload("res://audio/Battle on horizon.mp3")
+		BGMManager.bgm_player.stream = BGMManager.bgm
+		BGMManager.bgm_player.volume_db = -12.5
+		BGMManager.play_bgm()
 func _on_hit_box_area_entered(area):
 	take_damage()

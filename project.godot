@@ -24,6 +24,7 @@ SceneManager="*res://singletons/scene_manager.gd"
 ObjectMaker="*res://singletons/object_maker.gd"
 SoundManager="*res://singletons/sound_manager.gd"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
+BGMManager="*res://singletons/bgm_manager.gd"
 
 [dialogic]
 

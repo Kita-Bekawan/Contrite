@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dclrloitte312"
+path="res://.godot/imported/Modern16.ogg-ea8dc30d85a18fa70810706afba00116.oggvorbisstr"
+
+[deps]
+
+source_file="res://audio/UI Soundpack/UI Soundpack/OGG/Modern16.ogg"
+dest_files=["res://.godot/imported/Modern16.ogg-ea8dc30d85a18fa70810706afba00116.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

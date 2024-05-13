@@ -1,4 +1,11 @@
-[gd_scene format=3 uid="uid://d1i7vcyac2uf"]
+[gd_scene load_steps=7 format=3 uid="uid://bugakay3ybahb"]
+
+[ext_resource type="Script" path="res://menu/scripts/start_menu.gd" id="1_3dgka"]
+[ext_resource type="AudioStream" uid="uid://cvxgdysmmmp5e" path="res://menu/assets/Wood Block1.wav" id="2_3sb26"]
+[ext_resource type="AudioStream" uid="uid://cvf57qfurmy54" path="res://menu/assets/Y2meta.app - Different Heaven - Safe And Sound _ House _ NCS - Copyright Free Music (128 kbps).mp3" id="3_5mica"]
+[ext_resource type="FontFile" uid="uid://c33d75cmlmutm" path="res://dialogue/Silver.ttf" id="4_btf03"]
+[ext_resource type="Texture2D" uid="uid://clwfttcclwuje" path="res://level/sprites/background/background_layer_1.png" id="5_c8oi8"]
+[ext_resource type="Texture2D" uid="uid://cfs7v4sf5v2gp" path="res://level/sprites/background/background_layer_3.png" id="6_iyk8q"]
 
 [node name="StartMenu" type="Control"]
 layout_mode = 3
@@ -7,3 +14,103 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_3dgka")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ButtonPressedSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_3sb26")
+
+[node name="BGM" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_5mica")
+autoplay = true
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -62.5
+offset_top = -26.5
+offset_right = 62.5
+offset_bottom = 26.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_direction = 2
+layout_mode = 2
+alignment = 1
+
+[node name="PlayButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_btf03")
+theme_override_font_sizes/font_size = 25
+text = "Play Game"
+
+[node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_btf03")
+theme_override_font_sizes/font_size = 25
+text = "Quit Game"
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+offset = Vector2(0, 360)
+transform = Transform2D(1, 0, 0, 1, 0, 360)
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(640, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+self_modulate = Color(0.359069, 0.359069, 0.359069, 1)
+position = Vector2(320, -180)
+scale = Vector2(2, 2)
+texture = ExtResource("5_c8oi8")
+
+[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+self_modulate = Color(0.360784, 0.360784, 0.360784, 1)
+position = Vector2(960, -180)
+scale = Vector2(2, 2)
+texture = ExtResource("5_c8oi8")
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(640, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3"]
+self_modulate = Color(0.22812, 0.24, 0.2184, 1)
+position = Vector2(320, -180)
+scale = Vector2(2, 2)
+texture = ExtResource("6_iyk8q")
+
+[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3"]
+self_modulate = Color(0.227451, 0.239216, 0.219608, 1)
+position = Vector2(960, -180)
+scale = Vector2(2, 2)
+texture = ExtResource("6_iyk8q")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -96.5
+offset_top = 43.0
+offset_right = 102.5
+offset_bottom = 132.0
+grow_horizontal = 2
+theme_override_colors/default_color = Color(0.721569, 0.756863, 0, 1)
+theme_override_fonts/normal_font = ExtResource("4_btf03")
+theme_override_font_sizes/normal_font_size = 80
+theme_override_font_sizes/bold_font_size = 80
+text = "CONTRITE"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

@@ -1,0 +1,122 @@
+[gd_scene load_steps=12 format=3 uid="uid://bs2u1yne7fs6n"]
+
+[ext_resource type="Script" path="res://addons/dialogic/Modules/Character/node_portrait_container.gd" id="1_4jxq7"]
+[ext_resource type="Script" path="res://dialogue/TextboxWithPortrait/speaker_portrait_textbox_layer.gd" id="1_7jt4d"]
+[ext_resource type="Script" path="res://addons/dialogic/Modules/Text/node_name_label.gd" id="2_y0h34"]
+[ext_resource type="Script" path="res://addons/dialogic/Modules/Text/node_dialog_text.gd" id="3_11puy"]
+[ext_resource type="Script" path="res://addons/dialogic/Modules/Text/node_type_sound.gd" id="5_77c4j"]
+[ext_resource type="AudioStream" uid="uid://b6c1p14bc20p1" path="res://addons/dialogic/Example Assets/sound-effects/typing1.wav" id="6_f56e7"]
+[ext_resource type="AudioStream" uid="uid://c3uw4nft0de13" path="res://addons/dialogic/Example Assets/sound-effects/typing2.wav" id="7_x0850"]
+[ext_resource type="AudioStream" uid="uid://dnboblpkf0fqi" path="res://addons/dialogic/Example Assets/sound-effects/typing3.wav" id="8_62x0b"]
+[ext_resource type="AudioStream" uid="uid://c2viukvbub6v6" path="res://addons/dialogic/Example Assets/sound-effects/typing4.wav" id="9_kvash"]
+[ext_resource type="AudioStream" uid="uid://dwcre3fjf3cj8" path="res://addons/dialogic/Example Assets/sound-effects/typing5.wav" id="10_m1aig"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dmg1w"]
+bg_color = Color(0.254902, 0.254902, 0.254902, 1)
+skew = Vector2(0.073, 0)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[node name="TextboxWithSpeakerPortrait" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7jt4d")
+box_panel = "res://dialogue/TextboxWithPortrait/default_stylebox.tres"
+
+[node name="Anchor" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.8, 0.8)
+
+[node name="Panel" type="PanelContainer" parent="Anchor"]
+unique_name_in_owner = true
+self_modulate = Color(0.533333, 0.376471, 0.176471, 1)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = -150.0
+offset_right = 250.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HBox" type="HBoxContainer" parent="Anchor/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="PortraitPanel" type="Panel" parent="Anchor/Panel/HBox"]
+unique_name_in_owner = true
+clip_children = 1
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
+theme_override_styles/panel = SubResource("StyleBoxFlat_dmg1w")
+
+[node name="PortraitBackgroundColor" type="ColorRect" parent="Anchor/Panel/HBox/PortraitPanel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -7.0
+offset_top = -3.0
+offset_right = 7.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.231373)
+
+[node name="DialogicNode_PortraitContainer" type="Control" parent="Anchor/Panel/HBox/PortraitPanel/PortraitBackgroundColor"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4jxq7")
+mode = 1
+debug_character_portrait = "speaker"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Anchor/Panel/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="DialogicNode_NameLabel" type="Label" parent="Anchor/Panel/HBox/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Name"
+script = ExtResource("2_y0h34")
+
+[node name="DialogicNode_DialogText" type="RichTextLabel" parent="Anchor/Panel/HBox/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/normal_font_size = 6
+bbcode_enabled = true
+text = "Some text"
+scroll_following = true
+script = ExtResource("3_11puy")
+
+[node name="DialogicNode_TypeSounds" type="AudioStreamPlayer" parent="Anchor/Panel/HBox/VBoxContainer/DialogicNode_DialogText"]
+script = ExtResource("5_77c4j")
+sounds = Array[AudioStream]([ExtResource("6_f56e7"), ExtResource("7_x0850"), ExtResource("8_62x0b"), ExtResource("9_kvash"), ExtResource("10_m1aig")])
+end_sound = ExtResource("10_m1aig")

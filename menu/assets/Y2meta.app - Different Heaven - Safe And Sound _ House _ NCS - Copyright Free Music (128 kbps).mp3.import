@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cvf57qfurmy54"
+path="res://.godot/imported/Y2meta.app - Different Heaven - Safe And Sound _ House _ NCS - Copyright Free Music (128 kbps).mp3-f5e246efc61368c40da916452b6cc8b7.mp3str"
+
+[deps]
+
+source_file="res://menu/assets/Y2meta.app - Different Heaven - Safe And Sound _ House _ NCS - Copyright Free Music (128 kbps).mp3"
+dest_files=["res://.godot/imported/Y2meta.app - Different Heaven - Safe And Sound _ House _ NCS - Copyright Free Music (128 kbps).mp3-f5e246efc61368c40da916452b6cc8b7.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

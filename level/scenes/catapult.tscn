@@ -1,19 +1,18 @@
 [gd_scene load_steps=4 format=3 uid="uid://dpar2g8estbi2"]
 
 [ext_resource type="Script" path="res://level/scripts/catapult.gd" id="1_361k8"]
-[ext_resource type="Texture2D" uid="uid://bholdc2h6cpvy" path="res://player/sprites/pngwing.com.png" id="2_bvtqf"]
+[ext_resource type="Texture2D" uid="uid://bpsdnmsoybviq" path="res://level/sprites/catapult.png" id="2_iu5ru"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2jhfp"]
-size = Vector2(200, 200)
+size = Vector2(64, 64)
 
 [node name="Catapult" type="Area2D"]
 script = ExtResource("1_361k8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 1)
+scale = Vector2(2, 2)
 shape = SubResource("RectangleShape2D_2jhfp")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(1.5, -1)
-scale = Vector2(0.096875, 0.095)
-texture = ExtResource("2_bvtqf")
+scale = Vector2(2, 2)
+texture = ExtResource("2_iu5ru")

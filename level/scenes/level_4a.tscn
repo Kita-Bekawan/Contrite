@@ -313,8 +313,7 @@ shape = SubResource("RectangleShape2D_mpwf1")
 
 [node name="Catapult" parent="." instance=ExtResource("13_65hjf")]
 z_index = -1
-position = Vector2(-1478, -579)
-scale = Vector2(0.5, 0.5)
+position = Vector2(-1494, -592)
 collision_layer = 64
 collision_mask = 32
 

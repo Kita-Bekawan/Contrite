@@ -23,6 +23,24 @@ func _physics_process(delta):
 	if current_state:
 		current_state.physics_update(delta)
 
+func force_change_state(new_state_name: String) -> void:
+	var new_state = states.get(new_state_name.to_lower())
+	
+	if !new_state:
+		print(new_state_name + " does not exist in the dictionary of states")
+		return
+	
+	if current_state == new_state:
+		print("State is same, aborting")
+		return
+		
+	if current_state:
+		var exit_callable = Callable(current_state, "exit")
+		exit_callable.call_deferred()
+	
+	new_state.enter()
+	current_state = new_state
+
 func change_state(source_state: State, new_state_name: String) -> void:
 	if source_state != current_state:
 		print('Invalid state transition from: "' + source_state.name + '" to: ' + new_state_name)

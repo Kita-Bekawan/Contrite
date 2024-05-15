@@ -1,11 +1,133 @@
-[gd_scene load_steps=3 format=3 uid="uid://blggw2t3l0w5t"]
+[gd_scene load_steps=14 format=3 uid="uid://blggw2t3l0w5t"]
 
 [ext_resource type="PackedScene" uid="uid://cl7th2kiiijuw" path="res://bullets/bullet_base/bullet_base.tscn" id="1_4mhia"]
+[ext_resource type="Shader" path="res://shaders/bullet_flash.gdshader" id="2_654j5"]
 [ext_resource type="Texture2D" uid="uid://b7usdldd0mnm4" path="res://bullets/sprites/bullet2.png" id="2_au23u"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8va5e"]
+shader = ExtResource("2_654j5")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_modifier = 0.0
+
+[sub_resource type="Animation" id="Animation_kjssc"]
+resource_name = "normal"
+
+[sub_resource type="Animation" id="Animation_lfjyq"]
+resource_name = "explode"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/flash_modifier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0.0, 1.0, 0.0, 1.0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(1, 1), Vector2(1.5, 1.5)]
+}
+
+[sub_resource type="Animation" id="Animation_ghmco"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/flash_modifier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_inpp3"]
+_data = {
+"RESET": SubResource("Animation_ghmco"),
+"explode": SubResource("Animation_lfjyq"),
+"normal": SubResource("Animation_kjssc")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1lc0c"]
+animation = &"explode"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4tych"]
+animation = &"normal"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_j6ynf"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2f4er"]
+advance_mode = 2
+advance_condition = &"on_hit"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_w5k0f"]
+states/explode/node = SubResource("AnimationNodeAnimation_1lc0c")
+states/explode/position = Vector2(469, 99)
+states/normal/node = SubResource("AnimationNodeAnimation_4tych")
+states/normal/position = Vector2(307, 77)
+transitions = ["Start", "normal", SubResource("AnimationNodeStateMachineTransition_j6ynf"), "normal", "explode", SubResource("AnimationNodeStateMachineTransition_2f4er")]
 
 [node name="BulletEnemy" instance=ExtResource("1_4mhia")]
 collision_layer = 16
-collision_mask = 2
+collision_mask = 3
 
 [node name="Sprite2D" parent="." index="0"]
+material = SubResource("ShaderMaterial_8va5e")
 texture = ExtResource("2_au23u")
+
+[node name="AnimationTree" parent="." index="2"]
+libraries = {
+"": SubResource("AnimationLibrary_inpp3")
+}
+tree_root = SubResource("AnimationNodeStateMachine_w5k0f")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/on_hit = false
+
+[node name="AnimationPlayer" parent="." index="3"]
+libraries = {
+"": SubResource("AnimationLibrary_inpp3")
+}
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

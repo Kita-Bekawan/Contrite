@@ -1,9 +1,16 @@
-[gd_scene load_steps=12 format=3 uid="uid://b670mevdtjhqq"]
+[gd_scene load_steps=28 format=3 uid="uid://b670mevdtjhqq"]
 
 [ext_resource type="PackedScene" uid="uid://w5l2w5cwfvho" path="res://enemies/enemy_base/enemy_base.tscn" id="1_brkps"]
 [ext_resource type="Texture2D" uid="uid://pdymaemh76f8" path="res://enemies/spritesheets/Eagle/eagle-attack.png" id="2_8jrxb"]
 [ext_resource type="Script" path="res://enemies/eagle/eagle.gd" id="2_k4lcr"]
+[ext_resource type="Shader" path="res://shaders/enemy_flash.gdshader" id="3_m2fxf"]
 [ext_resource type="PackedScene" uid="uid://du3w6se4y2ofr" path="res://shooter/shooter.tscn" id="4_2wgis"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mwdck"]
+resource_local_to_scene = true
+shader = ExtResource("3_m2fxf")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_modifier = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kv76e"]
 atlas = ExtResource("2_8jrxb")
@@ -18,6 +25,22 @@ atlas = ExtResource("2_8jrxb")
 region = Rect2(80, 0, 40, 41)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ui7b1"]
+atlas = ExtResource("2_8jrxb")
+region = Rect2(120, 0, 40, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lofmd"]
+atlas = ExtResource("2_8jrxb")
+region = Rect2(0, 0, 40, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ybcx"]
+atlas = ExtResource("2_8jrxb")
+region = Rect2(40, 0, 40, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hh2t1"]
+atlas = ExtResource("2_8jrxb")
+region = Rect2(80, 0, 40, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vnnql"]
 atlas = ExtResource("2_8jrxb")
 region = Rect2(120, 0, 40, 41)
 
@@ -38,7 +61,24 @@ animations = [{
 }],
 "loop": true,
 "name": &"fly",
-"speed": 5.0
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lofmd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ybcx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hh2t1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vnnql")
+}],
+"loop": true,
+"name": &"hurt",
+"speed": 7.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yu70m"]
@@ -46,33 +86,196 @@ radius = 7.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ly100"]
 
-[node name="Eagle" instance=ExtResource("1_brkps")]
-collision_mask = 0
-script = ExtResource("2_k4lcr")
+[sub_resource type="Animation" id="Animation_01tu0"]
+resource_name = "RESET"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/flash_modifier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
-[node name="AnimatedSprite2D" parent="." index="1"]
-sprite_frames = SubResource("SpriteFrames_gceor")
+[sub_resource type="Animation" id="Animation_ihg3n"]
+length = 0.571429
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1429, 0.2857, 0.4286),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["fly"]
+}
+
+[sub_resource type="Animation" id="Animation_veuqx"]
+length = 0.5714
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1429, 0.2857, 0.4286),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 3, 2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["hurt"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:material:shader_parameter/flash_modifier")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1429),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0.0, 1.0]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.25),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [false],
+"method": &"set_invincible"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_w8eej"]
+_data = {
+"RESET": SubResource("Animation_01tu0"),
+"fly": SubResource("Animation_ihg3n"),
+"hurt": SubResource("Animation_veuqx")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_litfs"]
 animation = &"fly"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="2"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0drm2"]
+animation = &"hurt"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ypvx6"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tctnl"]
+advance_mode = 2
+advance_condition = &"on_hit"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qs87h"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_0e8i7"]
+states/End/position = Vector2(901, 100)
+states/Start/position = Vector2(194, 94)
+states/fly/node = SubResource("AnimationNodeAnimation_litfs")
+states/fly/position = Vector2(439, 76)
+states/hurt/node = SubResource("AnimationNodeAnimation_0drm2")
+states/hurt/position = Vector2(526, 193)
+transitions = ["Start", "fly", SubResource("AnimationNodeStateMachineTransition_ypvx6"), "fly", "hurt", SubResource("AnimationNodeStateMachineTransition_tctnl"), "hurt", "fly", SubResource("AnimationNodeStateMachineTransition_qs87h")]
+
+[node name="Eagle" instance=ExtResource("1_brkps")]
+modulate = Color(1, 0.768627, 1, 1)
+collision_mask = 0
+script = ExtResource("2_k4lcr")
+health_point = 3
+
+[node name="TerrainDetector" type="Node2D" parent="." index="0"]
+
+[node name="Left" type="RayCast2D" parent="TerrainDetector" index="0"]
+target_position = Vector2(-20, 0)
+
+[node name="Right" type="RayCast2D" parent="TerrainDetector" index="1"]
+target_position = Vector2(20, 0)
+
+[node name="Down" type="RayCast2D" parent="TerrainDetector" index="2"]
+target_position = Vector2(0, 20)
+
+[node name="Up" type="RayCast2D" parent="TerrainDetector" index="3"]
+target_position = Vector2(0, -20)
+
+[node name="AnimatedSprite2D" parent="." index="2"]
+material = SubResource("ShaderMaterial_mwdck")
+sprite_frames = SubResource("SpriteFrames_gceor")
+animation = &"fly"
+frame = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="3"]
 shape = SubResource("CircleShape2D_yu70m")
 
-[node name="PlayerDetector" type="RayCast2D" parent="." index="3"]
+[node name="PlayerDetector" type="RayCast2D" parent="." index="4"]
 target_position = Vector2(0, 300)
 collision_mask = 2
 collide_with_areas = true
 collide_with_bodies = false
 
-[node name="DirectionTimer" type="Timer" parent="." index="4"]
+[node name="DirectionTimer" type="Timer" parent="." index="5"]
 wait_time = 3.0
+
+[node name="ReorientingTimer" type="Timer" parent="." index="6"]
+one_shot = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" index="0"]
 shape = SubResource("CircleShape2D_ly100")
 
-[node name="Shooter" parent="." index="6" instance=ExtResource("4_2wgis")]
+[node name="Shooter" parent="." index="8" instance=ExtResource("4_2wgis")]
 speed = 80.0
 life_span = 20.0
 bullet_key = 1
 shoot_delay = 2.0
 
+[node name="AnimationPlayer" parent="." index="9"]
+libraries = {
+"": SubResource("AnimationLibrary_w8eej")
+}
+
+[node name="AnimationTree" parent="." index="10"]
+libraries = {
+"": SubResource("AnimationLibrary_w8eej")
+}
+tree_root = SubResource("AnimationNodeStateMachine_0e8i7")
+parameters/conditions/on_hit = false
+
 [connection signal="timeout" from="DirectionTimer" to="." method="_on_direction_timer_timeout"]
+[connection signal="timeout" from="ReorientingTimer" to="." method="_on_reorienting_timer_timeout"]

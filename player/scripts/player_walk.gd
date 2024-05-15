@@ -29,7 +29,7 @@ func transition_with_param(direction: float) -> void:
 			state_transition_signal.emit(self, 'PlayerCrouch')
 		elif check_dash():
 			state_transition_signal.emit(self, 'PlayerDash')
-		elif Input.is_action_just_pressed("shoot") and SHOOT_CD.is_stopped():
+		elif Input.is_action_pressed("shoot") and can_shoot:
 			state_transition_signal.emit(self, 'PLayerShoot')
 		elif !direction:
 			state_transition_signal.emit(self, 'PlayerIdle')

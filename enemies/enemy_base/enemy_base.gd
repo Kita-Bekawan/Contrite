@@ -12,7 +12,8 @@ const OFF_SCREEN_KILL_ME: float = 1000.0
 @export var health_point: int = 10
 
 @onready var animation_tree = $AnimationTree
-const HIT_CONDITION: String = "parameters/conditions/on_hit"
+const HURT_REQUEST: String = "parameters/HurtOneShot/request"
+const HURT_STATUS: String = "parameters/HurtOneShot/active"
 
 var _gravity: float = 800.0
 var _facing: FACING = default_facing
@@ -28,6 +29,7 @@ func _ready():
 func _physics_process(delta):
 	fallen_off()
 	check_die()
+	print(str(_invincible) + ' and ' + str(animation_tree[HURT_STATUS]))
 	
 func fallen_off() -> void:
 	if global_position.y > OFF_SCREEN_KILL_ME:
@@ -50,22 +52,23 @@ func die():
 	queue_free()		
 
 func hurt(damage: int):
-	health_point -= damage
-	set_invincible(true)
+	if !animation_tree[HURT_STATUS] and !_invincible:
+		health_point -= damage
+		set_invincible(true)
+		#activate invis animation
+		animation_tree[HURT_REQUEST] =\
+			AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
 
 func set_invincible(v: bool) -> void:
 	_invincible = v
-	animation_tree[HIT_CONDITION] = v
 
 func _on_visible_on_screen_notifier_2d_screen_entered():
 	pass # Replace with function body.
 
-
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	pass # Replace with function body.
 
-
 func _on_hit_box_area_entered(area):
-	if area.name == "BulletPlayer" and !_invincible:
+	if area.name == "BulletPlayer":
 		hurt(area.get_damage())
 	

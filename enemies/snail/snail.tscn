@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://btjuha38sw0qg"]
+[gd_scene load_steps=50 format=3 uid="uid://btjuha38sw0qg"]
 
 [ext_resource type="PackedScene" uid="uid://w5l2w5cwfvho" path="res://enemies/enemy_base/enemy_base.tscn" id="1_cj8x7"]
 [ext_resource type="Script" path="res://enemies/snail/snail.gd" id="2_vh2x7"]
@@ -246,39 +246,30 @@ size = Vector2(23, 17)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hppto"]
 
-[sub_resource type="Animation" id="Animation_l14pm"]
-length = 0.416667
+[sub_resource type="Animation" id="Animation_p0yh1"]
+length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/flash_modifier")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0833, 0.166667, 0.25, 0.333333),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:animation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": ["hurt"]
+"update": 0,
+"values": [0.0]
 }
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
+
+[sub_resource type="Animation" id="Animation_l14pm"]
+length = 0.45
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
 "times": PackedFloat32Array(0.4),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -286,17 +277,17 @@ tracks/2/keys = {
 "method": &"set_invincible"
 }]
 }
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("AnimatedSprite2D:material:shader_parameter/flash_modifier")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.0833),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 1.0]
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:material:shader_parameter/flash_modifier")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1.0, 0.0, 1.0, 0.0]
 }
 
 [sub_resource type="Animation" id="Animation_qjxsi"]
@@ -354,21 +345,6 @@ tracks/1/keys = {
 "values": ["walk"]
 }
 
-[sub_resource type="Animation" id="Animation_p0yh1"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/flash_modifier")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1srtj"]
 _data = {
 "RESET": SubResource("Animation_p0yh1"),
@@ -377,53 +353,36 @@ _data = {
 "walk": SubResource("Animation_8dcga")
 }
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_n5h6j"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_lmbi2"]
 animation = &"hurt"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5roui"]
-animation = &"idle"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_virgd"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kxcyw"]
 animation = &"walk"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nocrx"]
-advance_mode = 2
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_ipkgu"]
+mix_mode = 1
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jpdas"]
-advance_mode = 2
-advance_condition = &"is_visible"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lho8k"]
-advance_mode = 2
-advance_condition = &"on_hit"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xicop"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0w1w7"]
-switch_mode = 2
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_weqxu"]
-states/Start/position = Vector2(236, 71)
-states/hurt/node = SubResource("AnimationNodeAnimation_n5h6j")
-states/hurt/position = Vector2(621, 191)
-states/idle/node = SubResource("AnimationNodeAnimation_5roui")
-states/idle/position = Vector2(423, 77)
-states/walk/node = SubResource("AnimationNodeAnimation_virgd")
-states/walk/position = Vector2(455, 163)
-transitions = ["idle", "walk", SubResource("AnimationNodeStateMachineTransition_nocrx"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_jpdas"), "walk", "hurt", SubResource("AnimationNodeStateMachineTransition_lho8k"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_xicop"), "hurt", "walk", SubResource("AnimationNodeStateMachineTransition_0w1w7")]
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_kecaa"]
+graph_offset = Vector2(-187.369, 9.10072)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_kxcyw")
+nodes/Animation/position = Vector2(60, 40)
+"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_lmbi2")
+"nodes/Animation 2/position" = Vector2(200, 160)
+nodes/HurtOneShot/node = SubResource("AnimationNodeOneShot_ipkgu")
+nodes/HurtOneShot/position = Vector2(460, 40)
+nodes/output/position = Vector2(940, 140)
+node_connections = [&"HurtOneShot", 0, &"Animation", &"HurtOneShot", 1, &"Animation 2", &"output", 0, &"HurtOneShot"]
 
 [node name="Snail" instance=ExtResource("1_cj8x7")]
 script = ExtResource("2_vh2x7")
-health_point = 5
+health_point = 6
 
 [node name="AnimatedSprite2D" parent="." index="1"]
 self_modulate = Color(0.219608, 0.580392, 0.513726, 1)
 material = SubResource("ShaderMaterial_8133l")
 sprite_frames = SubResource("SpriteFrames_g3ga1")
 animation = &"walk"
-frame = 9
+frame = 4
 
 [node name="FloorDetection" type="RayCast2D" parent="." index="2"]
 position = Vector2(-15, 0)
@@ -449,6 +408,8 @@ next/idle = &"walk"
 libraries = {
 "": SubResource("AnimationLibrary_1srtj")
 }
-tree_root = SubResource("AnimationNodeStateMachine_weqxu")
-parameters/conditions/is_visible = false
-parameters/conditions/on_hit = false
+tree_root = SubResource("AnimationNodeBlendTree_kecaa")
+anim_player = NodePath("../AnimationPlayer")
+parameters/HurtOneShot/active = false
+parameters/HurtOneShot/internal_active = false
+parameters/HurtOneShot/request = 0

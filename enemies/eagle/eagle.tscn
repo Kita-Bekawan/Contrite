@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://b670mevdtjhqq"]
+[gd_scene load_steps=26 format=3 uid="uid://b670mevdtjhqq"]
 
 [ext_resource type="PackedScene" uid="uid://w5l2w5cwfvho" path="res://enemies/enemy_base/enemy_base.tscn" id="1_brkps"]
 [ext_resource type="Texture2D" uid="uid://pdymaemh76f8" path="res://enemies/spritesheets/Eagle/eagle-attack.png" id="2_8jrxb"]
@@ -130,51 +130,27 @@ tracks/1/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_veuqx"]
-length = 0.5714
+length = 0.45
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/flash_modifier")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1429, 0.2857, 0.4286),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 3, 2]
+"values": [1.0, 0.0, 1.0, 0.0]
 }
-tracks/1/type = "value"
+tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:animation")
+tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": ["hurt"]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("AnimatedSprite2D:material:shader_parameter/flash_modifier")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1429),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [0.0, 1.0]
-}
-tracks/3/type = "method"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath(".")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0.25),
+"times": PackedFloat32Array(0.4),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [false],
@@ -189,37 +165,31 @@ _data = {
 "hurt": SubResource("Animation_veuqx")
 }
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_litfs"]
-animation = &"fly"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0drm2"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jxjmu"]
 animation = &"hurt"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ypvx6"]
-advance_mode = 2
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_biv5i"]
+animation = &"fly"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tctnl"]
-advance_mode = 2
-advance_condition = &"on_hit"
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_pp42y"]
+mix_mode = 1
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qs87h"]
-switch_mode = 2
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_0e8i7"]
-states/End/position = Vector2(901, 100)
-states/Start/position = Vector2(194, 94)
-states/fly/node = SubResource("AnimationNodeAnimation_litfs")
-states/fly/position = Vector2(439, 76)
-states/hurt/node = SubResource("AnimationNodeAnimation_0drm2")
-states/hurt/position = Vector2(526, 193)
-transitions = ["Start", "fly", SubResource("AnimationNodeStateMachineTransition_ypvx6"), "fly", "hurt", SubResource("AnimationNodeStateMachineTransition_tctnl"), "hurt", "fly", SubResource("AnimationNodeStateMachineTransition_qs87h")]
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_r8k6s"]
+graph_offset = Vector2(-182.785, 51.9642)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_biv5i")
+nodes/Animation/position = Vector2(180, 60)
+"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_jxjmu")
+"nodes/Animation 2/position" = Vector2(180, 200)
+nodes/HurtOneShot/node = SubResource("AnimationNodeOneShot_pp42y")
+nodes/HurtOneShot/position = Vector2(380, 100)
+nodes/output/position = Vector2(680, 140)
+node_connections = [&"HurtOneShot", 0, &"Animation", &"HurtOneShot", 1, &"Animation 2", &"output", 0, &"HurtOneShot"]
 
 [node name="Eagle" instance=ExtResource("1_brkps")]
 modulate = Color(1, 0.768627, 1, 1)
 collision_mask = 0
 script = ExtResource("2_k4lcr")
-health_point = 3
+health_point = 4
 
 [node name="TerrainDetector" type="Node2D" parent="." index="0"]
 
@@ -239,7 +209,7 @@ target_position = Vector2(0, -20)
 material = SubResource("ShaderMaterial_mwdck")
 sprite_frames = SubResource("SpriteFrames_gceor")
 animation = &"fly"
-frame = 1
+frame = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="3"]
 shape = SubResource("CircleShape2D_yu70m")
@@ -274,8 +244,11 @@ libraries = {
 libraries = {
 "": SubResource("AnimationLibrary_w8eej")
 }
-tree_root = SubResource("AnimationNodeStateMachine_0e8i7")
-parameters/conditions/on_hit = false
+tree_root = SubResource("AnimationNodeBlendTree_r8k6s")
+anim_player = NodePath("../AnimationPlayer")
+parameters/HurtOneShot/active = false
+parameters/HurtOneShot/internal_active = false
+parameters/HurtOneShot/request = 0
 
 [connection signal="timeout" from="DirectionTimer" to="." method="_on_direction_timer_timeout"]
 [connection signal="timeout" from="ReorientingTimer" to="." method="_on_reorienting_timer_timeout"]

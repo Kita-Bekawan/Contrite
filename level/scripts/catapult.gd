@@ -42,5 +42,5 @@ func _input(event) -> void:
 		position_end = get_local_mouse_position()
 		if get_overlapping_bodies():
 			vector = -(position_end - position_start).limit_length(maximum_length)
+			queue_redraw()
 		
-		queue_redraw()

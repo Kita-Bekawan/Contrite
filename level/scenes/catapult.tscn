@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dpar2g8estbi2"]
+[gd_scene load_steps=6 format=3 uid="uid://dpar2g8estbi2"]
 
 [ext_resource type="Script" path="res://level/scripts/catapult.gd" id="1_361k8"]
 [ext_resource type="Texture2D" uid="uid://bpsdnmsoybviq" path="res://level/sprites/catapult.png" id="2_iu5ru"]
+[ext_resource type="AudioStream" uid="uid://c0vm07o3vt2y3" path="res://audio/slingshot-pull.wav" id="3_ug6ij"]
+[ext_resource type="AudioStream" uid="uid://vumr0jnhbesj" path="res://audio/slingshot-release.wav" id="4_rcx1w"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2jhfp"]
 size = Vector2(64, 64)
@@ -16,3 +18,11 @@ shape = SubResource("RectangleShape2D_2jhfp")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(2, 2)
 texture = ExtResource("2_iu5ru")
+
+[node name="SlingshotPull" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_ug6ij")
+volume_db = 12.0
+
+[node name="SlingshotRelease" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_rcx1w")
+volume_db = 10.0

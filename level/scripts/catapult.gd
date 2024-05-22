@@ -9,19 +9,11 @@ var position_start := Vector2.ZERO
 var position_end := Vector2.ZERO
 
 var vector := Vector2.ZERO
-var vector_adjustment := Vector2(200,200)
 
 
 func _draw() -> void:
-	draw_line((position_start - global_position - vector_adjustment), 
-		(position_end - global_position -  vector_adjustment), 
-		Color.BLUE, 
-		8)
-	
-	draw_line((position_start - global_position - vector_adjustment), 
-		(position_start - global_position + vector - vector_adjustment), 
-		Color.RED, 
-		16)
+	draw_line(position_start, position_end, Color.BURLYWOOD, 8)
+	draw_line(position_start, position_start + vector, Color.SADDLE_BROWN, 16)
 
 
 func _reset() -> void:
@@ -35,10 +27,11 @@ func _reset() -> void:
 func _input(event) -> void:
 	if event.is_action_pressed("ui_touch"):
 		touch_down = true
-		position_start = event.position
+		position_start = get_local_mouse_position()
 	
 	if event.is_action_released("ui_touch"):
 		touch_down = false
+		position_end = get_local_mouse_position()
 		emit_signal("vector_created", vector)
 		_reset()
 	
@@ -46,8 +39,8 @@ func _input(event) -> void:
 		return
 	
 	if event is InputEventMouseMotion:
-		position_end = event.position
+		position_end = get_local_mouse_position()
 		if get_overlapping_bodies():
 			vector = -(position_end - position_start).limit_length(maximum_length)
+			queue_redraw()
 		
-		queue_redraw()

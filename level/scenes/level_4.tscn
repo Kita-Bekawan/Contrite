@@ -1325,7 +1325,6 @@ texture = ExtResource("5_4quv7")
 
 [sub_resource type="TileSet" id="TileSet_3uf8l"]
 physics_layer_0/collision_layer = 1
-physics_layer_0/collision_mask = 0
 sources/0 = SubResource("TileSetAtlasSource_vtuqc")
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_pbbi7"]
@@ -1526,5 +1525,7 @@ position = Vector2(73, -230)
 [node name="AreaFall" parent="." instance=ExtResource("31_njmci")]
 position = Vector2(-131, 1)
 scale = Vector2(6.2, 1)
+collision_layer = 64
+collision_mask = 66
 
 [connection signal="body_entered" from="ChangingLevel" to="ChangingLevel" method="_on_body_entered"]

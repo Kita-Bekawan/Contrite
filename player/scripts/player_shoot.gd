@@ -6,6 +6,7 @@ func enter():
 	sprite.play('shoot')
 	shoot()
 	is_shooting = true
+	can_shoot = false
 	SHOOT_CD.start()
 	SHOOT_DURATION.start()
 
@@ -21,7 +22,7 @@ func transition() -> void:
 			state_transition_signal.emit(self, 'PlayerJump')
 		elif Input.is_action_pressed('crouch'):
 			state_transition_signal.emit(self, 'PlayerCrouch')
-		elif Input.is_action_pressed('dash') and DASH_CD.is_stopped():
+		elif check_dash():
 			state_transition_signal.emit(self, 'PlayerDash')
 		elif Input.get_axis('left', 'right') != 0:
 			state_transition_signal.emit(self, 'PlayerWalk')

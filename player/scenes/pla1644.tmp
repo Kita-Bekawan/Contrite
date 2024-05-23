@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://goesjr3wcc5e"]
+[gd_scene load_steps=51 format=3 uid="uid://goesjr3wcc5e"]
 
 [ext_resource type="Script" path="res://player/scripts/player.gd" id="1_y0msa"]
 [ext_resource type="Texture2D" uid="uid://wvieox7wpukk" path="res://player/sprites/Sprite-0001-Sheet.png" id="2_ak5bi"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://player/scripts/player_crouch.gd" id="15_rc3xp"]
 [ext_resource type="Script" path="res://player/scripts/player_shoot.gd" id="18_ph725"]
 [ext_resource type="PackedScene" uid="uid://du3w6se4y2ofr" path="res://shooter/shooter.tscn" id="20_fcchc"]
+[ext_resource type="Script" path="res://player/scripts/player_hurt.gd" id="23_jsqvn"]
 [ext_resource type="AudioStream" uid="uid://bav78rkr8j8" path="res://audio/Dirt-20240322T042502Z-001/Dirt/Steps_dirt-001.ogg" id="23_wvscm"]
 [ext_resource type="AudioStream" uid="uid://np7iis2q3wjc" path="res://audio/jump-sfx.mp3" id="24_g2m2w"]
 [ext_resource type="AudioStream" uid="uid://bjsrvtjp2m2of" path="res://audio/jump-landing.mp3" id="25_ium4o"]
@@ -253,6 +254,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iu3rx"]
 size = Vector2(26, 60)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6kc84"]
+size = Vector2(35.5874, 93.3959)
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ii2oo"]
 radius = 19.0
 height = 57.41
@@ -289,7 +293,7 @@ texture_filter = 1
 position = Vector2(0, -29)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_k5i7g")
-animation = &"idle"
+animation = &"shoot"
 
 [node name="Ledgebox" type="CollisionShape2D" parent="."]
 position = Vector2(0, -19)
@@ -310,6 +314,17 @@ target_position = Vector2(0, -16)
 [node name="RightOuterRayCast" type="RayCast2D" parent="Ledgebox"]
 position = Vector2(12.5, -31)
 target_position = Vector2(0, -16)
+
+[node name="Hitbox" type="Area2D" parent="."]
+position = Vector2(0, -20)
+scale = Vector2(0.820979, 0.712393)
+collision_layer = 2
+collision_mask = 68
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0.175493, 1.40372)
+scale = Vector2(0.880045, 0.906717)
+shape = SubResource("RectangleShape2D_6kc84")
 
 [node name="ShootCD" type="Timer" parent="."]
 wait_time = 0.5
@@ -366,6 +381,9 @@ script = ExtResource("15_rc3xp")
 [node name="PlayerShoot" type="Node" parent="StateMachine/PlayerState"]
 script = ExtResource("18_ph725")
 
+[node name="PlayerHurt" type="Node" parent="StateMachine/PlayerState"]
+script = ExtResource("23_jsqvn")
+
 [node name="SoundPlayer" type="AudioStreamPlayer2D" parent="."]
 
 [node name="Footsteps" type="AudioStreamPlayer2D" parent="."]
@@ -406,6 +424,7 @@ libraries = {
 wait_time = 3.0
 one_shot = true
 
+[connection signal="area_entered" from="Hitbox" to="StateMachine/PlayerState/PlayerHurt" method="_on_hitbox_area_entered"]
 [connection signal="timeout" from="ShootCD" to="StateMachine/PlayerState" method="_on_shoot_cd_timeout"]
 [connection signal="timeout" from="FireRate" to="StateMachine/PlayerState" method="_on_fire_rate_timeout"]
 [connection signal="timeout" from="ShootDuration" to="StateMachine/PlayerState" method="_on_shoot_duration_timeout"]

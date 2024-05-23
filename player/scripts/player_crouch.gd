@@ -25,10 +25,10 @@ func transition():
 	else : 
 		if Input.is_action_pressed('jump'):
 			state_transition_signal.emit(self, 'PlayerJump')
-		elif Input.is_action_pressed('dash') and DASH_CD.is_stopped():
+		elif check_dash():
 			state_transition_signal.emit(self, 'PlayerDash')
 		elif Input.is_action_just_released('crouch'):
-			if PlayerState.queued_action == 'PlayerShoot' and SHOOT_CD.is_stopped():
+			if PlayerState.queued_action == 'PlayerShoot' and can_shoot:
 				consume_queue(queued_action)
 			elif Input.get_axis('left', 'right'):
 				state_transition_signal.emit(self, 'PlayerWalk')

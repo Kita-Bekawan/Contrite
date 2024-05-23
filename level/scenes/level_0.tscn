@@ -3627,7 +3627,7 @@ sources/0 = SubResource("TileSetAtlasSource_stg0w")
 [node name="LockCamera" type="Area2D" parent="."]
 position = Vector2(3500, -180)
 collision_layer = 4
-collision_mask = 256
+collision_mask = 512
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LockCamera"]
 position = Vector2(-125.5, -195.25)
@@ -3702,6 +3702,7 @@ layer_0/tile_data = PackedInt32Array(-589790, 1114113, 4, -524254, 1114113, 4, -
 
 [node name="Player" parent="." instance=ExtResource("2_r1hom")]
 position = Vector2(21, -116)
+scale = Vector2(1, 1)
 
 [node name="HouseRoof" type="TileMap" parent="."]
 position = Vector2(0, -12)

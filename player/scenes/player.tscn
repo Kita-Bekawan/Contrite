@@ -251,7 +251,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iu3rx"]
-size = Vector2(26, 60)
+size = Vector2(26, 51.5)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ii2oo"]
 radius = 19.0
@@ -292,7 +292,7 @@ sprite_frames = SubResource("SpriteFrames_k5i7g")
 animation = &"idle"
 
 [node name="Ledgebox" type="CollisionShape2D" parent="."]
-position = Vector2(0, -19)
+position = Vector2(0, -23.25)
 shape = SubResource("RectangleShape2D_iu3rx")
 
 [node name="LeftInnerRayCast" type="RayCast2D" parent="Ledgebox"]

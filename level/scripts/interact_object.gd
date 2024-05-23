@@ -9,6 +9,7 @@ func _input(event):
 	if Dialogic.current_timeline != null:
 		return
 	if event is InputEventKey and event.keycode == KEY_E and event.pressed and player._active:
+		player.set_freeze(true)
 		if player._interactWith == "Druid":
 			var dialog = Dialogic.start("luhur")
 		if player._interactWith == "Mother":

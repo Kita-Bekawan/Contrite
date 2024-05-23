@@ -4,6 +4,8 @@ signal vector_created(vector)
 
 @export var maximum_length := 200
 
+var player_node = "res://player/scenes/player.tscn"
+
 var touch_down := false
 var position_start := Vector2.ZERO
 var position_end := Vector2.ZERO
@@ -26,13 +28,17 @@ func _reset() -> void:
 
 func _input(event) -> void:
 	if event.is_action_pressed("ui_touch"):
-		touch_down = true
-		position_start = get_local_mouse_position()
+		if get_overlapping_bodies():
+			touch_down = true
+			position_start = get_local_mouse_position()
+			$SlingshotPull.play()
 	
 	if event.is_action_released("ui_touch"):
-		touch_down = false
-		position_end = get_local_mouse_position()
-		emit_signal("vector_created", vector)
+		if get_overlapping_bodies():
+			touch_down = false
+			position_end = get_local_mouse_position()
+			emit_signal("vector_created", vector)
+			$SlingshotRelease.play()
 		_reset()
 	
 	if not touch_down:

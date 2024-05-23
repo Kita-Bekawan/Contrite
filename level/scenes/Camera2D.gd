@@ -10,12 +10,13 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	position = player.global_position
-	var x = floor(position.x / 640) * 640
-	var y = floor(position.y / -360) * -360
-	global_position = Vector2(x, y)
-	is_moving = true
-	
-	var tween := create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
-	tween.tween_property(self, "position", Vector2(x,y), 0.06)
-
+	if not player._lockCamera:
+		position = player.global_position
+		var x = floor(position.x / 640) * 640
+		var y = floor(position.y / -360) * -360
+		global_position = Vector2(x, y)
+		is_moving = true
+		
+		var tween := create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
+		tween.tween_property(self, "position", Vector2(x,y), 0.06)
+		

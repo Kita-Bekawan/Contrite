@@ -13,6 +13,7 @@ var _invincible: bool = false
 var _lives: int = 5
 var _active: bool = false
 var _interactWith: String = ""
+var _lockCamera: bool = false
 
 @onready var playerState: Node = $StateMachine/PlayerState
 
@@ -44,14 +45,6 @@ func _on_catapult_vector_created(vector):
 func _input(event: InputEvent):
 	if Dialogic.current_timeline != null:
 		return
-
-	#if event is InputEventKey and event.keycode == KEY_E and event.pressed:
-		#Dialogic.start('luhur')
-		#get_viewport().set_input_as_handled()
-		
-	#if event is InputEventKey and event.keycode == KEY_T and event.pressed:
-		#Dialogic.start('saraswati')
-		#get_viewport().set_input_as_handled()
 
 func go_invincible() -> void:
 	_invincible = true
@@ -96,11 +89,16 @@ func _on_hit_box_area_entered(area):
 		_active = true
 		_interactWith = area.get_name()
 		return
+	elif area.get_name() == "LockCamera":
+		_lockCamera = true
+		return
 	apply_hit()
 
 func _on_hitbox_area_exited(area):
 	if area.is_in_group("interactable"):
 		_active = false
+	elif area.get_name() == "LockCamera":
+		_lockCamera = false
 
 func _on_invincible_timer_timeout():
 	_invincible = false

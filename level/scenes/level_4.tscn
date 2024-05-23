@@ -1488,7 +1488,7 @@ flip_h = true
 
 [node name="Player" parent="." instance=ExtResource("2_ov2u1")]
 position = Vector2(36, -137)
-scale = Vector2(0.66, 0.66)
+scale = Vector2(1, 1)
 collision_mask = 65
 
 [node name="MovingPlatform" parent="." node_paths=PackedStringArray("p1", "p2") instance=ExtResource("15_0jp3u")]

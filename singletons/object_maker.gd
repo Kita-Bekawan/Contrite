@@ -20,9 +20,9 @@ func call_add_child(child_to_add) -> void:
 	call_deferred("add_child_deferred", child_to_add)
 
 func create_bullet(speed: float, direction: Vector2, start_pos: Vector2,
-					life_span: float, key: BULLET_KEY) -> void:
+					life_span: float, key: BULLET_KEY, damage: int = 1) -> void:
 	var new_b = BULLETS[key].instantiate()
-	new_b.setup(direction, life_span, speed)
+	new_b.setup(direction, life_span, speed, damage)
 	new_b.global_position = start_pos
 	call_add_child(new_b)
 	

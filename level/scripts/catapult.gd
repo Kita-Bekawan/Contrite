@@ -4,24 +4,18 @@ signal vector_created(vector)
 
 @export var maximum_length := 200
 
+var player_node = "res://player/scenes/player.tscn"
+
 var touch_down := false
 var position_start := Vector2.ZERO
 var position_end := Vector2.ZERO
 
 var vector := Vector2.ZERO
-var vector_adjustment := Vector2(200,200)
 
 
 func _draw() -> void:
-	draw_line((position_start - global_position - vector_adjustment), 
-		(position_end - global_position -  vector_adjustment), 
-		Color.BLUE, 
-		8)
-	
-	draw_line((position_start - global_position - vector_adjustment), 
-		(position_start - global_position + vector - vector_adjustment), 
-		Color.RED, 
-		16)
+	draw_line(position_start, position_end, Color.BURLYWOOD, 8)
+	draw_line(position_start, position_start + vector, Color.SADDLE_BROWN, 16)
 
 
 func _reset() -> void:
@@ -34,20 +28,25 @@ func _reset() -> void:
 
 func _input(event) -> void:
 	if event.is_action_pressed("ui_touch"):
-		touch_down = true
-		position_start = event.position
+		if get_overlapping_bodies():
+			touch_down = true
+			position_start = get_local_mouse_position()
+			$SlingshotPull.play()
 	
 	if event.is_action_released("ui_touch"):
-		touch_down = false
-		emit_signal("vector_created", vector)
+		if get_overlapping_bodies():
+			touch_down = false
+			position_end = get_local_mouse_position()
+			emit_signal("vector_created", vector)
+			$SlingshotRelease.play()
 		_reset()
 	
 	if not touch_down:
 		return
 	
 	if event is InputEventMouseMotion:
-		position_end = event.position
+		position_end = get_local_mouse_position()
 		if get_overlapping_bodies():
 			vector = -(position_end - position_start).limit_length(maximum_length)
+			queue_redraw()
 		
-		queue_redraw()

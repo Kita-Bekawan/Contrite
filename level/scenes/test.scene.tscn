@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://do5i8imc00jis"]
+[gd_scene load_steps=13 format=3 uid="uid://do5i8imc00jis"]
 
 [ext_resource type="Script" path="res://level/scenes/test.scene.gd" id="1_aodjp"]
 [ext_resource type="PackedScene" uid="uid://goesjr3wcc5e" path="res://player/scenes/player.tscn" id="1_sqcjq"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dpar2g8estbi2" path="res://level/scenes/catapult.tscn" id="3_08qqp"]
 [ext_resource type="PackedScene" uid="uid://3rrrfimk1kjo" path="res://player/scenes/ui/hearts_container.tscn" id="4_satcq"]
 [ext_resource type="PackedScene" uid="uid://dq6ogc5jq45ca" path="res://level/scenes/checkpoint.tscn" id="6_uekyi"]
+[ext_resource type="PackedScene" uid="uid://lyj56dyctjsj" path="res://menu/scenes/pause_menu.tscn" id="7_l5ywn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_87oew"]
 texture = ExtResource("2_mjlbp")
@@ -5845,6 +5846,10 @@ collision_mask = 32
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="HeartsContainer" parent="CanvasLayer" instance=ExtResource("4_satcq")]
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="CanvasLayer2" instance=ExtResource("7_l5ywn")]
 
 [connection signal="vector_created" from="Catapult2" to="Player" method="_on_catapult_vector_created"]
 [connection signal="vector_created" from="Catapult" to="Player" method="_on_catapult_vector_created"]

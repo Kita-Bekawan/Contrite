@@ -11,20 +11,27 @@ class_name Player
 
 var _invincible: bool = false
 var _lives: int = 5
+var _active: bool = false
+var freeze: bool = false
+var _interactWith: String = ""
+var _lockCamera: bool = false
 
 @onready var playerState: Node = $StateMachine/PlayerState
 
 func _ready():
-	pass
+	Dialogic.timeline_ended.connect(_on_timeline_ended)
 		
 func start():
 	pass
 
 func _physics_process(delta):
-	move_and_slide()
-	
-	if Input.is_action_just_pressed("shoot") == true:
-		shoot()
+	if !freeze:
+		move_and_slide()
+	else:
+		velocity = Vector2(0, velocity.y)
+	#
+	#if Input.is_action_just_pressed("shoot") == true:
+		#shoot()
 
 func shoot() -> void:
 	if sprite_2d.flip_h == true:
@@ -43,25 +50,21 @@ func _input(event: InputEvent):
 	if Dialogic.current_timeline != null:
 		return
 
-	if event is InputEventKey and event.keycode == KEY_E and event.pressed:
-		Dialogic.start('luhur')
-		get_viewport().set_input_as_handled()
-		
-	if event is InputEventKey and event.keycode == KEY_T and event.pressed:
-		Dialogic.start('saraswati')
-		get_viewport().set_input_as_handled()
-
 func go_invincible() -> void:
 	_invincible = true
 	animation_player_invincible.play("invincible")
 	invincible_timer.start()
-	
+
+func set_freeze(val:bool) -> void:
+	$StateMachine.force_change_state("PlayerIdle")
+	freeze = val
+
 func reduce_lives() -> bool:
 	_lives -= 1
 	SignalManager.on_player_hit.emit(_lives)
 	if _lives <= 0:
 		print("back to checkpoint")
-		position = playerState.last_checkpoint
+		respawn()
 		return false
 	return true
 	
@@ -82,21 +85,37 @@ func retake_damage() -> void:
 			break
 	return
 
+func respawn() -> void:
+	_lives = 5
+	SignalManager.on_player_hit.emit(_lives)
+	position = playerState.last_checkpoint
+
 func _on_hit_box_area_entered(area):
-	if area.get_name() == "AreaFall" or area.get_name() == "Fountain":
+	if area.get_name() == "AreaFall":
+		respawn()
+	elif area.get_name() == "Fountain":
 		_lives = 5
 		SignalManager.on_player_hit.emit(_lives)
-		if area.get_name() == "Fountain":
-			return
-		position = playerState.last_checkpoint
+		return
+	elif area.is_in_group("interactable"):
+		_active = true
+		_interactWith = area.get_name()
+		return
+	elif area.get_name() == "LockCamera":
+		_lockCamera = true
 		return
 	apply_hit()
+
+func _on_hitbox_area_exited(area):
+	if area.is_in_group("interactable"):
+		_active = false
+	elif area.get_name() == "LockCamera":
+		_lockCamera = false
 
 func _on_invincible_timer_timeout():
 	_invincible = false
 	animation_player_invincible.stop()
 	retake_damage()
 
-
-func _on_fountain_area_entered(area):
-	pass # Replace with function body.
+func _on_timeline_ended():
+	set_freeze(false)

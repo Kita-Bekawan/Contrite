@@ -15,12 +15,13 @@ func enter():
 	var direction
 	if Input.get_axis('left', 'right') > 0:
 		direction = 1
-		sprite.flip_h = false
+		sprite.flip_h = false #default (facing right)
 	elif Input.get_axis('left', 'right') < 0:
 		direction = -1
 		sprite.flip_h = true
 	else:
 		direction = 1 if sprite.flip_h else -1
+		sprite.flip_h = !sprite.flip_h
 		
 	chara.velocity.x = direction*DASH_SPEED 
 	#frantic initial speed, then slowly stops
@@ -35,7 +36,7 @@ func physics_update(_delta):
 	
 func transition():
 	if abs(chara.velocity.x) < 5: #dash until stops first
-		if PlayerState.queued_action == 'PlayerShoot' and SHOOT_CD.is_stopped():
+		if PlayerState.queued_action == 'PlayerShoot' and can_shoot:
 			consume_queue(queued_action)
 		
 		if !chara.is_on_floor():
@@ -52,4 +53,3 @@ func transition():
 					
 func exit():
 	super.exit()
-	sprite.flip_h = !sprite.flip_h

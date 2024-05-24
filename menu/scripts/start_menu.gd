@@ -15,7 +15,7 @@ func _process(delta):
 func _on_play_button_pressed():
 	pressedSfx.play()
 	await pressedSfx.finished
-	get_tree().change_scene_to_file("res://menu/scenes/game_complete_menu.tscn")
+	SceneManager.transition_to_scene("cutscene")
 
 
 func _on_quit_button_pressed():

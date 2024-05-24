@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://co8e6xkl4k13r"]
+[gd_scene load_steps=11 format=3 uid="uid://co8e6xkl4k13r"]
 
 [ext_resource type="Script" path="res://level/scenes/Camera2D.gd" id="1_5ykw5"]
 [ext_resource type="Texture2D" uid="uid://clwfttcclwuje" path="res://level/sprites/background/background_layer_1.png" id="2_634ox"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://c1o6evis7k7wj" path="res://boss/boss.tscn" id="7_v238e"]
 [ext_resource type="PackedScene" uid="uid://bwne6fn8atras" path="res://hud/hud.tscn" id="8_cvabi"]
 [ext_resource type="PackedScene" uid="uid://dq6ogc5jq45ca" path="res://level/scenes/checkpoint.tscn" id="9_i5ydk"]
+[ext_resource type="PackedScene" uid="uid://lyj56dyctjsj" path="res://menu/scenes/pause_menu.tscn" id="10_i6vls"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -102,3 +103,7 @@ position = Vector2(1111, -61)
 [node name="Checkpoint" parent="." instance=ExtResource("9_i5ydk")]
 visible = false
 position = Vector2(51, -180)
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="CanvasLayer2" instance=ExtResource("10_i6vls")]

@@ -33,4 +33,5 @@ func load_dialog():
 		dialog_index += 1
 	else:
 		queue_free()
+		BGMManager.fade_out()
 		SceneManager.transition_to_scene("Level0")

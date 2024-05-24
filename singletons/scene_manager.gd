@@ -2,6 +2,7 @@ extends Node
 
 var scenes : Dictionary = { "cutscene": "res://cutscene/cutscene.tscn",
 							"Level0": "res://level/scenes/level_0.tscn",
+							"Level1": "res://level/scenes/level_1.tscn",
 							"Level4": "res://level/scenes/level_4.tscn",
 							"Level4A": "res://level/scenes/level_4a.tscn",
 							"Level4B": "res://level/scenes/level_4b.tscn",

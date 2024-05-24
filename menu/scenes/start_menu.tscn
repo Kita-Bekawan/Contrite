@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://bugakay3ybahb"]
+[gd_scene load_steps=6 format=3 uid="uid://bugakay3ybahb"]
 
 [ext_resource type="Script" path="res://menu/scripts/start_menu.gd" id="1_3dgka"]
 [ext_resource type="AudioStream" uid="uid://cvxgdysmmmp5e" path="res://menu/assets/Wood Block1.wav" id="2_3sb26"]
-[ext_resource type="AudioStream" uid="uid://cvf57qfurmy54" path="res://menu/assets/Y2meta.app - Different Heaven - Safe And Sound _ House _ NCS - Copyright Free Music (128 kbps).mp3" id="3_5mica"]
 [ext_resource type="FontFile" uid="uid://c33d75cmlmutm" path="res://dialogue/Silver.ttf" id="4_btf03"]
 [ext_resource type="Texture2D" uid="uid://clwfttcclwuje" path="res://level/sprites/background/background_layer_1.png" id="5_c8oi8"]
 [ext_resource type="Texture2D" uid="uid://cfs7v4sf5v2gp" path="res://level/sprites/background/background_layer_3.png" id="6_iyk8q"]
@@ -26,10 +25,6 @@ grow_vertical = 2
 
 [node name="ButtonPressedSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_3sb26")
-
-[node name="BGM" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_5mica")
-autoplay = true
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1

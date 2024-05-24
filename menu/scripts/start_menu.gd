@@ -4,8 +4,12 @@ extends Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$BGM.play()
-	pass # Replace with function body.
+	if !BGMManager.isPlaying:
+		BGMManager.bgm = preload("res://audio/Lost in the Forest.mp3")
+		BGMManager.bgm_player.stream = BGMManager.bgm
+		BGMManager.bgm_player.volume_db = -12.5
+		BGMManager.play_bgm()
+	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -14,8 +18,9 @@ func _process(delta):
 
 func _on_play_button_pressed():
 	pressedSfx.play()
+	BGMManager.fade_out()
 	await pressedSfx.finished
-	get_tree().change_scene_to_file("res://level/scenes/level_4.tscn")
+	SceneManager.transition_to_scene("cutscene")
 
 
 func _on_quit_button_pressed():

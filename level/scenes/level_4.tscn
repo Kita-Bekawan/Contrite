@@ -29,8 +29,8 @@
 [ext_resource type="Script" path="res://level/scripts/portal.gd" id="25_b67th"]
 [ext_resource type="PackedScene" uid="uid://bwne6fn8atras" path="res://hud/hud.tscn" id="29_674gc"]
 [ext_resource type="PackedScene" uid="uid://davnfb8ydny4h" path="res://level/scenes/fountain.tscn" id="30_qadcq"]
-[ext_resource type="PackedScene" uid="uid://lyj56dyctjsj" path="res://menu/scenes/pause_menu.tscn" id="31_85c3w"]
 [ext_resource type="PackedScene" uid="uid://bjoxftew8nsl" path="res://level/scenes/area_fall.tscn" id="31_njmci"]
+[ext_resource type="PackedScene" uid="uid://lyj56dyctjsj" path="res://menu/scenes/pause_menu.tscn" id="31_xxb0s"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c1k87"]
 atlas = ExtResource("5_08ekh")
@@ -1430,6 +1430,12 @@ position = Vector2(960, -180)
 scale = Vector2(2, 2)
 texture = ExtResource("1_hfgya")
 
+[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+self_modulate = Color(0.360784, 0.360784, 0.360784, 1)
+position = Vector2(320, 180)
+scale = Vector2(2, 2)
+texture = ExtResource("1_hfgya")
+
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_mirroring = Vector2(640, 0)
 
@@ -1445,6 +1451,12 @@ position = Vector2(960, -180)
 scale = Vector2(2, 2)
 texture = ExtResource("2_ifsrf")
 
+[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
+self_modulate = Color(0.258824, 0.368627, 0.356863, 1)
+position = Vector2(320, 180)
+scale = Vector2(2, 2)
+texture = ExtResource("2_ifsrf")
+
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_mirroring = Vector2(640, 0)
 
@@ -1457,6 +1469,12 @@ texture = ExtResource("3_ndv7f")
 [node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3"]
 self_modulate = Color(0.227451, 0.239216, 0.219608, 1)
 position = Vector2(960, -180)
+scale = Vector2(2, 2)
+texture = ExtResource("3_ndv7f")
+
+[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3"]
+self_modulate = Color(0.22812, 0.24, 0.2184, 1)
+position = Vector2(320, 180)
 scale = Vector2(2, 2)
 texture = ExtResource("3_ndv7f")
 
@@ -1531,7 +1549,6 @@ collision_mask = 66
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
 
-[node name="PauseMenu" parent="CanvasLayer2" instance=ExtResource("31_85c3w")]
-metadata/_edit_use_anchors_ = true
+[node name="PauseMenu" parent="CanvasLayer2" instance=ExtResource("31_xxb0s")]
 
 [connection signal="body_entered" from="ChangingLevel" to="ChangingLevel" method="_on_body_entered"]

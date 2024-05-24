@@ -1477,10 +1477,10 @@ animation = &"idle"
 autoplay = "idle"
 frame_progress = 0.0988008
 
-[node name="Mother" parent="." instance=ExtResource("9_nay3f")]
+[node name="Saraswati" parent="." instance=ExtResource("9_nay3f")]
 position = Vector2(3557, -147)
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Mother"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Saraswati"]
 position = Vector2(35, 18)
 sprite_frames = SubResource("SpriteFrames_qe2dh")
 animation = &"idle"

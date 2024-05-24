@@ -12,7 +12,7 @@ func _input(event):
 		player.set_freeze(true)
 		if player._interactWith == "Druid":
 			var dialog = Dialogic.start("luhur")
-		if player._interactWith == "Mother":
+		if player._interactWith == "Saraswati":
 			var dialog = Dialogic.start("saraswati")
 		get_viewport().set_input_as_handled()
 		

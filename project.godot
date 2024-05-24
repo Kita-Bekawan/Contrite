@@ -29,12 +29,17 @@ Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 [dialogic]
 
 directories/dch_directory={
+"arhan": "res://dialogue/arhan.dch",
 "luhur": "res://dialogue/luhur.dch",
 "mc": "res://dialogue/mc.dch",
+"mother": "res://dialogue/mother.dch",
+"nita": "res://dialogue/nita.dch",
 "saraswati": "res://dialogue/saraswati.dch"
 }
 directories/dtl_directory={
 "luhur": "res://dialogue/luhur.dtl",
+"mother1": "res://dialogue/mother1.dtl",
+"nita": "res://dialogue/nita.dtl",
 "saraswati": "res://dialogue/saraswati.dtl",
 "shop": "res://dialogue/shop.dtl"
 }

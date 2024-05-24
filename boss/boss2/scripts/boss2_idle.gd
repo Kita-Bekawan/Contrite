@@ -2,10 +2,11 @@ extends Boss2State
 class_name Boss2Idle
 
 func enter():
-	super.enter()
-	owner.set_physics_process(true)
-	animation.play('idle')
-	chara.speed = 0
+	if chara.dead == false:
+		super.enter()
+		owner.set_physics_process(true)
+		animation.play('idle')
+		chara.speed = 0
 
 func physics_update(delta: float): 
 	transition()

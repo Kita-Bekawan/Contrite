@@ -20,6 +20,8 @@ extends CharacterBody2D
 
 @onready var rage: bool  = false
 @onready var rage_finish: bool = false
+@onready var dead: bool = false
+
 var rng = RandomNumberGenerator.new()
 var rand_int: int
 var direction : Vector2
@@ -90,6 +92,7 @@ func reduce_lives() -> void:
 	if lives == 50:
 		rage_activation()
 	if lives <= 0:
+		dead = true
 		SignalManager.on_boss_killed.emit(points)
 		print("dead")
 		set_process(false)

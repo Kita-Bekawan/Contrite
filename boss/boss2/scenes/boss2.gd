@@ -17,13 +17,15 @@ extends CharacterBody2D
 @onready var speed = 100
 @onready var DEFAULT_SPEED = 100
 @onready var RAGE_SPEED = 200
+
 @onready var rage: bool  = false
 @onready var rage_finish: bool = false
 var rng = RandomNumberGenerator.new()
 var rand_int: int
 var direction : Vector2
 
-@export var lives: int = 10
+@export var lives: int = 100
+@export var rage_lives: int = 50
 @export var points: int = 5
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -85,7 +87,7 @@ func reduce_lives() -> void:
 	lives -= 1
 	hit_flash_anim.play("hit_flash")
 	print("reduce_lives:", lives)
-	if lives == 5:
+	if lives == 50:
 		rage_activation()
 	if lives <= 0:
 		SignalManager.on_boss_killed.emit(points)
@@ -106,7 +108,7 @@ func _on_hit_box_area_entered(area):
 
 func _on_deflect_area_entered(area):
 	rand_int = rng.randi_range(0,10)
-	if rand_int > 6:
+	if rage == true:
 		print("DEFLECT!")
 		state_machine.change_state(walk_state, "Boss2Attack")
 

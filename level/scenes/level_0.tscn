@@ -3483,7 +3483,7 @@ metadata/_edit_use_anchors_ = true
 [node name="ChangingLevel" type="Area2D" parent="."]
 collision_mask = 32
 script = ExtResource("14_dqewt")
-next_scene = "Level4A"
+next_scene = "Level1"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChangingLevel"]
 position = Vector2(4943, -139)

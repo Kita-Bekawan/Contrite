@@ -39,4 +39,5 @@ func _process(delta):
 
 func _on_main_menu_pressed():
 	resume()
+	BGMManager.fade_out()
 	get_tree().change_scene_to_file("res://menu/scenes/start_menu.tscn")

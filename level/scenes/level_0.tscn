@@ -1,7 +1,8 @@
-[gd_scene load_steps=21 format=3 uid="uid://dj27x02lij5pt"]
+[gd_scene load_steps=23 format=3 uid="uid://dj27x02lij5pt"]
 
 [ext_resource type="Texture2D" uid="uid://ndepalwy4fx0" path="res://level/sprites/Taiga-Asset-Pack_v2_vnitti/PNG/Tileset.png" id="1_cft2y"]
 [ext_resource type="Script" path="res://level/scenes/Camera2D.gd" id="1_nffi4"]
+[ext_resource type="Script" path="res://level/scripts/level_0.gd" id="1_xkevk"]
 [ext_resource type="Texture2D" uid="uid://cxhapwrpg7xsr" path="res://level/sprites/Taiga-Asset-Pack_v2_vnitti/PNG/Background.png" id="2_6m6j8"]
 [ext_resource type="PackedScene" uid="uid://goesjr3wcc5e" path="res://player/scenes/player.tscn" id="2_r1hom"]
 [ext_resource type="Texture2D" uid="uid://blic58fk8kyvj" path="res://level/sprites/Taiga-Asset-Pack_v2_vnitti/PNG/Extension_green.png" id="3_2kyhu"]
@@ -11,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://c4lhjtr1esvce" path="res://level/sprites/Assets/Buildings.png" id="5_mku5l"]
 [ext_resource type="Texture2D" uid="uid://davxf0xkge6xy" path="res://level/sprites/Assets/Tiles.png" id="7_3qow4"]
 [ext_resource type="Texture2D" uid="uid://br2eo4k122mad" path="res://level/sprites/spritesheet-contrite-level-1.png" id="9_2cdvd"]
+[ext_resource type="PackedScene" uid="uid://lyj56dyctjsj" path="res://menu/scenes/pause_menu.tscn" id="13_fbwf3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5jrc4"]
 size = Vector2(609, 254.5)
@@ -3623,6 +3625,7 @@ physics_layer_0/collision_mask = 32
 sources/0 = SubResource("TileSetAtlasSource_stg0w")
 
 [node name="Level0" type="Node2D"]
+script = ExtResource("1_xkevk")
 
 [node name="LockCamera" type="Area2D" parent="."]
 position = Vector2(3500, -180)
@@ -3716,3 +3719,8 @@ scale = Vector2(1.98, 1.98)
 tile_set = SubResource("TileSet_tsoie")
 format = 2
 layer_0/tile_data = PackedInt32Array(-524175, 655360, 4, -524174, 655360, 4)
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="CanvasLayer2" instance=ExtResource("13_fbwf3")]
+metadata/_edit_use_anchors_ = true

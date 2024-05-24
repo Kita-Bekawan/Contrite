@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://ddg51foqrjuyi"]
+[gd_scene load_steps=44 format=3 uid="uid://ddg51foqrjuyi"]
 
 [ext_resource type="Script" path="res://level/scripts/level_4.gd" id="1_5ftq2"]
 [ext_resource type="Script" path="res://level/scenes/Camera2D.gd" id="1_8m1co"]
@@ -29,6 +29,7 @@
 [ext_resource type="Script" path="res://level/scripts/portal.gd" id="25_b67th"]
 [ext_resource type="PackedScene" uid="uid://bwne6fn8atras" path="res://hud/hud.tscn" id="29_674gc"]
 [ext_resource type="PackedScene" uid="uid://davnfb8ydny4h" path="res://level/scenes/fountain.tscn" id="30_qadcq"]
+[ext_resource type="PackedScene" uid="uid://lyj56dyctjsj" path="res://menu/scenes/pause_menu.tscn" id="31_85c3w"]
 [ext_resource type="PackedScene" uid="uid://bjoxftew8nsl" path="res://level/scenes/area_fall.tscn" id="31_njmci"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c1k87"]
@@ -1527,5 +1528,10 @@ position = Vector2(-131, 1)
 scale = Vector2(6.2, 1)
 collision_layer = 64
 collision_mask = 66
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="CanvasLayer2" instance=ExtResource("31_85c3w")]
+metadata/_edit_use_anchors_ = true
 
 [connection signal="body_entered" from="ChangingLevel" to="ChangingLevel" method="_on_body_entered"]

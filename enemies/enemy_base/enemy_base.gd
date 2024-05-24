@@ -29,7 +29,6 @@ func _ready():
 func _physics_process(delta):
 	fallen_off()
 	check_die()
-	print(str(_invincible) + ' and ' + str(animation_tree[HURT_STATUS]))
 	
 func fallen_off() -> void:
 	if global_position.y > OFF_SCREEN_KILL_ME:

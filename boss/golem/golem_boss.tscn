@@ -1,0 +1,288 @@
+[gd_scene load_steps=53 format=3 uid="uid://b0q2gnffrxu5c"]
+
+[ext_resource type="Texture2D" uid="uid://81vhjtgn77yg" path="res://boss/golem/Limbs/body_front.png" id="1_acku7"]
+[ext_resource type="Texture2D" uid="uid://dvkwmxd381jul" path="res://boss/golem/Limbs/arm.png" id="1_nqhtt"]
+[ext_resource type="Texture2D" uid="uid://ueykitb1kk3n" path="res://boss/golem/Limbs/head_focus.png" id="3_86pll"]
+[ext_resource type="Texture2D" uid="uid://dmw1816fg7v4u" path="res://boss/golem/Limbs/hand.png" id="4_0b6sh"]
+
+[sub_resource type="Animation" id="Animation_558hr"]
+resource_name = "die"
+
+[sub_resource type="Animation" id="Animation_xiei0"]
+resource_name = "entrance"
+
+[sub_resource type="Animation" id="Animation_6gfms"]
+resource_name = "go_down"
+
+[sub_resource type="Animation" id="Animation_deayv"]
+resource_name = "go_up"
+
+[sub_resource type="Animation" id="Animation_dgny8"]
+resource_name = "ground_pound"
+
+[sub_resource type="Animation" id="Animation_kdvup"]
+resource_name = "ground_wave"
+
+[sub_resource type="Animation" id="Animation_emcgs"]
+resource_name = "hurt"
+
+[sub_resource type="Animation" id="Animation_nu8ur"]
+resource_name = "idle"
+
+[sub_resource type="Animation" id="Animation_83sj8"]
+resource_name = "laser"
+
+[sub_resource type="Animation" id="Animation_47ek3"]
+resource_name = "punch"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_f6rqh"]
+_data = {
+"die": SubResource("Animation_558hr"),
+"entrance": SubResource("Animation_xiei0"),
+"go_down": SubResource("Animation_6gfms"),
+"go_up": SubResource("Animation_deayv"),
+"ground_pound": SubResource("Animation_dgny8"),
+"ground_wave": SubResource("Animation_kdvup"),
+"hurt": SubResource("Animation_emcgs"),
+"idle": SubResource("Animation_nu8ur"),
+"laser": SubResource("Animation_83sj8"),
+"punch": SubResource("Animation_47ek3")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_v3ggk"]
+animation = &"hurt"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jjhts"]
+animation = &"ground_pound"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_j7qgt"]
+animation = &"ground_wave"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_blj3k"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3f6iu"]
+animation = &"laser"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_y72yt"]
+animation = &"punch"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5y87h"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_r1c2x"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_522fg"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vlfj4"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xd12n"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_balrx"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_smdqp"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3bvci"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_p8bsy"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_x6ghn"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_6j0vx"]
+states/Start/position = Vector2(220, 100)
+states/ground_pound/node = SubResource("AnimationNodeAnimation_jjhts")
+states/ground_pound/position = Vector2(433, 458)
+states/ground_wave/node = SubResource("AnimationNodeAnimation_j7qgt")
+states/ground_wave/position = Vector2(236, 340)
+states/idle/node = SubResource("AnimationNodeAnimation_blj3k")
+states/idle/position = Vector2(399, 114)
+states/laser/node = SubResource("AnimationNodeAnimation_3f6iu")
+states/laser/position = Vector2(783, 210)
+states/punch/node = SubResource("AnimationNodeAnimation_y72yt")
+states/punch/position = Vector2(682, 401)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_5y87h"), "idle", "laser", SubResource("AnimationNodeStateMachineTransition_r1c2x"), "idle", "punch", SubResource("AnimationNodeStateMachineTransition_522fg"), "idle", "ground_pound", SubResource("AnimationNodeStateMachineTransition_vlfj4"), "idle", "ground_wave", SubResource("AnimationNodeStateMachineTransition_xd12n"), "laser", "idle", SubResource("AnimationNodeStateMachineTransition_balrx"), "punch", "idle", SubResource("AnimationNodeStateMachineTransition_smdqp"), "ground_pound", "idle", SubResource("AnimationNodeStateMachineTransition_3bvci"), "ground_wave", "idle", SubResource("AnimationNodeStateMachineTransition_p8bsy"), "idle", "End", SubResource("AnimationNodeStateMachineTransition_x6ghn")]
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_seulv"]
+mix_mode = 1
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_vg613"]
+nodes/HurtShader/node = SubResource("AnimationNodeAnimation_v3ggk")
+nodes/HurtShader/position = Vector2(260, 380)
+nodes/HurtStates/node = SubResource("AnimationNodeStateMachine_6j0vx")
+nodes/HurtStates/position = Vector2(197, 99)
+nodes/OneShot/node = SubResource("AnimationNodeOneShot_seulv")
+nodes/OneShot/position = Vector2(520, 60)
+nodes/output/position = Vector2(680, 140)
+node_connections = [&"OneShot", 0, &"HurtStates", &"OneShot", 1, &"HurtShader", &"output", 0, &"OneShot"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_a7jov"]
+animation = &"die"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pp5tk"]
+animation = &"entrance"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_itr0u"]
+animation = &"go_down"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rowxj"]
+animation = &"go_up"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_s4o5e"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xtwju"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dpcu1"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0vvse"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_j81ia"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7xhx7"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_e8raf"]
+advance_mode = 2
+advance_condition = &"is_dead"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_g7hyf"]
+states/HurtState/node = SubResource("AnimationNodeBlendTree_vg613")
+states/HurtState/position = Vector2(566, 74)
+states/Start/position = Vector2(133, 81)
+states/die/node = SubResource("AnimationNodeAnimation_a7jov")
+states/die/position = Vector2(757, 94)
+states/entrance/node = SubResource("AnimationNodeAnimation_pp5tk")
+states/entrance/position = Vector2(290, 69)
+states/go_down/node = SubResource("AnimationNodeAnimation_itr0u")
+states/go_down/position = Vector2(472, 200)
+states/go_up/node = SubResource("AnimationNodeAnimation_rowxj")
+states/go_up/position = Vector2(658, 200)
+transitions = ["Start", "entrance", SubResource("AnimationNodeStateMachineTransition_s4o5e"), "die", "End", SubResource("AnimationNodeStateMachineTransition_xtwju"), "entrance", "HurtState", SubResource("AnimationNodeStateMachineTransition_dpcu1"), "HurtState", "go_down", SubResource("AnimationNodeStateMachineTransition_0vvse"), "go_down", "go_up", SubResource("AnimationNodeStateMachineTransition_j81ia"), "go_up", "HurtState", SubResource("AnimationNodeStateMachineTransition_7xhx7"), "HurtState", "die", SubResource("AnimationNodeStateMachineTransition_e8raf")]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ih0l5"]
+size = Vector2(16.0661, 14.8112)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_06qul"]
+size = Vector2(14.9214, 14.3401)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5i2e5"]
+size = Vector2(20, 35)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4ucrj"]
+size = Vector2(20, 34)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5s8cl"]
+size = Vector2(50, 53)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n5r2x"]
+size = Vector2(40, 32)
+
+[node name="GolemBoss" type="Node2D"]
+scale = Vector2(-1, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_f6rqh")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_g7hyf")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/is_dead = false
+parameters/HurtState/OneShot/active = false
+parameters/HurtState/OneShot/internal_active = false
+parameters/HurtState/OneShot/request = 0
+
+[node name="HeadIK" type="Node2D" parent="."]
+
+[node name="RightArmIK" type="Node2D" parent="."]
+position = Vector2(4, -46)
+
+[node name="LeftArmIK" type="Node2D" parent="."]
+position = Vector2(-38, -19)
+rotation = 2.53506
+
+[node name="RightHand" type="Area2D" parent="."]
+position = Vector2(-2.40506, -11.1452)
+rotation = 1.84808
+
+[node name="Sprite2D" type="Sprite2D" parent="RightHand"]
+position = Vector2(9, -2)
+texture = ExtResource("4_0b6sh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightHand"]
+position = Vector2(7.43805, -2.16341)
+rotation = 0.221942
+shape = SubResource("RectangleShape2D_ih0l5")
+
+[node name="LeftHand" type="Area2D" parent="."]
+position = Vector2(-4.28795, -10.845)
+rotation = 1.69784
+
+[node name="Sprite2D" type="Sprite2D" parent="LeftHand"]
+position = Vector2(9, -2)
+texture = ExtResource("4_0b6sh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftHand"]
+position = Vector2(7.99782, -1.4816)
+rotation = 0.263675
+shape = SubResource("RectangleShape2D_06qul")
+
+[node name="LeftArm" type="Area2D" parent="."]
+position = Vector2(-14.8835, 42.7608)
+rotation = 1.67893
+
+[node name="Sprite2D" type="Sprite2D" parent="LeftArm"]
+position = Vector2(-43, 4)
+texture = ExtResource("1_nqhtt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftArm"]
+position = Vector2(-42, 4.5)
+shape = SubResource("RectangleShape2D_5i2e5")
+
+[node name="RightArm" type="Area2D" parent="."]
+position = Vector2(-0.0210485, -33.6155)
+rotation = 1.82722
+
+[node name="Sprite2D" type="Sprite2D" parent="RightArm"]
+position = Vector2(34, 4)
+texture = ExtResource("1_nqhtt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightArm"]
+position = Vector2(36, 4)
+shape = SubResource("RectangleShape2D_4ucrj")
+
+[node name="Head" type="Area2D" parent="."]
+position = Vector2(-5.4621, -16.5881)
+rotation = 3.24097
+
+[node name="Sprite2D" type="Sprite2D" parent="Head"]
+position = Vector2(-7, -37)
+texture = ExtResource("3_86pll")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Head"]
+position = Vector2(-7, -39.5)
+shape = SubResource("RectangleShape2D_5s8cl")
+
+[node name="Torso" type="Area2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Torso"]
+position = Vector2(-3, -1)
+texture = ExtResource("1_acku7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Torso"]
+position = Vector2(-3, -1)
+shape = SubResource("RectangleShape2D_n5r2x")

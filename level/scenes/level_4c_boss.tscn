@@ -98,6 +98,7 @@ position = Vector2(1111, -61)
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="HUD" parent="CanvasLayer" instance=ExtResource("8_cvabi")]
+metadata/_edit_use_anchors_ = true
 
 [node name="Checkpoint" parent="." instance=ExtResource("9_i5ydk")]
 visible = false

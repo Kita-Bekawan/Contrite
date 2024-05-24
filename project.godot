@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Contrite"
 run/main_scene="res://menu/scenes/start_menu.tscn"
-config/features=PackedStringArray("4.2", "Forward Plus")
+config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
@@ -68,9 +68,13 @@ window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="canvas_items"
 
+[dotnet]
+
+project/assembly_name="Contrite"
+
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/AS2P/plugin.cfg", "res://addons/dialogic/plugin.cfg")
+enabled=PackedStringArray("res://addons/AS2P/plugin.cfg", "res://addons/Free_Twisted_IK_2_Godot_4 (1)/addons/TwistedIK2/plugin.cfg", "res://addons/Free_Twisted_IK_2_Godot_4/addons/TwistedIK2/plugin.cfg", "res://addons/Free_Twisted_IK_2_Godot_4/addons/TwistedIK2_EditorPlugin/plugin.cfg", "res://addons/dialogic/plugin.cfg")
 
 [input]
 

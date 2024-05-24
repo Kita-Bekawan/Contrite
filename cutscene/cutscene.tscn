@@ -1,0 +1,69 @@
+[gd_scene load_steps=7 format=3 uid="uid://b8b1t4h2w3yjm"]
+
+[ext_resource type="Texture2D" uid="uid://dagdgpertc03d" path="res://cutscene/black.jpg" id="1_7tb85"]
+[ext_resource type="Script" path="res://cutscene/DialogueBox.gd" id="2_1512n"]
+[ext_resource type="FontFile" uid="uid://c33d75cmlmutm" path="res://dialogue/Silver.ttf" id="2_smnc3"]
+[ext_resource type="Texture2D" uid="uid://1wolaktinae1" path="res://cutscene/tree.png" id="2_wlp3e"]
+[ext_resource type="Texture2D" uid="uid://baroa3o47hpgf" path="res://cutscene/image.png" id="3_nnq1g"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3arid"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_wlp3e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_nnq1g")
+}],
+"loop": false,
+"name": &"default",
+"speed": 0.1
+}]
+
+[node name="Opening Cutscene" type="Node2D"]
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(319, 181)
+scale = Vector2(0.34, 0.34)
+texture = ExtResource("1_7tb85")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(320, 100)
+scale = Vector2(0.469547, 0.441667)
+sprite_frames = SubResource("SpriteFrames_3arid")
+autoplay = "default"
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="DialogueBox" type="Control" parent="Control"]
+anchors_preset = 0
+offset_left = 171.0
+offset_top = 203.0
+offset_right = 499.0
+offset_bottom = 350.0
+script = ExtResource("2_1512n")
+
+[node name="TextureRect" type="TextureRect" parent="Control/DialogueBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/DialogueBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("2_smnc3")
+theme_override_font_sizes/normal_font_size = 40
+text = "Hello there, what's up? What are you doing?"
+visible_characters = 0
+visible_ratio = 0.0

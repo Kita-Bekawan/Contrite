@@ -15,7 +15,7 @@ func _process(delta):
 func _on_play_button_pressed():
 	pressedSfx.play()
 	await pressedSfx.finished
-	SceneManager.transition_to_scene("Level0")
+	SceneManager.transition_to_scene("cutscene")
 
 
 func _on_quit_button_pressed():

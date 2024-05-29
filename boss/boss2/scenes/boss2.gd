@@ -95,6 +95,7 @@ func reduce_lives() -> void:
 		dead = true
 		SignalManager.on_boss_killed.emit(points)
 		print("dead")
+		SceneManager.transition_to_scene("Level5")
 		set_process(false)
 		queue_free()
 			

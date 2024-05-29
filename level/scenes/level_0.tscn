@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dj27x02lij5pt"]
+[gd_scene load_steps=30 format=3 uid="uid://dj27x02lij5pt"]
 
 [ext_resource type="Script" path="res://level/scenes/Camera2D.gd" id="1_nffi4"]
 [ext_resource type="Script" path="res://level/scripts/level_0.gd" id="1_xkevk"]
@@ -14,6 +14,11 @@
 [ext_resource type="TileSet" uid="uid://cp8jsss2ablij" path="res://level/sprites/Assets/grass.tres" id="10_sg7ua"]
 [ext_resource type="PackedScene" uid="uid://lyj56dyctjsj" path="res://menu/scenes/pause_menu.tscn" id="12_i5nbb"]
 [ext_resource type="Script" path="res://level/scripts/portal.gd" id="14_dqewt"]
+[ext_resource type="Script" path="res://level/scripts/interact_object.gd" id="15_t6rrp"]
+[ext_resource type="Texture2D" uid="uid://da3a6c6k8o63m" path="res://level/sprites/nita/nita1.png" id="16_yiaq5"]
+[ext_resource type="Texture2D" uid="uid://ci4ma1dbnxxvy" path="res://level/sprites/nita/nita2.png" id="17_jvhq2"]
+[ext_resource type="Texture2D" uid="uid://uj6sbdnqjunp" path="res://level/sprites/nita/nita3.png" id="18_jfqxe"]
+[ext_resource type="Texture2D" uid="uid://b040ch7qdqksm" path="res://level/sprites/nita/nita4.png" id="19_4xsg1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5jrc4"]
 size = Vector2(609, 254.5)
@@ -3379,6 +3384,29 @@ sources/0 = SubResource("TileSetAtlasSource_stg0w")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kg01j"]
 size = Vector2(128, 90)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o8j3g"]
+size = Vector2(80, 56)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jirdc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("16_yiaq5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_jvhq2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_jfqxe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_4xsg1")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
 [node name="Level0" type="Node2D"]
 script = ExtResource("1_xkevk")
 
@@ -3488,5 +3516,22 @@ next_scene = "Level1"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChangingLevel"]
 position = Vector2(4943, -139)
 shape = SubResource("RectangleShape2D_kg01j")
+
+[node name="Nita" type="Area2D" parent="." groups=["interactable"]]
+position = Vector2(869, -147)
+collision_layer = 256
+collision_mask = 64
+script = ExtResource("15_t6rrp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Nita"]
+position = Vector2(24, 25)
+shape = SubResource("RectangleShape2D_o8j3g")
+
+[node name="Nita" type="AnimatedSprite2D" parent="Nita"]
+position = Vector2(28, 22)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_jirdc")
+animation = &"idle"
+autoplay = "idle"
 
 [connection signal="body_entered" from="ChangingLevel" to="ChangingLevel" method="_on_body_entered"]

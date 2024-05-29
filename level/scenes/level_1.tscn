@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://beaqbgfaxneql"]
+[gd_scene load_steps=20 format=3 uid="uid://beaqbgfaxneql"]
 
 [ext_resource type="Script" path="res://level/scenes/Camera2D.gd" id="1_3mura"]
 [ext_resource type="PackedScene" uid="uid://bwne6fn8atras" path="res://hud/hud.tscn" id="2_5nuve"]
@@ -12,9 +12,34 @@
 [ext_resource type="PackedScene" uid="uid://btjuha38sw0qg" path="res://enemies/snail/snail.tscn" id="9_af54t"]
 [ext_resource type="PackedScene" uid="uid://p0480umo8e35" path="res://floor_spikes/floor_spikes.tscn" id="10_3qf7s"]
 [ext_resource type="Script" path="res://level/scripts/portal.gd" id="12_chart"]
+[ext_resource type="PackedScene" uid="uid://bdmtupkq00ytq" path="res://level/scenes/interact_object.tscn" id="13_c33co"]
+[ext_resource type="Texture2D" uid="uid://w1fprlqfntbf" path="res://level/sprites/ibu/ibu1.png" id="14_fpb05"]
+[ext_resource type="Texture2D" uid="uid://ddm8ipwtcxpwo" path="res://level/sprites/ibu/ibu2.png" id="15_m7lq3"]
+[ext_resource type="Texture2D" uid="uid://7wrqciwom88m" path="res://level/sprites/ibu/ibu3.png" id="16_y6itv"]
+[ext_resource type="Texture2D" uid="uid://bd2it27w4wbvm" path="res://level/sprites/ibu/ibu4.png" id="17_mjot5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t0173"]
 size = Vector2(128, 90)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_subuv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_fpb05")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_m7lq3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_y6itv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_mjot5")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
 
 [node name="Level1" type="Node2D"]
 
@@ -125,5 +150,15 @@ next_scene = "Level4"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChangingLevel"]
 position = Vector2(2542, -163)
 shape = SubResource("RectangleShape2D_t0173")
+
+[node name="Mother1" parent="." instance=ExtResource("13_c33co")]
+position = Vector2(1146, -145)
+
+[node name="Mother1" type="AnimatedSprite2D" parent="Mother1"]
+position = Vector2(28, 15)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_subuv")
+animation = &"idle"
+autoplay = "idle"
 
 [connection signal="body_entered" from="ChangingLevel" to="ChangingLevel" method="_on_body_entered"]

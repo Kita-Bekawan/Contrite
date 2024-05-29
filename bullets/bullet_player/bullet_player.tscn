@@ -109,7 +109,7 @@ states/normal/node = SubResource("AnimationNodeAnimation_apnic")
 states/normal/position = Vector2(363, 90)
 transitions = ["Start", "normal", SubResource("AnimationNodeStateMachineTransition_k2x0r"), "normal", "explode", SubResource("AnimationNodeStateMachineTransition_okepc")]
 
-[node name="BulletPlayer" instance=ExtResource("1_7aohl")]
+[node name="BulletPlayer" groups=["bullet"] instance=ExtResource("1_7aohl")]
 collision_layer = 8
 collision_mask = 5
 

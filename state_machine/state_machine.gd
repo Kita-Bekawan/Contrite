@@ -43,6 +43,7 @@ func force_change_state(new_state_name: String) -> void:
 
 func change_state(source_state: State, new_state_name: String) -> void:
 	if source_state != current_state:
+		print("current_state ", current_state.name)
 		print('Invalid state transition from: "' + source_state.name + '" to: ' + new_state_name)
 		return
 		

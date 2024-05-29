@@ -17,9 +17,9 @@
 "portraits": {
 "normal": {
 "export_overrides": {
-"image": "\"res://dialogue/luhur.png\""
+"image": "\"res://dialogue/druid_portrait.png\""
 },
-"mirror": false,
+"mirror": true,
 "offset": Vector2(0, 0),
 "scale": 1,
 "scene": ""

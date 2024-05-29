@@ -6,7 +6,9 @@ extends Node2D
 @export var speed: float = 50.0
 @export var life_span: float = 10.0
 @export var bullet_key: ObjectMaker.BULLET_KEY
-@export var shoot_delay: float = 0.3
+
+@export var shoot_delay: float = 0.7
+@export var additional_offset: float = 0
 
 var _can_shoot: bool = true
 
@@ -20,7 +22,9 @@ func shoot(direction: Vector2) -> void:
 	_can_shoot = false
 	SoundManager.play_clip(sound, SoundManager.SOUND_LASER)
 	var offset_position = global_position
-	offset_position.y -= 40
+
+	offset_position.y -= 20 + additional_offset
+
 	ObjectMaker.create_bullet(
 		speed, direction, offset_position,
 		life_span, bullet_key

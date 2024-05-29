@@ -39,6 +39,7 @@ directories/dch_directory={
 directories/dtl_directory={
 "luhur": "res://dialogue/luhur.dtl",
 "mother1": "res://dialogue/mother1.dtl",
+"mother2": "res://dialogue/mother2.dtl",
 "nita": "res://dialogue/nita.dtl",
 "saraswati": "res://dialogue/saraswati.dtl",
 "shop": "res://dialogue/shop.dtl"

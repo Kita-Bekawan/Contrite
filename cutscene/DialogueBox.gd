@@ -27,10 +27,11 @@ func load_dialog():
 		$RichTextLabel.bbcode_text = dialog[dialog_index]
 
 		var tween = create_tween()
-		var seconds = 0.12 * $RichTextLabel.get_total_character_count()
+		var seconds = 0.075 * $RichTextLabel.get_total_character_count()
 		tween.tween_property($RichTextLabel, "visible_ratio", 1, seconds)
 		tween.play()
 		dialog_index += 1
 	else:
 		queue_free()
+		BGMManager.fade_out()
 		SceneManager.transition_to_scene("Level0")

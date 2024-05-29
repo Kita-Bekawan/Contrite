@@ -96,6 +96,7 @@ func _on_hit_box_area_entered(area):
 	elif area.get_name() == "Fountain":
 		_lives = 5
 		SignalManager.on_player_hit.emit(_lives)
+		SoundManager.play_clip(sound_player, SoundManager.SOUND_HEAL)
 		return
 	elif area.is_in_group("interactable"):
 		_active = true

@@ -1,10 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://b8b1t4h2w3yjm"]
+[gd_scene load_steps=5 format=3 uid="uid://b8b1t4h2w3yjm"]
 
 [ext_resource type="Texture2D" uid="uid://dagdgpertc03d" path="res://cutscene/black.jpg" id="1_7tb85"]
+[ext_resource type="Script" path="res://cutscene/cutscene.gd" id="1_bcjb6"]
 [ext_resource type="Script" path="res://cutscene/DialogueBox.gd" id="2_1512n"]
 [ext_resource type="FontFile" uid="uid://c33d75cmlmutm" path="res://dialogue/Silver.ttf" id="2_smnc3"]
 
 [node name="Opening Cutscene" type="Node2D"]
+script = ExtResource("1_bcjb6")
 
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(319, 181)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cla4o2c7p3pyp"]
+[gd_scene load_steps=24 format=3 uid="uid://cla4o2c7p3pyp"]
 
 [ext_resource type="Script" path="res://level/scenes/Camera2D.gd" id="2_h6hje"]
 [ext_resource type="PackedScene" uid="uid://bwne6fn8atras" path="res://hud/hud.tscn" id="3_hgtgy"]
@@ -9,6 +9,12 @@
 [ext_resource type="Texture2D" uid="uid://d2qqng8op6am2" path="res://level/sprites/oak_woods_tileset.png" id="10_611o1"]
 [ext_resource type="TileSet" uid="uid://11u4821icbvj" path="res://level/sprites/Assets/level_0_building.tres" id="12_hyyt0"]
 [ext_resource type="PackedScene" uid="uid://lyj56dyctjsj" path="res://menu/scenes/pause_menu.tscn" id="13_1dc33"]
+[ext_resource type="PackedScene" uid="uid://bdmtupkq00ytq" path="res://level/scenes/interact_object.tscn" id="14_u48uw"]
+[ext_resource type="Texture2D" uid="uid://w1fprlqfntbf" path="res://level/sprites/ibu/ibu1.png" id="15_gawpr"]
+[ext_resource type="Texture2D" uid="uid://ddm8ipwtcxpwo" path="res://level/sprites/ibu/ibu2.png" id="16_iw7qw"]
+[ext_resource type="Texture2D" uid="uid://7wrqciwom88m" path="res://level/sprites/ibu/ibu3.png" id="17_p612t"]
+[ext_resource type="Texture2D" uid="uid://bd2it27w4wbvm" path="res://level/sprites/ibu/ibu4.png" id="18_5mb2v"]
+[ext_resource type="Script" path="res://level/scripts/portal.gd" id="19_holef"]
 [ext_resource type="PackedScene" uid="uid://goesjr3wcc5e" path="res://player/scenes/player.tscn" id="25_2lv5q"]
 [ext_resource type="PackedScene" uid="uid://c2lhtvfidh504" path="res://moving_platform/moving_platform.tscn" id="26_jt407"]
 [ext_resource type="PackedScene" uid="uid://dq6ogc5jq45ca" path="res://level/scenes/checkpoint.tscn" id="29_ko1bd"]
@@ -1282,6 +1288,29 @@ texture = ExtResource("10_611o1")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_vtuqc")
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_tkkeh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("15_gawpr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_iw7qw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_p612t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_5mb2v")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_imroc"]
+size = Vector2(128, 90)
+
 [node name="Node2D" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -1511,3 +1540,25 @@ layer_0/tile_data = PackedInt32Array(-1638361, 0, 0, -1572825, 0, 1, -1507289, 0
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
 
 [node name="PauseMenu" parent="CanvasLayer2" instance=ExtResource("13_1dc33")]
+
+[node name="Mother2" parent="." instance=ExtResource("14_u48uw")]
+position = Vector2(560, -123)
+
+[node name="Mother2" type="AnimatedSprite2D" parent="Mother2"]
+position = Vector2(43, 14)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_tkkeh")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="ChangingLevel" type="Area2D" parent="."]
+position = Vector2(-2539, -674)
+collision_mask = 32
+script = ExtResource("19_holef")
+next_scene = "Menu"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChangingLevel"]
+position = Vector2(4943, -139)
+shape = SubResource("RectangleShape2D_imroc")
+
+[connection signal="body_entered" from="ChangingLevel" to="ChangingLevel" method="_on_body_entered"]

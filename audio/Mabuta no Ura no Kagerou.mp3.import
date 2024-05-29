@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cwyqvlrbjbgm2"
+path="res://.godot/imported/Mabuta no Ura no Kagerou.mp3-13a748e24770b6d436c1d234b9f91bec.mp3str"
+
+[deps]
+
+source_file="res://audio/Mabuta no Ura no Kagerou.mp3"
+dest_files=["res://.godot/imported/Mabuta no Ura no Kagerou.mp3-13a748e24770b6d436c1d234b9f91bec.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

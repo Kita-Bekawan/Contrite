@@ -5850,6 +5850,7 @@ collision_mask = 32
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
 
 [node name="PauseMenu" parent="CanvasLayer2" instance=ExtResource("7_l5ywn")]
+metadata/_edit_use_anchors_ = true
 
 [connection signal="vector_created" from="Catapult2" to="Player" method="_on_catapult_vector_created"]
 [connection signal="vector_created" from="Catapult" to="Player" method="_on_catapult_vector_created"]
